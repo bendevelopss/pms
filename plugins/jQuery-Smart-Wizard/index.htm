@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Contract Monitoring System</title>
+<link href="styles/demo_style.css" rel="stylesheet" type="text/css">
+
+<link href="styles/smart_wizard_vertical.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.smartWizard.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+    	// Smart Wizard
+  		$('#wizard').smartWizard({transitionEffect:'slide'});
+
+		});
+</script>
+
+</head><body>
+
+
+<table align="center" border="0" cellpadding="0" cellspacing="0">
+<tr><td>
+       <h2>Project Information</h2>
+<!-- Tabs -->
+  		<div id="wizard" class="swMain">
+  			<ul>
+  				<li><a href="#step-1">
+                <label class="stepNumber">1</label>
+                <span class="stepDesc">
+                   Step 1<br />
+                   <small>Step 1: Project Details</small>
+                </span>
+            </a></li>
+  				<li><a href="#step-2">
+                <label class="stepNumber">2</label>
+                <span class="stepDesc">
+                   Step 2<br />
+                   <small>Step 2: Project Team</small>
+                </span>
+            </a></li>
+  				<li><a href="#step-3">
+                <label class="stepNumber">3</label>
+                <span class="stepDesc">
+                   Step 3<br />
+                   <small>Step 3: Subcontractors</small>
+                </span>
+             </a></li>
+  				<li><a href="#step-4">
+                <label class="stepNumber">4</label>
+                <span class="stepDesc">
+                   Step 4<br />
+                   <small>Step 4: Consultants</small>
+                </span>
+            </a></li>
+
+            <li><a href="#step-5">
+                  <label class="stepNumber">5</label>
+                  <span class="stepDesc">
+                     Step 5<br />
+                     <small>Step 5: Report Submission Schedule</small>
+                  </span>
+              </a></li>
+
+              <li><a href="#step-6">
+                    <label class="stepNumber">6</label>
+                    <span class="stepDesc">
+                       Step 6<br />
+                       <small>Step 6: Inspection Schedule</small>
+                    </span>
+                </a></li>
+
+
+
+  			</ul>
+  			<div id="step-1">
+            <h2 class="StepTitle">Step 1: Project Details</h2>
+
+            <p>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="proj-name">Project Name <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="proj-name" required="required" class="form-control col-md-7 col-xs-12">
+            </div> <br>
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="proj-code">Project Code <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="proj-code" required="required" class="form-control col-md-7 col-xs-12">
+            </div> <br>
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="proj-location">Project Location <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="proj-location" required="required" class="form-control col-md-7 col-xs-12">
+            </div> <br>
+
+              <label for="client" class="control-label col-md-3 col-sm-3 col-xs-12">Client</label>
+              <div class="col-md-24 col-sm-6 col-xs-24">
+              <select id="client" class="form-control" required="">
+              <option value="">Select..</option>
+            </select> </div><br><br>
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="proj-location">Contract Reference Number<span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="number" id="cont-refnum" required="required" class="form-control col-md-7 col-xs-12">
+            </div> <br>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cont-period">Contract Period <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="cont-period" required="required" class="form-control col-md-7 col-xs-12">
+          </div> <br>
+
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date-award">Date of Award <span class="required">*</span>
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+          <input type="date" id="date-award" required="required" class="form-control col-md-7 col-xs-12">
+        </div> <br>
+
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date-target">Target Date <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="date" id="date-target" required="required" class="form-control col-md-7 col-xs-12">
+      </div> <br>
+
+      </div>
+
+  			<div id="step-2">
+            <h2 class="StepTitle">Step 2: Project Team</h2>
+            <p>
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="op-mgr">Operations Manager <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="op-mgr" required="required" class="form-control col-md-7 col-xs-12">
+            </div> <br>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="proj-engr">Project Engineer/Field Engineer <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="proj-engr" required="required" class="form-control col-md-7 col-xs-12">
+          </div> <br>
+
+           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mtrl-engr">Materials Engineer <span class="required">*</span>
+           </label>
+           <div class="col-md-6 col-sm-6 col-xs-12">
+           <input type="text" id="mtrl-engr" required="required" class="form-control col-md-7 col-xs-12">
+         </div> <br>
+
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="foreman">Foreman <span class="required">*</span>
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+          <input type="text" id="foreman" required="required" class="form-control col-md-7 col-xs-12">
+        </div> <br>
+
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="wrh-in-charge">Warehouse-in-Charge <span class="required">*</span>
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+          <input type="text" id="wrh-in-charge" required="required" class="form-control col-md-7 col-xs-12">
+        </div> <br>
+
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="eqpt-in-charge">Equipment-in-Charge <span class="required">*</span>
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+          <input type="text" id="eqpt-in-charge" required="required" class="form-control col-md-7 col-xs-12">
+        </div> <br>
+
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="safety-officer">Safety Officer <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="safety-officer" required="required" class="form-control col-md-7 col-xs-12">
+        </div> <br>
+
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timekeeper">Timekeeper <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="timekeeper" required="required" class="form-control col-md-7 col-xs-12">
+        </div> <br>
+
+            </p>
+
+        </div>
+  			<div id="step-3">
+            <h2 class="StepTitle">Step 3: Subcontractors</h2>
+            <p>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="s-name">Name <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="s-name" required="required" class="form-control col-md-7 col-xs-12">
+          </div> <br>
+
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cont-details">Contact Details <span class="required">*</span>
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+          <input type="number" id="cont-details" required="required" class="form-control col-md-7 col-xs-12">
+        </div> <br>
+
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="billing">Billing Schedule <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="date" id="billing" required="required" class="form-control col-md-7 col-xs-12">
+      </div> <br>
+
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cont-duration">Contract Duration <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="date" id="cont-duration" required="required" class="form-control col-md-7 col-xs-12">
+      </div> <br>
+
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="num-personnel">Number of Personnel <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="num-personnel" required="required" class="form-control col-md-7 col-xs-12">
+      </div> <br>
+
+      <label for="scope" class="control-label col-md-3 col-sm-3 col-xs-12">Scope of Work</label>
+      <div class="col-md-24 col-sm-6 col-xs-24">
+      <select id="scope" class="form-control" required="">
+      <option value="">Select..</option>
+    </select> </div>
+
+            </p>
+        </div>
+  			<div id="step-4">
+            <h2 class="StepTitle">Step 4: Consultants</h2>
+            <p>
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="s-name">Name <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="s-name" required="required" class="form-control col-md-7 col-xs-12">
+            </div> <br>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="company">Company Name <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="scope" required="required" class="form-control col-md-7 col-xs-12">
+          </div> <br>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cont-details">Contact Details <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="number" id="cont-details" required="required" class="form-control col-md-7 col-xs-12">
+          </div> <br>
+
+          <label for="scope" class="control-label col-md-3 col-sm-3 col-xs-12">Scope of Work</label>
+          <div class="col-md-24 col-sm-6 col-xs-24">
+          <select id="scope" class="form-control" required="">
+          <option value="">Select..</option>
+        </select> </div>
+        </div>
+
+        <div id="step-5">
+            <h2 class="StepTitle">Step 5: Report Schedule</h2>
+            <p>
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="report">Report Title <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="report" required="required" class="form-control col-md-7 col-xs-12">
+            </div> <br>
+
+            <label for="freq" class="control-label col-md-3 col-sm-3 col-xs-12">Frequency</label>
+            <div class="col-md-24 col-sm-6 col-xs-24">
+            <select id="freq" class="form-control" required="">
+            <option value="">Select..</option>
+            <option value="1">Daily</option>
+            <option value="1">Weekly</option>
+            <option value="1">Monthly</option>
+          </select> </div> <br>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cont-details">Assigned Person<span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="number" id="assign" required="required" class="form-control col-md-7 col-xs-12">
+          </div> <br>
+
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cont-details">To be submitted to<span class="required">*</span>
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+          <input type="number" id="assign" required="required" class="form-control col-md-7 col-xs-12">
+        </div> <br>
+
+        </div>
+
+
+        <div id="step-4">
+            <h2 class="StepTitle">Step 4: Consultants</h2>
+            <p>
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="s-name">Name <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="s-name" required="required" class="form-control col-md-7 col-xs-12">
+            </div> <br>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="company">Company Name <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="scope" required="required" class="form-control col-md-7 col-xs-12">
+          </div> <br>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cont-details">Contact Details <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="number" id="cont-details" required="required" class="form-control col-md-7 col-xs-12">
+          </div> <br>
+
+          <label for="scope" class="control-label col-md-3 col-sm-3 col-xs-12">Scope of Work</label>
+          <div class="col-md-24 col-sm-6 col-xs-24">
+          <select id="scope" class="form-control" required="">
+          <option value="">Select..</option>
+        </select> </div>
+        </div>
+
+        <div id="step-6">
+            <h2 class="StepTitle">Step 6: Inspection Schedule</h2>
+            <p>
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="report">Report Type <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="report" required="required" class="form-control col-md-7 col-xs-12">
+            </div> <br>
+
+            <label for="freq" class="control-label col-md-3 col-sm-3 col-xs-12">Frequency</label>
+            <div class="col-md-24 col-sm-6 col-xs-24">
+            <select id="freq" class="form-control" required="">
+            <option value="">Select..</option>
+            <option value="1">Daily</option>
+            <option value="1">Weekly</option>
+            <option value="1">Monthly</option>
+          </select> </div> <br>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cont-details">Responsibility<span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="assign" required="required" class="form-control col-md-7 col-xs-12">
+          </div> <br>
+
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cont-details">Records/Output<span class="required">*</span>
+          </label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+          <input type="text" id="assign" required="required" class="form-control col-md-7 col-xs-12">
+        </div> <br>
+
+      </div>
+
+
+
+
+
+
+
+
+  		</div> <!--end wizard-->
+
+<!-- End SmartWizard Content -->
+
+</td></tr>
+</table>
+
+</body>
+</html>

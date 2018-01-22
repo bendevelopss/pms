@@ -1,0 +1,55 @@
+<?php
+
+    try{
+      $conn = new PDO("mysql:host=localhost;dbname=branch_users","root","greenthumb2146");
+    }
+    catch(PDOException $x)
+    {
+      echo "Cannot Establish Connection to database".$x->getMessage();
+    }
+
+
+      //FETCH VARIABLES
+    $uname =$_POST['uname'];
+    $upass = $_POST['upass'];  
+    $upass = md5($upass);
+   	$branch = $_POST['branch'];
+    $branch = "sales_".strtolower($branch);
+    $UserType;
+    $match="false";    
+
+
+      // CHECK IF MATCH ACCOUNT
+    $sql = "SELECT * FROM acc WHERE acc_status = 'active'";
+    $q = $conn->prepare($sql);
+    $q -> execute();
+    $browse = $q -> fetchAll();
+    foreach($browse as $row)
+    {
+      if(($uname == $row['acc_uname']) && ($upass== $row['acc_pass']) && ($branch== $row['acc_branch']) )
+      {
+        $match="true";
+        $UserType = $row['acc_type'];
+        $UserBranch = $row['acc_branch'];
+        break;
+      }
+    }
+
+    // SINCE TRUE WHICH MEANS MATCH FOUND.. START AND STORE SESSIONS
+    if($match == "true")
+    {
+      if(!isset($_SESSION)) 
+      { 
+          session_start(); 
+      } 
+      $_SESSION["username"] = $uname;
+      $_SESSION["password"] = $upass;
+      $_SESSION["utype"] = $UserType;
+      $_SESSION["userbranch"] = $UserBranch;    
+  	}
+
+	$output[] = array ($match); 				 	
+	echo json_encode($output); // RETURN data to login.php
+	$conn = null; // CLOSE DATABASE CONNECTION
+
+?>
