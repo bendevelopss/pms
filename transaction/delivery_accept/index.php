@@ -16,9 +16,9 @@ if($_SESSION['user']=='' && $_SESSION['pass']=='')
 
 if($_GET['id']=='' && $_GET['customer']=='' && $_GET['scname']=='' && $_GET['prepared']=='')
 {
-  echo'<script type="text/javascript">
+   echo'<script type="text/javascript">
   alert("Authentication Error");
-  window.location.href="quot1.php";
+  window.location.href="../delivery/index.php";
 
   </script>';
      //   return;
@@ -44,6 +44,7 @@ $lastname2=$row['lastname'];
 $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
+$position=$row['position'];
 
 require_once("dbcontroller.php");
 $db_handle = new DBController();
@@ -110,23 +111,10 @@ $a= date("Y-m-d");
   <meta charset="UTF-8">
   <title>Delivery</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-  <!-- Bootstrap 3.3.2 -->
-  <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
-  <!-- ionics -->   
-  <link href="../../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />  
-  <!-- FontAwesome 4.3.0 -->
-  <link href="../../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
-  <!-- Theme style -->
-  <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins 
-     folder instead of downloading all of them to reduce the load. -->
-     <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-     <!-- SweetAlert -->    
-     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
-     <!-- Date Picker -->
-     <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-     <!-- Daterange picker -->
-     <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+ 
+  <?php include("../../maintenance/plugins.php"); ?>
+  <div class="se-pre-con"></div>
+
  <script>
 function showEditBox(editobj,id) {
   $('#frmAdd').hide();
@@ -218,66 +206,43 @@ function cartAction(action,product_code) {
        <!-- Header Navbar: style can be found in header.less -->
        <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>      
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a class="label-primary" >
-                <!-- The user image in the navbar-->
+            
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+             
+               <?php include("../../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+               
 
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <?php
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' || $_SESSION['pos']=='Admin') )
-                {
-                  ?>
-                  <span class="hidden-xs" style="font-weight: bolder;"><?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?></span>
-                </a>
-                <?php
-              } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              ?>
-              <!--navbar-->
-
+              <?php include("../../maintenance/user_type.php"); ?>
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+         
+            <!-- User Account: style can be found in dropdown.less -->
+          </ul>
+        </div>
+      </nav>
               <?php
 if(isset($_GET['logout']))
 {
@@ -286,29 +251,10 @@ if(isset($_GET['logout']))
   echo "<meta http-equiv='refresh' content='0'>";
 }
 ?>
-            </li>
-            <li class="dropdown user user-menu" style="width: 80px; text-align: center;" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>
-              </a>
-
-              <ul class="dropdown-menu" style="width:10%;border-radius:5px" role="menu">
-               
-
-
-                <li style="margin-top: 10px"><a href="#"><i class="fa fa-gear"></i> Account Setting</a></li>
-
-                <li style="margin-top: 5px" class="form"><a href="?logout=true"><i class="fa fa-sign-in"></i><span>End Session</span></a>
-                </li>
-                <br>
-              </ul>
-            </li>     
-            <!-- User Account: style can be found in dropdown.less -->
-          </ul>
-        </div>
-      </nav>
+           
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <?php include("aside.php") ?>
+    <?php include("../../maintenance/side_account.php") ?>
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -352,15 +298,15 @@ $supplier=$row['supplier'];
                   <div class="col-sm-6" style="margin-bottom: 10px;">                        
                    <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
 
-                    <div class="col-xs-6" style="text-align: center;"> 
+                    <div class="col-xs-3" style="text-align: center;"> 
                       <label>Delivery ID:</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo ''.$_GET['id'].''; ?>" readonly>
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'DEL-000'.$_GET['id'].''; ?>" style="text-align: center;" readonly>
                       
                     </div>  
 
-                     <div class="col-xs-6" style="text-align: center;"> 
+                     <div class="col-xs-3" style="text-align: center;"> 
                       <label>Supplier:</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$supplier.''; ?>" readonly>
+                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$supplier.''; ?>" style="text-align: center;" readonly>
                       <input class="form-control" type="hidden" name="samp" id="samp" value="<?php echo ''.$_GET['scname'].''; ?>">
                       
                     </div>   
@@ -421,16 +367,16 @@ $supplier=$row['supplier'];
                         <tr>
                          
 
-                        <th><strong>Brand</strong></th>
-                        <th><strong>Category</strong></th>
-                        <th><strong>Subcategory</strong></th>
-                        <th><strong>Description</strong></th>
-                        <th><strong>Color</strong></th>
-                        <th><strong>Package</strong></th>
-                        <th><strong>Measurement</strong></th>
-                        <th><strong>Abbreviation</strong></th>
-                        <th><strong>Qty left</strong></th>
-                        <th><strong>Quantity</strong></th>
+                        <th style="text-align: center;"><strong>Brand</strong></th>
+                        <th style="text-align: center;"><strong>Category</strong></th>
+                        <th style="text-align: center;"><strong>Subcategory</strong></th>
+                        <th style="text-align: center;"><strong>Description</strong></th>
+                        <th style="text-align: center;"><strong>Color</strong></th>
+                        <th style="text-align: center;"><strong>Package</strong></th>
+                        <th style="text-align: center;"><strong>Measurement</strong></th>
+                        <th style="text-align: center;"><strong>Abbreviation</strong></th>
+                        <th style="text-align: center;"><strong>Qty left</strong></th>
+                        <th style="text-align: center;"><strong>Quantity</strong></th>
                         <th><strong>Action</strong></th>
                         </tr>
 
@@ -471,7 +417,7 @@ $supplier=$row['supplier'];
       <td style="text-align: center;"><?php echo $product_array[$key]["abbre"];?></td>
       <td style="text-align: center;"><?php  echo $product_array[$key]["quantity"];?>
          <input type="number" hidden id="qty2_<?php echo $product_array[$key]["code"]; ?>" class="qty2" name="quantity2" value="<?php echo $product_array[$key]["quantity"]; ?>" size="1" style="width: 70%;"/></td>
-      <td><input type="number" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control qty" name="quantity" value="1" size="1" style="text-align: center; width: 60%;"/></td>
+      <td style="text-align: center;"><input type="number" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control qty" name="quantity" value="" size="1" style="text-align: center; width: 40%;"/></td>
       <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add Item" class="btn btn-primary btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
       </form>
       </tr>
@@ -612,17 +558,13 @@ else
  if($rows6['max']>=1)
 {
 
-  echo'
-   <div style="text-align: center; float: center; margin-top: 5px;">
-  <button type="button"  onclick="print()" class="btn btn-success" disabled>Print</button>
-  </div>';
+  echo'';
+   
 }
 else{
 
    echo'
-     <div style="text-align: center; float: center; margin-top: 5px;">
-   <button type="button"  onclick="print()" class="btn btn-success" disabled>Print</button>
-   </div>
+   
    ';
 }
 ?>
@@ -687,32 +629,6 @@ $(document).ready(function () {
     }
   </script>
 
-  <!-- jQuery 2.1.3 -->
-  <script src="../../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
-  <!-- <script src="jquery.js" ype="text/javascript"></script> -->
-
-  <!-- jQuery UI 1.11.2 -->
-  <script src="../../plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
-  <!-- Bootstrap 3.3.2 JS -->
-  <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
-
-  <script src="../../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-  <!-- Bootstrap WYSIHTML5 -->
-
-  <!-- mask -->
-  <script src="../../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-  <script src="../../plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
-
-  <!-- FastClick -->
-
-  <!-- AdminLTE App -->
-  <script src="../../dist/js/app.min.js" type="text/javascript"></script>
-  <!-- DataTables -->
-  <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-  <script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-  <script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
 
   </html>
   <script type="text/javascript">

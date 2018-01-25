@@ -1,4 +1,7 @@
 <?php
+session_start();
+// print_r($_SESSION); exit();
+
 ini_set('display-error',1);
 error_reporting(E_ALL&~E_NOTICE);
 
@@ -9,8 +12,6 @@ die(@mysql_error());
 $connect=@mysql_select_db("pms");
 session_start();
 
-require_once '../../include_dao.php';
-
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
   echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
@@ -19,9 +20,7 @@ if($_SESSION['user']=='' && $_SESSION['pass']=='')
 $content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
 $total2=@mysql_affected_rows();
 
-$data = DAOFactory::getQuotationCartDAO()->showData();
-// echo "<pre>";
-print_r($data); 
+    
 $row=mysql_fetch_array($content2);
 
 $user2=$row['username'];
@@ -37,6 +36,7 @@ $lastname2=$row['lastname'];
 $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
+$position=$row['position'];
 
 require_once("dbcontroller.php");
 $db_handle = new DBController();
@@ -48,7 +48,20 @@ $a= date("d/m/Y");
 ?>
 <!DOCTYPE html>
 <html>
-
+<style type="text/css">
+    no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(../../assets/img/Preloader_3.gif) center no-repeat #fff;
+}
+</style>
+  <div class="se-pre-con"></div>
 <head>
   <meta charset="UTF-8">
   <title>Requisition</title>
@@ -61,16 +74,90 @@ $a= date("d/m/Y");
   <link href="../../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
   <!-- Theme style -->
   <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-  <!-- AdminLTE Skins. Choose a skin from the css/skins 
-   folder instead of downloading all of them to reduce the load. -->
-  <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-  <!-- SweetAlert -->    
-  <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
-  <!-- Date Picker -->
-  <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-  <!-- Daterange picker -->
-  <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
-</head>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins 
+     folder instead of downloading all of them to reduce the load. -->
+     <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+     <!-- SweetAlert -->    
+     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
+     <!-- Date Picker -->
+     <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+     <!-- Daterange picker -->
+     <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+      
+
+<script>
+function showEditBox(editobj,id) {
+  $('#frmAdd').hide();
+  var currentMessage = $("#message_" + id + " .message-content").html();
+  var editMarkUp = '<textarea rows="5" cols="80" id="txtmessage_'+id+'">'+currentMessage+'</textarea><button name="ok" onClick="callCrudAction(\'edit\','+id+')">Save</button><button name="cancel" onClick="cancelEdit(\''+currentMessage+'\','+id+')">Cancel</button>';
+  $("#message_" + id + " .message-content").html(editMarkUp);
+}
+function cancelEdit(message,id) {
+  $("#message_" + id + " .message-content").html(message);
+  $('#frmAdd').show();
+}
+function cartAction(action,product_code) {
+  var qty, qty2, qty1, qty3;
+  qty = $("#qty_"+product_code).val();
+  qty2= $("#qty2_"+product_code).val();
+  qty1= parseInt(qty);
+  qty3= parseInt(qty2);
+  var queryString = "";
+  if(action != "") {
+    switch(action) {
+      case "add":
+      if(qty1>qty3)
+      {
+       alert("The quantity should not be  higher than the quantity needed");
+      break;
+      }  
+       if(qty1<=0)
+      {
+        alert("Quantity cannot be zero or negative values");
+      break;
+      }
+      else
+      {
+        queryString = 'action='+action+'&code='+ product_code+'&quantity='+$("#qty_"+product_code).val()+'&po_no='+$("#samp").val(); 
+      break;
+      }
+      case "remove":
+        queryString = 'action='+action+'&code='+ product_code;
+      break;
+      case "empty":
+        queryString = 'action='+action;
+      break;
+    }  
+  }
+  jQuery.ajax({
+  url: "materialrequisition3_action.php",
+  data:queryString,
+  type: "POST",
+  success:function(data){
+    $("#cart-item").html(data);
+    if(action != "") {
+      switch(action) {
+        /*case "add":
+          $("#add_"+product_code).hide();
+          "#added_"+product_code).show();
+        break;*/
+        case "remove":
+          $("#add_"+product_code).show();
+          $("#added_"+product_code).hide();
+        break;
+        case "empty":
+          $(".btnAddAction").show();
+          $(".btnAdded").hide();
+        break;
+      }  
+    }
+  },
+  error:function (){}
+  });
+}
+</script>
+
+   </head>
 
    <body class="skin-red fixed">
 
@@ -87,68 +174,45 @@ $a= date("d/m/Y");
        </a>
        <!-- Logo -->
        <!-- Header Navbar: style can be found in header.less -->
-       <nav class="navbar navbar-static-top" role="navigation">
+      <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>      
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a class="label-primary" >
-                <!-- The user image in the navbar-->
+            
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+             
+               <?php include("../../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+               
 
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <?php
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' || $_SESSION['pos']=='Admin') )
-                {
-                  ?>
-                  <span class="hidden-xs" style="font-weight: bolder;"><?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?></span>
-                </a>
-                <?php
-              } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              ?>
-              <!--navbar-->
-
+         <?php include("../../maintenance/user_type.php"); ?>
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+         
+            <!-- User Account: style can be found in dropdown.less -->
+          </ul>
+        </div>
+      </nav>
               <?php
 if(isset($_GET['logout']))
 {
@@ -157,29 +221,10 @@ if(isset($_GET['logout']))
   echo "<meta http-equiv='refresh' content='0'>";
 }
 ?>
-            </li>
-            <li class="dropdown user user-menu" style="width: 80px; text-align: center;" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>
-              </a>
-
-              <ul class="dropdown-menu" style="width:10%;border-radius:5px" role="menu">
-               
-
-
-                <li style="margin-top: 10px"><a href="#"><i class="fa fa-gear"></i> Account Setting</a></li>
-
-                <li style="margin-top: 5px" class="form"><a href="?logout=true"><i class="fa fa-sign-in"></i><span>End Session</span></a>
-                </li>
-                <br>
-              </ul>
-            </li>     
-            <!-- User Account: style can be found in dropdown.less -->
-          </ul>
-        </div>
-      </nav>
+          
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <?php include("aside.php") ?>
+    <?php include("../../maintenance/side_account.php") ?>
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -187,7 +232,7 @@ if(isset($_GET['logout']))
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Delivery
+          Material Requisition
           <small>Transaction</small>
         </h1>                              
       </section>
@@ -225,22 +270,22 @@ $cust=$row4['customer'];
                   <div class="col-sm-6" style="margin-bottom: 10px;">                        
                    <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
 
-                    <div class="col-xs-6" style="text-align: center;"> 
-                      <label>Material Requisition ID</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'MATREQ000'.$_GET['id'].''; ?>" style="text-align: center;" readonly>
+                    <div class="col-xs-3" style="text-align: center;"> 
+                      <label>Material Req ID</label> <!-- Prod_Name -->
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'MAT-000'.$_GET['id'].''; ?>" style="text-align: center;" readonly>
                       
                     </div>  
 
-                     <div class="col-xs-6" style="text-align: center;"> 
+                     <div class="col-xs-3" style="text-align: center;"> 
                       <label>Customer Name</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$cust.''; ?>" readonly>
+                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$cust.''; ?>" style="text-align: center;" readonly>
                       <input class="form-control" type="hidden"name="samp" id="samp" value="<?php echo ''.$_GET['scname'].''; ?>"">
                       
                     </div>   
 
-                    <div class="col-xs-6" style="text-align: center;"> 
+                    <div class="col-xs-3" style="text-align: center;"> 
                       <label>Project Name</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$project.''; ?>" readonly>
+                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$project.''; ?>" style="text-align: center;" readonly>
                       
                       
                     </div>   
@@ -282,7 +327,7 @@ $cust=$row4['customer'];
                 </div>
               </div>
             </div>
-            <?php include("crud.php") ?>
+           
 
 
 
@@ -295,7 +340,7 @@ $cust=$row4['customer'];
 
                   </div><!-- /.box-header -->
                   <div class="box-body">
-                    <table id="" class="table table-condensed table-striped table-hover" style="font-size: 0.9em;">
+                    <table id="jsontable" class="table table-condensed table-striped table-hover" style="font-size: 0.9em;">
                       <thead>
 
                         <tr>
@@ -315,28 +360,67 @@ $cust=$row4['customer'];
                       <th  style="text-align:center"><strong>Qty Available</strong>
                       <strong>(Inventory)</strong>
                       </th>
-                      <th style="text-align:center"><strong>Qty</strong></th>
+                      <th style="text-align:center"><strong>Quantity</strong></th>
                       <th style="text-align:center"><strong>Action</strong></th>
                         </tr>
 
-                    </thead>
-                    <tbody>
-                      <?php foreach($data as $each): ?>
-                        <tr>
-                            <td><?=$each['brand_name']?></td>
-                            <td><?=$each['category']?></td>
-                            <td><?=$each['scategory']?></td>
-                            <td><?=$each['scategory_name']?></td>
-                            <td><?=$each['color']?></td>
-                            <td><?=$each['package']?></td>
-                            <td><?=$each['unit_measurement']." ".$each['abbre']?></td>
-                            <td><?=$each['quantity_remaining']?></td>
-                            <td><?=$each['quantity_available']?></td>
-                            <td><input class="btn" type="number" class="qty"></td>
-                            <td><button>Add to cart</button></td>
-                        </tr> 
-                      <?php endforeach;?>
-                    </tbody>
+                      </thead>
+
+                      <?php  
+
+
+                      $servername = "localhost";
+                      $username = "root";
+                      $password = "";
+                      $dbname = "pms";
+
+// Create connection
+                      $conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+                      if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                      } ?>
+                  
+  <?php
+   /*$product_array = $db_handle->runQuery("SELECT quotation_cart.quote_no,quotation_cart.material_no, quotation_cart.code,quotation_cart.brand_name,quotation_cart.category,quotation_cart.scategory_name,quotation_cart.description,quotation_cart.color,quotation_cart.package,quotation_cart.unit_measurement,quotation_cart.abbre,quotation_cart.quantity_remaining,quotation_cart.price, materials.quantity as quantity_available 
+      FROM quotation_cart 
+      INNER JOIN materials 
+      ON quotation_cart.material_no=materials.material_no where quotation_cart.quote_no = '".$_GET['scname']."' and quotation_cart.quantity_remaining >'0' ORDER BY quote_no ASC");
+*/   $product_array = $db_handle->runQuery("SELECT `quotation`.*, `quotation_cart`.*, materials.quantity as quantity_available FROM `quotation` LEFT JOIN `quotation_cart` ON `quotation`.project = `quotation_cart`.project INNER JOIN materials ON quotation_cart.material_no=materials.material_no WHERE `quotation`.quote_no = '".$_GET['scname']."' AND `quotation_cart`.quantity_remaining >'0' ORDER BY `quotation_cart`.quote_no ASC");
+     
+  if (!empty($product_array))
+   {  
+    echo'<tbody>';
+    foreach($product_array as $key=>$value)
+    {
+  ?>    <tr>
+        <form method="post" action="index.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>&employee=<?php echo $scname?>&materialreq=<?php echo $quote_no?>">
+      <td class="brand_name"><?php echo $value["brand_name"]; ?></td>
+      <td class="category"><?php echo $value["category"]; ?></td>
+      <td class="scategory_name"><?php echo $value["scategory_name"]; ?></td>
+      <td class="description"><?php echo $value["description"]; ?></td>
+      <td class="color"><?php echo $value["color"]; ?></td>
+      <td class="package"><?php echo $value["package"]; ?></td>
+      <td class="unit_measurement" style="text-align: center;"><?php echo $product_array[$key]["unit_measurement"];?> <?php echo $product_array[$key]["abbre"];?></strong></td>
+      <td class="quantity_remaining" style="text-align: center;"><?php echo $product_array[$key]["quantity_remaining"];?>
+          <input type="number" hidden id="qty2_<?php echo $product_array[$key]["code"]; ?>" class="qty2" name="quantity2" value="<?php echo $product_array[$key]["quantity"]; ?>" size="1"/ ></td>
+
+      </td>
+      <td class="quantity_available" style="text-align: center;"><?php echo $product_array[$key]["quantity_available"];?>
+         <input type="number" hidden id="qty1_<?php echo $product_array[$key]["code"]; ?>" class="qty1"  name="quantity1" value="<?php echo $product_array[$key]["quantity_available"]; ?>" size="" />
+
+      </td>
+      <td style="text-align: center;"><input type="number" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control qty" name="quantity" value="" size="1" style="text-align: center; width: 30%;"/></td>
+      <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add" class="btn btn-primary btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
+      </form>
+      </tr>
+    </div>
+    </tr>
+  <?php
+      }
+  }
+  ?> 
+     </tbody>
   </table>
 
 
@@ -365,7 +449,6 @@ $cust=$row4['customer'];
     <div id="cart-item"></div>
     <form method="post" action="index.php?id=<?php echo ''.$_GET['id'].''?>&scname=<?php echo ''.$_GET['scname'].''?>&prepared=<?php echo ''.$_GET['prepared'].''?>">
 <?php
-
 
 
 
@@ -433,8 +516,9 @@ else
     ?>
 
 </tbody>
-</table>  
+</table> 
 <?php
+
   $order=mysql_real_escape_string($_GET['prepared']);
 
     $accepted='active';
@@ -458,7 +542,7 @@ else
     $hash3= mt_rand(1,9999999);
     $hash2= md5($hash1+$material_no+$hash3);
 
-$content5=mysql_query("select * max(material_no) as max from materialreq_cart where req_no='".$_GET['id']."' and material_no='".$material_no."'");
+$content5=mysql_query("select *, max(material_no) as max from materialreq_cart where req_no='".$_GET['id']."' and material_no='".$material_no."'");
     $total5=@mysql_affected_rows();
     $row5=mysql_fetch_array($content5);
 
@@ -495,7 +579,7 @@ else
 <button type="button"  class="btn btn-danger"> <a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');" style="color: white;">Remove All</a></button>
 <button type="submit" name="btnAdd" id="btnAdd" class="btn btn-primary">Process Order</button>
      
-     <?php
+    <?php
     $contents6=mysql_query("select max(req_no) as max from materialreq_cart where req_no='".$_GET['id']."'");   
     $rows6=mysql_fetch_array($contents6);
 
@@ -507,7 +591,6 @@ else{
    echo'<button type="button"  onclick="print()" class="btn btn-success" disabled>Print</button>';
 }
 ?>
-</div>
 
 <script>
 $(document).ready(function () {
@@ -533,7 +616,7 @@ $(document).ready(function () {
 
     <script>
     function print() {
-     window.open("pdf/tutorial/tuto11.php?id=<?php echo $_GET['scname']?>&customer=<?php echo $_GET['scname']?>&prepared=<?php echo $_GET['prepared']?>");
+     window.open("../../pdf/print/printreq.php?id=<?php echo $_GET['scname']?>&customer=<?php echo $_GET['scname']?>&prepared=<?php echo $_GET['prepared']?>");
     }
     </script>
     </div> <!-- /. col -->
@@ -556,6 +639,25 @@ $(document).ready(function () {
         </div><!-- /.content-wrapper -->
 
       </div><!-- ./wrapper -->
+
+
+     
+  <script type="text/javascript">
+    function get_id(o) {
+      myRowIndex = $(o).parent().parent().index();
+      var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);    
+      var $modal = $('#editModal'),
+      $category_no1 = $modal.find('#category_no1');
+      $category_no1.val(getid);
+      $category_no1 = $modal.find('#category_no1');
+      $category_no1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);
+
+
+      $c_name1 = $modal.find('#c_name1');
+      $c_name1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[1].innerHTML);
+
+    }
+  </script>
 
   <!-- jQuery 2.1.3 -->
   <script src="../../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
@@ -616,4 +718,11 @@ oTable.api().ajax.reload();
 $(document).ready(function () {
   cartAction('','');
 })
+</script>
+<script type="text/javascript">
+    $(window).load(function() {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut("slow");
+
+    });
 </script>

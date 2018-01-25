@@ -7,7 +7,7 @@ if(!empty($_POST["action"])) {
 switch($_POST["action"]) {
 	case "add":
 		if(!empty($_POST["quantity"])) {
-      echo '<h2 style="text-align: center; font-weight: bolder; text-decoration: underline">List of Order</h2>';
+      echo '<h2 style="text-align: center; font-weight: bolder;">List of Order</h2>';
 			     $productByCodeq = $db_handle->runQuery("SELECT * FROM materials WHERE code='" . $_POST["code"] . "' ORDER BY material_no ASC ");
       $itemArrayq = array($productByCodeq[0]["code"]=>array('material_no'=>$productByCodeq[0]["material_no"], 'code'=>$productByCodeq[0]["code"],  'category'=>$productByCodeq[0]["category"], 'scategory_name'=>$productByCodeq[0]["scategory_name"], 'brand_name'=>$productByCodeq[0]["brand_name"], 'description'=>$productByCodeq[0]["description"], 'color'=>$productByCodeq[0]["color"], 'package'=>$productByCodeq[0]["package"], 'unit_measurement'=>$productByCodeq[0]["unit_measurement"], 'abbre'=>$productByCodeq[0]["abbre"],'quantity'=>$_POST["quantity"], 'price'=>$productByCodeq[0]["price"]));
 
@@ -88,21 +88,21 @@ if(isset($_SESSION["cart_itempoq"])){
     $item_total = 0;
 ?>  
 <div class="container" style="width:100%; margin-left: 0px; margin-top:0px;">
-<table class="table table-condensed table-striped table-hover" id="jsontable2" name="jsontable2" style="font-size: 0.8em;">
+<table class="table table-condensed table-striped table-hover" id="jsontable2" name="jsontable2" style="font-size: 1em;">
 <thead>
 <tr class="w3-green">
-<th><strong>Brand</strong></th>
-<th><strong>Category</strong></th>
-<th><strong>Sub-Category</strong></th>
-<th><strong>Description</strong></th>
-<th><strong>Color</strong></th>
-<th><strong>Package</strong></th>
-<th><strong>Measurement</strong></th>
-<th><strong>Abbreviation</strong></th>
-<th><strong>Quantity</strong></th>
-<th><strong>Price</strong></th>
+<th>Brand</th>
+<th>Category</th>
+<th>Sub-Category</th>
+<th>Description</th>
+<th>Color</th>
+<th>Package</th>
+<th>Measurement</th>
+<th>Abbreviation</th>
+<th>Quantity</th>
+<th>Price</th>
 
-<th><strong>Action</strong></th>
+<th>Action</th>
 </tr> 
 </thead>
 <tbody>
@@ -124,16 +124,16 @@ if(isset($_SESSION["cart_itempoq"])){
        $price = $item["price"];
        ?>
         <tr>
-        <td><strong><?php echo $brand_name; ?></strong></td>
-        <td><strong><?php echo $category; ?></strong></td>
-        <td><strong><?php echo $scategory_name; ?></strong></td>
-        <td><strong><?php echo $description; ?></strong></td>
-        <td><strong><?php echo $color; ?></strong></td>
-        <td><strong><?php echo $package; ?></strong></td>
-        <td><strong><?php echo $unit_measurement; ?></strong></td>
-        <td><strong><?php echo $abbre; ?></strong></td>
+        <td><?php echo $brand_name; ?></td>
+        <td><?php echo $category; ?></td>
+        <td><?php echo $scategory_name; ?></td>
+        <td><?php echo $description; ?></td>
+        <td><?php echo $color; ?></td>
+        <td><?php echo $package; ?></td>
+        <td><?php echo $unit_measurement; ?></td>
+        <td><?php echo $abbre; ?></td>
         <td style="width:7%;"><?php echo $quantity; ?></td>
-        <td><strong><?php echo'&#8369;'.$price.''; ?></strong></td>
+        <td><?php echo'&#8369;'.$price.''; ?></td>
         <td><button type="button" onClick="cartAction('remove','<?php echo $item["code"]; ?>')" class="btn btn-danger btnRemoveAction cart-action"><span class="fa fa-trash"></span></button></td>
         </tr>
         <?php

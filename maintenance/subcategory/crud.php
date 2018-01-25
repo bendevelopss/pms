@@ -1,3 +1,4 @@
+ <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />    
 <?php
 $content1=mysql_query("select max(scategory_no) as max from subcategory");
 $total1=@mysql_affected_rows();
@@ -23,7 +24,9 @@ if(isset($_POST['btnAdd']) && !empty($scname) && $category_name1==$cname && $sca
 
 {
 
-  echo '<script type="text/javascript">alert("Duplicate data is not allowed")</script>'; 
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Error!","Duplicate data is not allowed","error");';
+        echo '});</script>';
 
 }
 
@@ -43,8 +46,9 @@ else if(isset($_POST['btnAdd']) && !empty($scname) && $categoey_name1!=$cname &&
 
     mysql_query("insert into subcategory (category_name, scategory_name,  status) values('".$cname."','".$scname1."','".$status."')");
 
-    echo '<script type="text/javascript">alert("Subcategory has been added")</script>'; 
-    echo "<meta http-equiv='refresh' content='0'>";
+            echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","Subcategory Added!","success");';
+        echo '});</script>';
   }
 
 }
@@ -76,7 +80,7 @@ if(isset($_POST['btnSave']))
 
   mysql_query("UPDATE subcategory SET category_name='".$c_name."' ,scategory_name='".$sc_name."' WHERE scategory_no='".$sc_no."'");
   echo '<script type="text/javascript">';
-  echo 'setTimeout(function () { swal("Success!","SubCategory Updated!","success");';
+  echo 'setTimeout(function () { swal("Success!","Subcategory Updated!","success");';
   echo '},);</script>';
 
 

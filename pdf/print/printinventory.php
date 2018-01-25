@@ -73,10 +73,10 @@ function BasicTable($header, $itemArray)
 
     $this->Ln(15);
   // Column widths
-  $w = array(30,30,23,77,25);
+  $w = array(20,30,23,25,20,20,33,25);
   // Header
   for($i=0;$i<count($header);$i++)
-    $this->Cell($w[$i],7,$header[$i],1,0,'C');
+    $this->Cell($w[$i],8,$header[$i],1,0,'C');
   $this->Ln();
   // Data
 
@@ -93,9 +93,11 @@ $productByCode = $db_handle->runQuery("SELECT * FROM materials ");
     $this->Cell($w[0],6,''.$item['brand_name'].'',1,0,'C');
     $this->Cell($w[1],6,''.$item['category'].'',1,0,'C');
     $this->Cell($w[2],6,''.$item['scategory_name'].'',1,0,'C');
-    $this->Cell($w[3],6,''.$item['description'].' / '.$item['color'].'  '.$item['package'].' / '.$item['unit_measurement'].''.$item['abbre'].'',1,0,'C');
-    $this->Cell($w[4],6,''.$item['quantity'].'',1,0,'C');
-
+    $this->Cell($w[3],6,''.$item['description'].'',1,0,'C');
+    $this->Cell($w[4],6,''.$item['color'].'',1,0,'C');
+    $this->Cell($w[5],6,''.$item['package'].'',1,0,'C');
+    $this->Cell($w[6],6,''.$item['unit_measurement'].''.$item['abbre'].'',1,0,'C');
+    $this->Cell($w[7],6,''.$item['quantity'].'',1,0,'C');
     $this->Ln();
   }
   $this->Cell(array_sum($w),0,'','T');
@@ -111,20 +113,19 @@ function Footer()
 	// Arial italic 8
 	$this->SetFont('Arial','I',8);
 	// Page number
-	$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+	$this->Cell(0,10,'Page '.$this->PageNo().' of {nb} ',0,0,'C');
 }
 }
 
 $pdf = new PDF();
 // Column headings
-$header = array('Brand','Category', 'Sub-category','Description(Color, Package, Unit Measurement)','Quantity');
-// Data loading
+$header = array('Brand','Category', 'Sub-category','Description','Color' ,'Package', 'Unit Measurement','Quantity');
+// Datloading
 $data = $pdf->LoadData('countries.txt');
 $pdf->SetFont('Arial','',10);
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->BasicTable($header,$data);
 $pdf->Output();
-
 ?>
  

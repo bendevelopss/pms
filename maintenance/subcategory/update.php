@@ -1,14 +1,14 @@
                                     <div class="row" style="margin-bottom:5px"> <!-- ROW 2-->
                                     
                                     <div class="col-xs-4" id="addErDv"> 
-                                      <label><font color="darkred">*</font>Subcategory ID</label> <!-- Prod_Name -->
+                                      <label>Subcategory ID</label> <!-- Prod_Name -->
                                      <input type="text" class="form-control" name="sc_no1" id="sc_no1" readonly>
                                     </div>   
 
 
                                     <div class="col-xs-4" id="empnameErDv"> 
                                     	<label><font color="darkred">*</font>Category</label> 
-                                    	<select name="c_name1" id="c_name1" class="form-control"></p>
+                                    	<select name="c_name1" id="c_name1" class="form-control" required></p>
                                     		<?php
                                     		$content1=mysql_query("SELECT * from category where status='Active'");
                                     		$total1=@mysql_affected_rows();
@@ -26,7 +26,7 @@
                                     
                                      <div class="col-xs-4" id="empnameErDv"> 
                                       <label><font color="darkred">*</font>Subcategory Name</label> <!-- Prod_Name -->
-                                      <input type="text" class="form-control" name="sc_name1" id="sc_name1">
+                                      <input type="text" class="form-control" name="sc_name1" id="sc_name1" required>
                                                 
                                                  
   

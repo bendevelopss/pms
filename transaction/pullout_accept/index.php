@@ -11,14 +11,14 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
- echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
+  echo '<script type="text/javascript">window.location.href="../../.php";</script>'; 
 }
 
 if($_GET['id']=='' && $_GET['scname']=='' && $_GET['prepared']=='')
 {
   echo'<script type="text/javascript">
   alert("Authentication Error");
-  window.location.href="quot1.php";
+  window.location.href="../../pullout/index.php";
 
   </script>';
      //   return;
@@ -44,6 +44,7 @@ $lastname2=$row['lastname'];
 $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
+$position=$row['position'];
 
 require_once("dbcontroller.php");
 $db_handle = new DBController();
@@ -75,188 +76,81 @@ $a= date("Y-m-d");
      <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
      <!-- Daterange picker -->
      <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
-  <script>
-function showEditBox(editobj,id) {
-  $('#frmAdd').hide();
-  var currentMessage = $("#message_" + id + " .message-content").html();
-  var editMarkUp = '<textarea rows="5" cols="80" id="txtmessage_'+id+'">'+currentMessage+'</textarea><button name="ok" onClick="callCrudAction(\'edit\','+id+')">Save</button><button name="cancel" onClick="cancelEdit(\''+currentMessage+'\','+id+')">Cancel</button>';
-  $("#message_" + id + " .message-content").html(editMarkUp);
-}
-function cancelEdit(message,id) {
-  $("#message_" + id + " .message-content").html(message);
-  $('#frmAdd').show();
-}
-function cartAction(action,product_code) {
-  var qty, qty2, qty1, qty3;
-  qty = $("#qty_"+product_code).val();
-  qty2= $("#qty2_"+product_code).val();
-  qty1= parseInt(qty);
-  qty3= parseInt(qty2);
-  var queryString = "";
-  if(action != "") {
-    switch(action) {
-      case "add":
-      if(qty1>qty3)
-      {
-       alert("The quantity should not be  higher than the quantity needed");
-      break;
-      }  
-       if(qty1<=0)
-      {
-        alert("Quantity cannot be zero or negative values");
-      break;
-      }
-      else
-      {
-        queryString = 'action='+action+'&code='+ product_code+'&quantity='+$("#qty_"+product_code).val()+'&po_no='+$("#samp").val(); 
-      break;
-      }
-      case "remove":
-        queryString = 'action='+action+'&code='+ product_code;
-      break;
-      case "empty":
-        queryString = 'action='+action;
-      break;
-    }  
-  }
-  jQuery.ajax({
-  url: "pullout2_action.php",
-  data:queryString,
-  type: "POST",
-  success:function(data){
-    $("#cart-item").html(data);
-    if(action != "") {
-      switch(action) {
-        /*case "add":
-          $("#add_"+product_code).hide();
-          "#added_"+product_code).show();
-        break;*/
-        case "remove":
-          $("#add_"+product_code).show();
-          $("#added_"+product_code).hide();
-        break;
-        case "empty":
-          $(".btnAddAction").show();
-          $(".btnAdded").hide();
-        break;
-      }  
-    }
-  },
-  error:function (){}
-  });
-}
-</script>
+
 
    </head>
+
 
    <body class="skin-red fixed">
 
 
-    <form action="" method="post" name="frm" id="frm">
-      <header class="main-header">
-        <!-- Logo --> 
-        <a href="index.php" class="logo">
+   <form action="" method="post" name="frm" id="frm">
+     <header class="main-header">
+       <!-- Logo --> 
+       <a href="index.php" class="logo">
 
-         <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
+        <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
 
-         <!-- logo for regular state and mobile devices -->
-         <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
-       </a>
-       <!-- Logo -->
-       <!-- Header Navbar: style can be found in header.less -->
-       <nav class="navbar navbar-static-top" role="navigation">
-        <!-- Sidebar toggle button-->
-         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>      
-          </a>
-        <div class="navbar-custom-menu">
-          <ul class="nav navbar-nav">
-            <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a class="label-primary" >
-                <!-- The user image in the navbar-->
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
+      </a>
+      <!-- Logo -->
+      <!-- Header Navbar: style can be found in header.less -->
+     <nav class="navbar navbar-static-top" role="navigation">
+       <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+           <span class="sr-only">Toggle navigation</span>      
+         </a>
+       <div class="navbar-custom-menu">
+         <ul class="nav navbar-nav">
+           <!-- Messages: style can be found in dropdown.less-->
+           
+                <li class="dropdown user user-menu">
+           <!-- Menu Toggle Button -->
+           <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+            
+            
+              <?php include("../../maintenance/nav.php"); ?>  
+           </a>
+           <ul class="dropdown-menu">
+             <!-- The user image in the menu -->
+             <li class="user-header">
+              
 
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <?php
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' || $_SESSION['pos']=='Admin') )
-                {
-                  ?>
-                  <span class="hidden-xs" style="font-weight: bolder;"><?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?></span>
-                </a>
-                <?php
-              } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              ?>
-              <!--navbar-->
-
-              <?php
+               <p>
+                 <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
+                 <br>
+                 <label><?php echo ''.ucfirst($position).''; ?></label>
+               </p>
+             </li>
+             <!-- Menu Body -->
+             
+             <!-- Menu Footer-->
+             <li class="user-footer">
+               
+               <div class="pull-center">
+                 <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+               </div>
+             </li>
+           </ul>
+         </li> 
+        
+           <!-- User Account: style can be found in dropdown.less -->
+         </ul>
+       </div>
+     </nav>
+             <?php
 if(isset($_GET['logout']))
 {
-  mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-  session_destroy();
-  echo "<meta http-equiv='refresh' content='0'>";
+ mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
+ session_destroy();
+ echo "<meta http-equiv='refresh' content='0'>";
 }
 ?>
-            </li>
-            <li class="dropdown user user-menu" style="width: 80px; text-align: center;" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>
-              </a>
-
-              <ul class="dropdown-menu" style="width:10%;border-radius:5px" role="menu">
-               
-
-
-                <li style="margin-top: 10px"><a href="#"><i class="fa fa-gear"></i> Account Setting</a></li>
-
-                <li style="margin-top: 5px" class="form"><a href="?logout=true"><i class="fa fa-sign-in"></i><span>End Session</span></a>
-                </li>
-                <br>
-              </ul>
-            </li>     
-            <!-- User Account: style can be found in dropdown.less -->
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <?php include("aside.php") ?>
+         
+   </header>
+   <!-- Left side column. contains the logo and sidebar -->
+   <?php include("../../maintenance/side.php") ?>
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -285,8 +179,7 @@ $req_no=$row['req_no'];
 $customer=$row['customer'];
 $project=$row['project'];
 ?>
-      <!-- Main content -->
-      <section class="content">
+ <section class="content">
         <!--Table function-->
 
 
@@ -301,64 +194,33 @@ $project=$row['project'];
                   <div class="col-sm-6" style="margin-bottom: 10px;">                        
                    <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
 
-                    <div class="col-xs-6" style="text-align: center;"> 
-                      <label>Pullout ID:</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'PULL000'.$_GET['id'].''; ?>" style="text-align: center;" readonly>
+                    <div class="col-xs-3" style="text-align: center;"> 
+                      <label>Material Req ID</label> <!-- Prod_Name -->
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'MAT-000'.$_GET['id'].''; ?>" style="text-align: center;" readonly>
                       
                     </div>  
 
-                     <div class="col-xs-6" style="text-align: center;"> 
+                     <div class="col-xs-3" style="text-align: center;"> 
                       <label>Customer Name</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$customer.''; ?>" readonly>
+                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$customer.''; ?>" style="text-align: center;" readonly>
+                      <input class="form-control" type="hidden"name="samp" id="samp" value="<?php echo ''.$_GET['scname'].''; ?>">
                       
                     </div>   
 
-                    <div class="col-xs-6" style="text-align: center;"> 
+                    <div class="col-xs-3" style="text-align: center;"> 
                       <label>Project Name</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$project.''; ?>" readonly>
+                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$project.''; ?>" style="text-align: center;" readonly>
                       
-                    </div> 
+                      
+                    </div>   
 
                                           
                     </div>   
 
 
                 </div>          
-
-                <div class="col-md-9 col-xs-12"> <!-- MESSAGE -->
-
-                  <div class="alert alert-xs  bg-teal alert-dismissable" style="width:85%; display:none" id="msg">
-                    <i class="icon fa fa-check"></i>
-                    <label id="msgContent"></label>
-                  </div>  
-
-                </div>    
-                                                
+        
             </div>
-
-
-
-
-
-
-
-
-            <div id="loading" class="modal fade">
-              <div class="modal-dialog">
-                <div class="overlay">
-                  <div class="modal-body" style="text-align:center">
-                    <div class="overlay">
-                      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                      <i class="fa fa-spinner fa-pulse fa-spin"  
-                      style="font-size:60px;"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <?php include("crud.php") ?>
-
-
 
             <div class="row">                     <!-- TABLES -->
               <div class="col-lg-12 col-sm-12 col-xs-12">
@@ -369,68 +231,66 @@ $project=$row['project'];
 
                   </div><!-- /.box-header -->
                   <div class="box-body">
-                    <table id="jsontable" class="table table-condensed table-striped table-hover" style="font-size: 1.0em;">
-                      <thead>
-
-                        <tr>
-                         
-
-                         <th><strong>Brand</strong></th>
-                          <th><strong>Category</strong></th>
-                          <th><strong>Subcategory</strong></th>
-                          <th><strong>Description</strong></th>
-                          <th><strong>Color</strong></th>
-                          <th><strong>Package</strong></th>
-                          <th><strong>Measurement</strong></th>
-                          <th><strong>Abbre</strong></th>
-                          <th><strong>Qty Available</strong>
-                         (Material Req.)
-                          </th>
-                          <th><strong>Quantity</strong></th>
-                          <th><strong>Action</strong></th>
-                        </tr>
-
-                      </thead>
-
-                      <?php  
 
 
-                      $servername = "localhost";
-                      $username = "root";
-                      $password = "";
-                      $dbname = "pms";
+                  <table id="tableko" name="tableko" class="table table-condensed table-striped table-hover" style="font-size: 1em;">
+    
+    <thead>
+<tr>
+<th style="text-align: center">Brand</th>
+<th style="text-align: center">Category</th>
+<th style="text-align: center">Subcategory</th>
+<th style="text-align: center">Description</th>
+<th>Color</th>
+<th style="text-align: center">Package</th>
+<th style="text-align: center">Measurement</th>
+<th style="text-align: center">Abbreviation</th>
+<th style="text-align: center">Quantity Available
+(Material Req.)
+</th>
+<th style="text-align: center">Quantity</th>
+<th style="text-align: center">Action</th>
+</tr> 
+</thead>
+<tbody>
+
+<?php  
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pms";
 
 // Create connection
-                      $conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
-                      if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                      } ?>
-                  
-  <?php
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+} ?>
+<?php
 
-  $product_array = $db_handle->runQuery("SELECT * FROM materialreq_cart where req_no = '".$_GET['scname']."' and quantity >'0' ORDER BY req_no ASC");
-  if (!empty($product_array))
-   { 
-    echo'<tbody>';
-foreach($product_array as $key=>$value)
+$product_array = $db_handle->runQuery("SELECT * FROM materialreq_cart where req_no = '".$_GET['scname']."' and quantity >'0' ORDER BY req_no ASC");
+if (!empty($product_array))
+ { 
+    foreach($product_array as $key=>$value)
     {
-  ?>   <tr>
+  ?>    <tr>
       <form method="post" action="index.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>&employee=<?php echo $scname?>&materialreq=<?php echo $quote_no?>">
-      <td style="text-align:center"><?php echo $product_array[$key]["brand_name"]; ?></td>
-      <td style="text-align:center"><?php echo $product_array[$key]["category"]; ?></td>
-      <td style="text-align:center"><?php echo $product_array[$key]["scategory_name"]; ?></td>
-      <td style="text-align:center"><?php echo $product_array[$key]["description"]; ?></td>
-      <td style="text-align:center"><?php echo $product_array[$key]["color"]; ?></td>
-      <td style="text-align:center"><?php echo $product_array[$key]["package"]; ?></td>
-      <td style="text-align:center"><?php echo $product_array[$key]["unit_measurement"];?></strong></td>
-      <td style="text-align:center"><?php echo $product_array[$key]["abbre"];?></td>
-      <td style="text-align:center"><?php echo $product_array[$key]["quantity"];?>
+      <td style="text-align: center"><?php echo $product_array[$key]["brand_name"]; ?></td>
+      <td style="text-align: center"><?php echo $product_array[$key]["category"]; ?></td>
+      <td style="text-align: center"><?php echo $product_array[$key]["scategory_name"]; ?></td>
+      <td style="text-align: center"><?php echo $product_array[$key]["description"]; ?></td>
+      <td><?php echo $product_array[$key]["color"]; ?></td>
+      <td style="text-align: center"><?php echo $product_array[$key]["package"]; ?></td>
+      <td style="text-align: center"><?php echo $product_array[$key]["unit_measurement"];?></td>
+      <td style="text-align: center"><?php echo $product_array[$key]["abbre"];?></td>
+      <td style="text-align: center"><?php echo $product_array[$key]["quantity"];?>
          <input type="hidden" id="qty2_<?php echo $product_array[$key]["code"]; ?>"  name="quantity2" value="<?php echo $product_array[$key]["quantity"]; ?>"/>
 
       </td>
-      <td><input type="text" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control qty" name="quantity3" value="1" size="1" style="text-align: center;"/></td>
-      <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add Item" class="btn btn-primary btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
+      <td ><input type="text" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control" name="quantity3" size="1" style="text-align: center" required/></td>
+      <td style="text-align: center"><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add Item" class="btn btn-primary btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
       </form>
       </tr>
     </div>
@@ -441,32 +301,41 @@ foreach($product_array as $key=>$value)
   ?> 
      </tbody>
   </table>
+  <br>
+      <script type="text/javascript">
+        $(document).ready(function(){
+    $('#tableko').DataTable({
+      "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
+    
+    });
+});
 
 
+    </script>
 
-                      </div><!-- /.box-body -->
-                    </div><!-- /.box -->
-                  </div><!-- /.col -->
-                </div>  <!-- /.row -->         
-                
+    </div>
+    </div>
 
-  
-                  </div> <!-- /.row --> 
-                </section><!-- right col -->
-                 
-                  <section class="content-header">
-                             
+</div>
 
-                  </section>
-                          <section class="content">
+</div>
+
+<div >
+
+<div>
+
+<br></br>
+
+<br></br>
+<section class="content">
 
 
-    <div class="row">
-    <div class="col-md-12 col-sm-8 col-sm-8">     
+<div class="row">
+<div class="col-md-12 col-sm-8 col-sm-8">     
 <div class="box box-solid">
-  <div class="box-body">
-    <div id="cart-item"></div>
-    <form method="post" action="pullout2.php?id=<?php echo ''.$_GET['id'].''?>&scname=<?php echo ''.$_GET['scname'].''?>&prepared=<?php echo ''.$_GET['prepared'].''?>">
+<div class="box-body">
+<div id="cart-item"></div>
+<form method="post" action="index.php?id=<?php echo ''.$_GET['id'].''?>&scname=<?php echo ''.$_GET['scname'].''?>&prepared=<?php echo ''.$_GET['prepared'].''?>">
 <?php
 $content3=mysql_query("select * from materialreq where req_no='".$_GET['scname']."'");
 $total3=@mysql_affected_rows();
@@ -495,13 +364,7 @@ else
   ?>
 
 <br>
-<script type="text/javascript">
-        $(document).ready(function(){
-    $('#tableko').DataTable({
-         "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
-    });
-});
-    </script>
+
 
 <?php
  $prep=mysql_real_escape_string($_GET['prepared']);
@@ -535,7 +398,7 @@ $content5=mysql_query("select *, max(material_no) as max from pullout_cart where
     if($row5['max']>=1)
 {
      mysql_query("UPDATE pullout_cart SET quantity='".$quantity_totals."' where pullout_no='".$_GET['id']."' and material_no='".$material_no."' ");
-    echo '<script type="text/javascript">alert("Materials '.$_GET['po_no'].' has been sssadded")</script>'; 
+    echo '<script type="text/javascript">alert("Materials '.$_GET['po_no'].' has been added")</script>'; 
 }
 else  
 {
@@ -583,7 +446,7 @@ else
 <div style="text-align: center; float: center;">
 <button type="button"  onclick="done()" class="btn btn-default">Go Back</button>
 <button type="button"  class="btn btn-danger"> <a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');" style="color: white;">Remove All</a></button>
-<button type="submit" name="btnAdd" class="btn btn-primary">Process</button>
+<button type="submit" name="btnAdd" id="btnAdd" class="btn btn-primary">Process Order</button>
 
      <?php
     $contents6=mysql_query("select max(pullout_no) as max from pullout_cart where pullout_no='".$_GET['id']."'");   
@@ -591,162 +454,99 @@ else
 
  if($rows6['max']>=1)
 {
-  echo'<button type="button"  onclick="print()" class="btn btn-success" disabled>Print</button>';
+  echo'<button type="button"  onclick="print()" class="btn btn-success">Print</button>';
 }
 else{
    echo'<button type="button"  onclick="print()" class="btn btn-success" disabled>Print</button>';
 }
 ?>
-</div>
+
     <script>
     function print() {
     window.open("pdf/tutorial/tuto12.php?pullout_no=<?php echo $_GET['id']?>&id=<?php echo $_GET['scname']?>&prepared=<?php echo $_GET['prepared']?>");
     }
     </script>
 </form>
- <br>
+
 <script>
 $(document).ready(function () {
   cartAction('','');
 })
 </script>
-
+<br>
 
     <script>
     function done() {
-    window.location.href="../purchase/index.php";
+    window.location.href="delivery1.php";
     }
     </script>
-    </div> <!-- /. col -->
-  </div> <!--/.box-body-->
-</div> <!-- /.box -->
-        
-    </div> <!-- /. row -->
+    
+</div>
+</div>
+<!--Input-->
 
-            </section><!-- right col -->
+<!--Card end div-->
+</div>
+<!--Card end div-->
 
+<!--card to right end-->
+</div>
+<!--card to right end-->
 
-            </div><!-- /.row (main row) -->
-          </section><!-- /.content -->
-          <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-              <b>Version</b> 3.0
-            </div>
-            <strong>Copyright &copy; 2016<?php if(date("Y")!=2015)echo" - ".date("Y")."";?></strong> All rights reserved.
-          </footer>        
-        </div><!-- /.content-wrapper -->
+<!--row class end-->
+</div>
+<!--row class-->
 
-      </div><!-- ./wrapper -->
-
-
-     
-  <script type="text/javascript">
-    function get_id(o) {
-      myRowIndex = $(o).parent().parent().index();
-      var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);    
-      var $modal = $('#editModal'),
-      $category_no1 = $modal.find('#category_no1');
-      $category_no1.val(getid);
-      $category_no1 = $modal.find('#category_no1');
-      $category_no1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);
-
-
-      $c_name1 = $modal.find('#c_name1');
-      $c_name1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[1].innerHTML);
-
-    }
-  </script>
-
-  <!-- jQuery 2.1.3 -->
-  <script src="../../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
-  <!-- <script src="jquery.js" ype="text/javascript"></script> -->
-
-  <!-- jQuery UI 1.11.2 -->
-  <script src="../../plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
-  <!-- Bootstrap 3.3.2 JS -->
-  <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
-
-  <script src="../../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-  <!-- Bootstrap WYSIHTML5 -->
-
-  <!-- mask -->
-  <script src="../../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-  <script src="../../plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
-
-  <!-- FastClick -->
-
-  <!-- AdminLTE App -->
-  <script src="../../dist/js/app.min.js" type="text/javascript"></script>
-  <!-- DataTables -->
-  <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-  <script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-  <script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
-
-  </html>
-  <script type="text/javascript">
+<!--Time-->
+<script type="text/javascript">
     $(document).ready(function(){
-      $('#jsontable').DataTable({
+      $('#tableko').DataTable({
         "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
 
       });
     });
-
-      $(document).ready(function(){
-      $('#jsontable1').DataTable({
-        "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
-
-      });
-    });
-  </script>
-  <script type="text/javascript">
-
-    $('.remove').click(function(){
-      swal({
-        title: "Are you sure want to remove this item?",
-        text: "You will not be able to recover this item",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Confirm",
-        cancelButtonText: "Cancel",
-        closeOnConfirm: false,
-        closeOnCancel: false
-      },
-      function(isConfirm) {
-        if (isConfirm) {
-          swal("Deleted!", "Your item deleted.", "success");
-        } else {
-          swal("Cancelled", "You Cancelled", "error");
-        }
-      });
-    });
-
-  </script>
-  <script>
-function myFunctions() {
-
- id = document.getElementById("quote_no").value;
-    if (confirm("Are you sure?") == true) {
-
-    } 
-    else {
-      return false;
-        //window.location.href="purchaseorder1.php";
-    }
-}
-
-
-</script>
-<script>
-$(document).ready(function () {
-  cartAction('','');
-})
-</script>
-
-<script>
-    function done() {
-    window.location.href="../pullout/index.php";
-    }
     </script>
+<script>
+ function setTime() {
+    var d = new Date(),
+      el = document.getElementById("time");
+
+      el.innerHTML = formatAMPM(d);
+
+    setTimeout(setTime, 1000);
+    }
+
+    function formatAMPM(date) {
+        var weekday = new Array(7);
+        weekday[0]=  "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+      var hours = date.getHours(),
+        minutes = date.getMinutes(),
+        seconds = date.getSeconds(),
+        months = date.getMonth(),
+        days = date.getDate(),
+        year = date.getFullYear(),
+        n = weekday[date.getDay()];
+        ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      months=months+1;
+    
+      var strTime = n + ' ' + months + '/' + days + '/' + year + '\n' + hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+      return strTime;
+    }
+
+    setTime();
+</script>
+  <?php include("../../maintenance/plugins.php"); ?>
+  <div class="se-pre-con"></div>
+  <script src="func.js" type="text/javascript"></script>
+
+</BODY>
+</HTML>

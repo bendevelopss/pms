@@ -33,6 +33,7 @@ $lastname2=$row['lastname'];
 $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
+$position=$row['position'];
 
 require_once("dbcontroller.php");
 $db_handle = new DBController();
@@ -51,23 +52,10 @@ $a= date("d/m/Y");
   <meta charset="UTF-8">
   <title>Material Cart</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-  <!-- Bootstrap 3.3.2 -->
-  <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
-  <!-- ionics -->   
-  <link href="../../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />  
-  <!-- FontAwesome 4.3.0 -->
-  <link href="../../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
-  <!-- Theme style -->
-  <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins 
-     folder instead of downloading all of them to reduce the load. -->
-     <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-     <!-- SweetAlert -->    
-     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
-     <!-- Date Picker -->
-     <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-     <!-- Daterange picker -->
-     <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+
+  <?php include("../../maintenance/plugins.php"); ?>
+  <div class="se-pre-con"></div>
+
  <script>
 function showEditBox(editobj,id) {
   $('#frmAdd').hide();
@@ -154,69 +142,48 @@ function cartAction(action,product_code) {
        </a>
        <!-- Logo -->
        <!-- Header Navbar: style can be found in header.less -->
-       <nav class="navbar navbar-static-top" role="navigation">
+  <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>      
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a class="label-primary" >
-                <!-- The user image in the navbar-->
+            
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+             
+               <?php include("../../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+               
 
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <?php
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' || $_SESSION['pos']=='Admin') )
-                {
-                  ?>
-                  <span class="hidden-xs" style="font-weight: bolder;"><?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?></span>
-                </a>
-                <?php
-              } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              ?>
-              <!--navbar-->
-
-              <?php
+                <?php include("../../maintenance/user_type.php"); ?>
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+         
+            <!-- User Account: style can be found in dropdown.less -->
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+      <?php
 if(isset($_GET['logout']))
 {
   mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
@@ -224,29 +191,7 @@ if(isset($_GET['logout']))
   echo "<meta http-equiv='refresh' content='0'>";
 }
 ?>
-            </li>
-            <li class="dropdown user user-menu" style="width: 80px; text-align: center;" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>
-              </a>
-
-              <ul class="dropdown-menu" style="width:10%;border-radius:5px" role="menu">
-               
-
-
-                <li style="margin-top: 10px"><a href="#"><i class="fa fa-gear"></i> Account Setting</a></li>
-
-                <li style="margin-top: 5px" class="form"><a href="?logout=true"><i class="fa fa-sign-in"></i><span>End Session</span></a>
-                </li>
-                <br>
-              </ul>
-            </li>     
-            <!-- User Account: style can be found in dropdown.less -->
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <?php include("aside.php") ?>
+    <?php include("../../maintenance/side_account.php"); ?>
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -281,24 +226,21 @@ $supp3=$row3['supp_name'];
 
         <!-- Small boxes (Stat box) -->
         <div class="row" >                                 
-          <div class="col-md-12 col-sm-8 col-xs-8">             <!-- NEW RECORD -->
-                <!-- <a href="addTax.php"><button class="btn btn-success btn-lg" style="margin-bottom:5px;
-                  box-shadow: 0px 4px 8px #888888"> 
-                + ADD NEW RECORD</button> </a> -->
+          <div class="col-md-12 col-sm-8 col-xs-8"> 
                 <div class="box-header with-border">
                 
                   <div class="col-sm-6" style="margin-bottom: 10px;">                        
                    <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
 
-                    <div class="col-xs-6" style="text-align: center;"> 
+                    <div class="col-xs-4" style="text-align: center;"> 
                       <label>P.O. ID:</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo ''.$_GET['po_no'].''; ?>" readonly>
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo ''.$_GET['po_no'].''; ?>" style="text-align: center;" readonly>
                       
                     </div>  
 
-                     <div class="col-xs-6" style="text-align: center;"> 
+                     <div class="col-xs-4" style="text-align: center;"> 
                       <label>Supplier:</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$supp3.''; ?>" readonly>
+                      <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$supp3.''; ?>" style="text-align: center;" readonly>
                       
                     </div>   
 
@@ -352,7 +294,7 @@ $supp3=$row3['supp_name'];
 
                   </div><!-- /.box-header -->
                   <div class="box-body">
-                    <table id="jsontable" class="table table-condensed table-striped table-hover" style="font-size: 0.8em;">
+                    <table id="jsontable" class="table table-condensed table-striped table-hover" style="font-size: 1em;">
                       <thead>
 
                         <tr>
@@ -404,7 +346,7 @@ foreach($product_array as $key=>$value)
       <td><?php echo $product_array[$key]["package"]; ?></td>
       <td><?php echo $product_array[$key]["unit_measurement"];?></strong></td>
       <td><?php echo $product_array[$key]["abbre"];?></td>
-      <td><input type="text" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control" name="quantity" value="1" size="2" /></td>
+      <td><input type="text" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control" name="quantity" value="" size="2" /></td>
       <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add Item" class="btn btn-primary btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
       </form>
       </tr>
@@ -428,11 +370,7 @@ foreach($product_array as $key=>$value)
   
                   </div> <!-- /.row --> 
                 </section><!-- right col -->
-                 
-                  <section class="content-header">
-                             
-
-                  </section>
+           
                           <section class="content">
 
 
@@ -476,7 +414,7 @@ else
 </thead>
 <tbody>
  <div class="col-lg-12 col-xs-12"> 
-       <div class="alert alert-xs  bg-teal alert-dismissable" style="width:85%; float: center;" >
+       <div class="alert alert-xs  bg-teal alert-dismissable" style="width:100%; float: center;" >
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <label><i class="icon fa fa-check"></i> Order has been Added!</label>
                
@@ -551,7 +489,7 @@ else
     if($row5['max']>=1)
 {
      mysql_query("UPDATE purchase_cart SET quantity='".$quantity_total."' where po_no='".$_GET['po_no']."' and material_no='".$material_no."' ");
-    echo '<script type="text/javascript">alert("Materials '.$_GET['po_no'].' has been sssadded")</script>'; 
+   
 }
 else  
 {
@@ -588,8 +526,8 @@ else
     }
     </script>
     <div style="text-align: center; float: center">
-<button type="button"  onclick="done()" class="btn btn-default">Go Back</button>
-<button type="button"  class="btn btn-danger"> <a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');" style="color: white;">Remove All</a></button>
+<button type="button"  onclick="done();" class="btn btn-default">Go Back</button>
+<button type="button"  class="btn btn-danger"> <a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');" style="color: white;"><span class="fa fa-trash"></span></a></button>
 <button type="submit" name="btnAdd" class="btn btn-primary">Add</button>
 </div>
 </form>
@@ -646,32 +584,7 @@ $(document).ready(function () {
     }
   </script>
 
-  <!-- jQuery 2.1.3 -->
-  <script src="../../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
-  <!-- <script src="jquery.js" ype="text/javascript"></script> -->
 
-  <!-- jQuery UI 1.11.2 -->
-  <script src="../../plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
-  <!-- Bootstrap 3.3.2 JS -->
-  <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
-
-  <script src="../../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-  <!-- Bootstrap WYSIHTML5 -->
-
-  <!-- mask -->
-  <script src="../../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-  <script src="../../plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
-
-  <!-- FastClick -->
-
-  <!-- AdminLTE App -->
-  <script src="../../dist/js/app.min.js" type="text/javascript"></script>
-  <!-- DataTables -->
-  <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-  <script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-  <script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
 
   </html>
   <script type="text/javascript">

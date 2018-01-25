@@ -1,42 +1,42 @@
 <?php
 session_start();
-require_once("DBcontroller.php");
+require_once("dbcontroller.php");
 $db_handle = new DBController();
 
 if(!empty($_POST["action"])) {
 switch($_POST["action"]) {
   case "add":
     if(!empty($_POST["quantity"]) && !empty($_POST["po_no"])) {
-      echo' <h3> List of Deliveries</h3>';
-           $productByCode = $db_handle->runQuery("SELECT * FROM purchase_cart WHERE code='" . $_POST["code"] . "' and po_no='" . $_POST["po_no"] . "' ORDER BY material_no ASC ");
-      $itemArray = array($productByCode[0]["code"]=>array('material_no'=>$productByCode[0]["material_no"], 'code'=>$productByCode[0]["code"],  'category'=>$productByCode[0]["category"], 'scategory_name'=>$productByCode[0]["scategory_name"], 'brand_name'=>$productByCode[0]["brand_name"], 'description'=>$productByCode[0]["description"], 'color'=>$productByCode[0]["color"], 'package'=>$productByCode[0]["package"], 'unit_measurement'=>$productByCode[0]["unit_measurement"], 'abbre'=>$productByCode[0]["abbre"], 'quantitys'=>$productByCode[0]["quantity"], 'quantity'=>$_POST["quantity"]));
+      echo "<h3>List of Available Items</h3>";
+           $productByCode = $db_handle->runQuery("SELECT * FROM quotation_cart WHERE code='" . $_POST["code"] . "' and quote_no='" . $_POST["po_no"] . "' ORDER BY material_no ASC ");
+      $itemArray = array($productByCode[0]["code"]=>array('material_no'=>$productByCode[0]["material_no"], 'code'=>$productByCode[0]["code"],  'category'=>$productByCode[0]["category"], 'scategory_name'=>$productByCode[0]["scategory_name"], 'brand_name'=>$productByCode[0]["brand_name"], 'description'=>$productByCode[0]["description"], 'color'=>$productByCode[0]["color"], 'package'=>$productByCode[0]["package"], 'unit_measurement'=>$productByCode[0]["unit_measurement"],'quantitys'=>$productByCode[0]["quantity"], 'quantity'=>$_POST["quantity"],'abbre'=>$productByCode[0]["abbre"]));
 
-      if(!empty($_SESSION["cart_itemd"])) {
-        if(in_array($productByCode[0]["code"],$_SESSION["cart_itemd"])) {
-          foreach($_SESSION["cart_itemd"] as $k => $v) {
+      if(!empty($_SESSION["cart_itemmq"])) {
+        if(in_array($productByCode[0]["code"],$_SESSION["cart_itemmq"])) {
+          foreach($_SESSION["cart_itemmq"] as $k => $v) {
               if($productByCode[0]["code"] == $k)
-                $_SESSION["cart_itemd"][$k]["quantity"] = $_POST["quantity"];
+                $_SESSION["cart_itemmq"][$k]["quantity"] = $_POST["quantity"];
           }
         } else {
-          $_SESSION["cart_itemd"] = array_merge($_SESSION["cart_itemd"],$itemArray);
+          $_SESSION["cart_itemmq"] = array_merge($_SESSION["cart_itemmq"],$itemArray);
         }
       } else {
-        $_SESSION["cart_itemd"] = $itemArray;
+        $_SESSION["cart_itemmq"] = $itemArray;
       }
     }
   break;
   case "remove":
-    if(!empty($_SESSION["cart_itemd"])) {
-      foreach($_SESSION["cart_itemd"] as $k => $v) {
+    if(!empty($_SESSION["cart_itemmq"])) {
+      foreach($_SESSION["cart_itemmq"] as $k => $v) {
           if($_POST["code"] == $k)
-            unset($_SESSION["cart_itemd"][$k]);
-          if(empty($_SESSION["cart_itemd"]))
-            unset($_SESSION["cart_itemd"]);
+            unset($_SESSION["cart_itemmq"][$k]);
+          if(empty($_SESSION["cart_itemmq"]))
+            unset($_SESSION["cart_itemmq"]);
       }
     }
   break;
   case "empty":
-    unset($_SESSION["cart_itemd"]);
+    unset($_SESSION["cart_itemmq"]);
   break;    
 }
 }
@@ -88,19 +88,19 @@ if(isset($_SESSION["cart_itemmq"])){
     $item_total = 0;
 ?>  
 <div class="container" style="width:100%; margin-left: 0px; margin-top:0px;">
-<table class="table table-condensed table-striped table-hover" id="jsontable1" name="jsontable1" style="font-size: 0.9em;">
+<table class="table table-condensed table-striped table-hover" id="tableko" name="tableko" style="font-size: 0.9em;">
 <thead>
-<tr>
-<th><strong>Brand</strong></th>
-<th><strong>Category</strong></th>
-<th><strong>Sub-Category</strong></th>
-<th><strong>Description</strong></th>
-<th><strong>Color</strong></th>
-<th><strong>Package</strong></th>
-<th><strong>Measurement</strong></th>
-<th><strong>Abbreviation</strong></th>
-<th><strong>Quantity</strong></th>
-<th><strong>Action</strong></th>
+<tr class="w3-green">
+<th>Brand</th>
+<th>Category</th>
+<th>Sub-Category</th>
+<th>Description</th>
+<th>Color</th>
+<th>Package</th>
+<th>Measurement</th>
+<th>Abbreviation</th>
+<th>Quantity</th>
+<th>Action</th>
 </tr> 
 </thead>
 <tbody>
@@ -121,16 +121,16 @@ if(isset($_SESSION["cart_itemmq"])){
        $quantity = $item["quantity"];
        ?>
         <tr>
-        <td><strong><?php echo $brand_name; ?></strong></td>
-        <td><strong><?php echo $category; ?></strong></td>
-        <td><strong><?php echo $scategory_name; ?></strong></td>
-        <td><strong><?php echo $description; ?></strong></td>
-        <td><strong><?php echo $color; ?></strong></td>
-        <td><strong><?php echo $package; ?></strong></td>
-        <td><strong><?php echo $unit_measurement; ?></strong></td>
-        <td><strong><?php echo $abbre; ?></strong></td>
-        <td><strong><?php echo $quantity; ?></strong></td>
-        <td><button type="button" onClick="cartAction('remove','<?php echo $item["code"]; ?>')" class="btnRemoveAction cart-action"><span class="fa fa-trash"></span></button></td>
+        <td><?php echo $brand_name; ?></td>
+        <td><?php echo $category; ?></td>
+        <td><?php echo $scategory_name; ?></td>
+        <td><?php echo $description; ?></td>
+        <td><?php echo $color; ?></td>
+        <td><?php echo $package; ?></td>
+        <td><?php echo $unit_measurement; ?></td>
+        <td><?php echo $abbre; ?></td>
+        <td><?php echo $quantity; ?></td>
+        <td><button type="button" onClick="cartAction('remove','<?php echo $item["code"]; ?>')" class="btn btn-danger btnRemoveAction cart-action"><span class="fa fa-trash"></span></button></td>
         </tr>
         <?php
 
@@ -140,11 +140,11 @@ if(isset($_SESSION["cart_itemmq"])){
 
 </tbody>
 </table>  
-
+<br>
 </div> 
 <script type="text/javascript">
         $(document).ready(function(){
-    $('#jsontable1').DataTable({
+    $('#tableko').DataTable({
          "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
     });
 });
@@ -152,16 +152,3 @@ if(isset($_SESSION["cart_itemmq"])){
   <?php
 }
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-

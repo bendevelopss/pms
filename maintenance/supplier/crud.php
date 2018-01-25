@@ -1,3 +1,4 @@
+ <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />    
 <?php
 $content1=mysql_query("select max(supplier_no) as max from supplier");
 $total1=@mysql_affected_rows();

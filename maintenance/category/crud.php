@@ -1,3 +1,4 @@
+<link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
 <?php
 $content1=mysql_query("SELECT max(category_no) as max from category");
 $total1=@mysql_affected_rows();
@@ -26,7 +27,9 @@ echo'<input type="hidden" id="dup" value="'.$category_name.'"/>';
 if(isset($_POST['btnAdd']) && !empty($cname) && $category_name==$desc1)
 
 {
- echo '<script type="text/javascript">alert("Duplicate category is not allowed")</script>'; 
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Error!","Duplicate category is not allowed","error");';
+        echo '},);</script>';
 
 }
 

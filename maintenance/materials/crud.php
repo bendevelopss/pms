@@ -61,8 +61,19 @@ if(isset($_POST['btnAdd']))
 {
 include("../include/connect.php");
 
-                     
-$sql="INSERT into materials (code,category, scategory_name,description, brand_name, color, package, unit_measurement, abbre, price, status ) 
+                          
+                         
+                         
+                         
+                          $lid=$pre.''.$pos;
+                          $pos2++;
+                          $lid2=$pre2.''.$pos2;
+
+                      
+
+
+
+$sql="INSERT into materials (material_no,code,category, scategory_name,description, brand_name, color, package, unit_measurement, abbre, price, status ) 
   values('". $hell2."','". $cname."','".$scname."', '".$desc."','".$brand."'  ,'".$color."', '".$pack."','".$unitname."', '".$abbrev."', '".$pricing."', '".$status."')";
   
    $result = $dbLink->query($sql);
@@ -115,3 +126,60 @@ $sql="INSERT into materials (code,category, scategory_name,description, brand_na
 
 
 ?>
+<script>
+function myFunctionss() {
+
+var  pri1, text, unitname1, cname1, scname1;
+ 
+ price1 = document.getElementById("price1").value;
+ unitname1= document.getElementById("unitname1").value;
+cname1= document.getElementById("cname1").value;
+scname1= document.getElementById("scname1").value;
+
+  if (price1<= -1) 
+    {
+        alert("Negative price is not allowed");
+        return false;
+    } 
+
+
+else if (cname1 == '') {
+
+alert("Category is a required filled");
+        return false;
+
+
+}
+else if (scname1 == '') {
+
+alert("Subcategory is a required filled");
+        return false;
+
+
+}
+else if (price1 == '') {
+
+alert("Price is a required filled");
+        return false;
+
+
+}
+
+else if (unitname1.match(/[a-zA-Z]/g)) 
+    {
+        alert("Measurement must not be alphabetical");
+        return false;
+    } 
+
+    else
+      
+ {
+        text = "Input OK";
+
+    }
+    document.getElementById("demo").innerHTML = text;
+
+
+
+  }
+</script>

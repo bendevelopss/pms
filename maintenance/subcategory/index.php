@@ -33,7 +33,7 @@ $lastname2=$row1['lastname'];
 $contact2=$row1['contact'];
 $city2=$row1['city'];
 $street2=$row1['street'];
-
+$position=$row1['position'];
 
 $a= date("Y-m-d");
 
@@ -46,23 +46,8 @@ $a= date("Y-m-d");
     <meta charset="UTF-8">
     <title>Subcategory</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- Bootstrap 3.3.2 -->
-    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
-    <!-- ionics -->   
-    <link href="../../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />  
-    <!-- FontAwesome 4.3.0 -->
-    <link href="../../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
-    <!-- Theme style -->
-    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins 
-         folder instead of downloading all of them to reduce the load. -->
-    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-    <!-- SweetAlert -->    
-    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
-    <!-- Date Picker -->
-    <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-    <!-- Daterange picker -->
-    <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+  <?php include("../../maintenance/plugins.php"); ?>
+  <div class="se-pre-con"></div>
    
     
   </head>
@@ -80,101 +65,52 @@ $a= date("Y-m-d");
      </a>
     <!-- Logo -->
         <!-- Header Navbar: style can be found in header.less -->
-         <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>      
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a class="label-primary" >
-                <!-- The user image in the navbar-->
+            
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+             
+               <?php include("../../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+               
 
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <?php
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' || $_SESSION['pos']=='Admin') )
-                {
-                  ?>
-                  <span class="hidden-xs" style="font-weight: bolder;"><?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?></span>
-                </a>
-                <?php
-              } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              ?>
-              <!--navbar-->
-
-              <?php
-              if(isset($_GET['logout']))
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo "<meta http-equiv='refresh' content='0'>";
-              }
-              ?>  
-            </li>
-            <li class="dropdown user user-menu" style="width: 80px; text-align: center;" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>
-              </a>
-
-              <ul class="dropdown-menu" style="width:10%;border-radius:5px">
-                <li style="text-align:center"> 
-                  <small style="font-size:0.8em"><?php echo ucfirst($usertype); ?></small>
-                </li>
-
-
-                <li><a href="#"><i class="fa fa-gear"></i> Account Setting</a></li>
-
-                <li><a href="?logout=true"> <i class="fa fa-sign-in"></i><span>Log-out</span></a>
-                </li>
-                <br>
-              </ul>
-            </li>     
+                <p>
+                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
+                  <br>
+                  <label><?php echo ''.ucfirst($position).''; ?></label>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+         
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
       </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
-<?php include("aside.php") ?>
+<?php include("../../maintenance/side.php") ?>
 
 
       <!-- Right side column. Contains the navbar and content of the page -->
@@ -238,7 +174,7 @@ $a= date("Y-m-d");
                               </div>
                           </div>
                       </div>
-<?php include("crud.php") ?>
+            <?php include("crud.php") ?>
   
                  
 
@@ -354,22 +290,17 @@ echo'
                             <div class="modal-content" >
                                 <div class="modal-header">
                                     <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title"> <i class="ion-android-person"></i> Subcategory Form </h4>
+                                    <h4 class="modal-title"> <i class="ion-android-person"></i> Subategory Form </h4>
                                 </div>          
                                 <div class="modal-body" >
-<!-- ------------------------------------------------------------------------------------------- -->
 
- 
-
-                                
-<!-- ------------------------------------------------------------------------------------------- -->
                      
                                   <div class="row" style="margin-bottom:5px"> <!-- ROW 2-->
 
                                     <div class="col-xs-4" id="empnameErDv"> 
                                       <label><font color="darkred">*</font>Category</label> 
-                                      <select name="cname" id="cname" class="form-control"></p>
-                                        <option value="">Select Category</option>
+                                      <select name="cname" id="cname" class="form-control" required></p>
+                                        <option value="">--Select Category--</option>
                                       <?php
               $content1=mysql_query("SELECT * from category where status='Active'");
               $total1=@mysql_affected_rows();
@@ -387,24 +318,20 @@ echo'
                                     
                                     <div class="col-xs-6" id="addErDv"> 
                                       <label><font color="darkred">*</font>Subcategory Name</label> <!-- Prod_Name -->
-                                     <input type="text" class="form-control" name="txtname" id="textbox_A">
+                                     <input type="text" class="form-control" name="txtname" id="textbox_A" required>
                                     </div>           
 
                                                  
   
                                   </div> <!-- /.row -->   
-<!-- ------------------------------------------------------------------------------------------- <-->                               
-<!-- ------------------------------------------------------------------------------------------- -->
-                     
-                                
-<!-- ------------------------------------------------------------------------------------------- -->
+
 
 
                                   </form>
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade" onclick="return confirm('Are you sure?');"><i class="fa fa-send"></i> SAVE</button>  
+                                    <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>  
                                                                   
                                 </div>
                                 
@@ -424,7 +351,7 @@ echo'
                             <div class="modal-content" >
                                 <div class="modal-header">
                                     <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title"> <i class="ion-android-person"></i> Edit Category Form </h4>
+                                    <h4 class="modal-title"> <i class="ion-android-person"></i> Edit Subcategory Form </h4>
                                 </div>          
                                 <div class="modal-body" >
                                 
@@ -462,32 +389,7 @@ echo'
           
         }
     </script>
-    <!-- jQuery 2.1.3 -->
-    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
-    <!-- <script src="jquery.js" ype="text/javascript"></script> -->
 
-    <!-- jQuery UI 1.11.2 -->
-    <script src="../../plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
-
-    <script src="../../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    
-    <!-- mask -->
-    <script src="../../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-    <script src="../../plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
-   
-    <!-- FastClick -->
-    
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
-      <!-- DataTables -->
-    <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-    <script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
    
 </html>
   <script type="text/javascript">
@@ -498,27 +400,3 @@ echo'
     });
 });
     </script>
-<script type="text/javascript">
-
-    $('.remove').click(function(){
-      swal({
-          title: "Are you sure want to remove this item?",
-          text: "You will not be able to recover this item",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonClass: "btn-danger",
-          confirmButtonText: "Confirm",
-          cancelButtonText: "Cancel",
-          closeOnConfirm: false,
-          closeOnCancel: false
-        },
-        function(isConfirm) {
-          if (isConfirm) {
-            swal("Deleted!", "Your item deleted.", "success");
-          } else {
-            swal("Cancelled", "You Cancelled", "error");
-          }
-      });
-    });
-
-</script>

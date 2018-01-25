@@ -33,7 +33,7 @@ $lastname2=$row1['lastname'];
 $contact2=$row1['contact'];
 $city2=$row1['city'];
 $street2=$row1['street'];
-
+$position=$row1['position'];
 
 $a= date("Y-m-d");
 
@@ -46,23 +46,8 @@ $a= date("Y-m-d");
   <meta charset="UTF-8">
   <title>Supplier</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-  <!-- Bootstrap 3.3.2 -->
-  <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
-  <!-- ionics -->   
-  <link href="../../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />  
-  <!-- FontAwesome 4.3.0 -->
-  <link href="../../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
-  <!-- Theme style -->
-  <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins 
-     folder instead of downloading all of them to reduce the load. -->
-     <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-     <!-- SweetAlert -->    
-     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
-     <!-- Date Picker -->
-     <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-     <!-- Daterange picker -->
-     <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+  <?php include("../../maintenance/plugins.php"); ?>
+  <div class="se-pre-con"></div>
 
 
    </head>
@@ -82,99 +67,50 @@ $a= date("Y-m-d");
      <!-- Header Navbar: style can be found in header.less -->
        <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>      
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a class="label-primary" >
-                <!-- The user image in the navbar-->
+            
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+             
+               <?php include("../../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+               
 
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <?php
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' || $_SESSION['pos']=='Admin') )
-                {
-                  ?>
-                  <span class="hidden-xs" style="font-weight: bolder;"><?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?></span>
-                </a>
-                <?php
-              } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              ?>
-              <!--navbar-->
-
-              <?php
-              if(isset($_GET['logout']))
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo "<meta http-equiv='refresh' content='0'>";
-              }
-              ?>  
-            </li>
-            <li class="dropdown user user-menu" style="width: 80px; text-align: center;" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>
-              </a>
-
-              <ul class="dropdown-menu" style="width:10%;border-radius:5px">
-                <li style="text-align:center"> 
-                  <small style="font-size:0.8em"><?php echo ucfirst($usertype); ?></small>
-                </li>
-
-
-                <li><a href="#"><i class="fa fa-gear"></i> Account Setting</a></li>
-
-                <li><a href="?logout=true"> <i class="fa fa-sign-in"></i><span>Log-out</span></a>
-                </li>
-                <br>
-              </ul>
-            </li>     
+                <p>
+                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
+                  <br>
+                  <label><?php echo ''.ucfirst($position).''; ?></label>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+         
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
       </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php include("aside.php") ?>
+  <?php include("../../maintenance/side.php"); ?>
 
 
   <!-- Right side column. Contains the navbar and content of the page -->
@@ -384,23 +320,23 @@ $a= date("Y-m-d");
 
                    <div class="row""><!-- ROW 1 -->
                     <h4 style="margin-top: -18px;">&nbsp;&nbsp;&nbsp;Company Information</h4>
-                    <input type="hidden" class="form-control" name="txtfirstname" id="firstname">
+                    <input type="hidden" class="form-control" name="txtfirstname" id="" required>
                   </div>
 
                   <div class="row" style="margin-bottom: 5px">
                     <div class="col-xs-4" id="empnameErDv"> 
                       <label><font color="darkred">*</font>Company Name</label> <!-- Prod_Name -->
-                      <input type="text" class="form-control" name="txtname" id="textbox_A">
+                      <input type="text" class="form-control" name="txtname" id="textbox_A" required>
                     </div>  
 
                     <div class="col-xs-4" id="empnameErDv"> 
                       <label><font color="darkred">*</font>Phone Number</label> <!-- Prod_Name -->
-                      <input type="text" class="form-control" name="txtphone" id="textbox_B">
+                      <input type="number" class="form-control" name="txtphone" id="textbox_B" required>
                     </div>     
 
                     <div class="col-xs-4" id="empnameErDv"> 
                       <label><font color="darkred">*</font>Fax Number</label> <!-- Prod_Name -->
-                      <input type="text" class="form-control" name="txtfax" id="textbox_C">
+                      <input type="number" class="form-control" name="txtfax" id="textbox_C" required>
                     </div>  
 
                   </div>
@@ -410,7 +346,7 @@ $a= date("Y-m-d");
                   
                     <div class="col-xs-4" id="phoneErDv"> 
                       <label><font color="darkred">*</font>Email Address</label> <!-- Prod_Name -->
-                      <input type="text" class="form-control" id="email" name="txtemail" >
+                      <input type="text" class="form-control" id="email" name="txtemail"  required>
                     </div>    
 
                    
@@ -439,7 +375,7 @@ $a= date("Y-m-d");
 
                     <div class="col-xs-4" id="addErDv"> 
                       <label><font color="darkred">*</font>First Name</label> <!-- Prod_Name -->
-                      <input type="text" class="form-control" id="firstname" name="txtfirstname">
+                      <input type="text" class="form-control" id="firstname" name="txtfirstname" required>
                     </div>           
 
                     <div class="col-xs-4" id="emailErDv"> 
@@ -449,7 +385,7 @@ $a= date("Y-m-d");
 
                      <div class="col-xs-4" id="addErDv"> 
                       <label><font color="darkred">*</font>Last Name </label> <!-- Prod_Name -->
-                      <input type="text" class="form-control" id="lastname" name="txtlastname">
+                      <input type="text" class="form-control" id="lastname" name="txtlastname" required>
                     </div> 
 
                     </div>
@@ -458,7 +394,7 @@ $a= date("Y-m-d");
 
                      <div class="col-xs-4" id="addErDv"> 
                       <label><font color="darkred">*</font>Contact Number</label> <!-- Prod_Name -->
-                      <input type="number" class="form-control" id="contact" name="txtcontact">
+                      <input type="number" class="form-control" id="contact" name="txtcontact" required>
                     </div>          
 
                   </div> <!-- /.row -->   
@@ -480,12 +416,12 @@ $a= date("Y-m-d");
 
                     <div class="col-xs-6" id="addErDv"> 
                       <label><font color="darkred">*</font>Street</label> <!-- Prod_Name -->
-                      <input type="text" class="form-control" id="street" name="txtstreet">
+                      <input type="text" class="form-control" id="street" name="txtstreet" required>
                     </div>           
 
                     <div class="col-xs-6" id="emailErDv"> 
                       <label>City</label> <!-- Prod_Name -->
-                      <input type="text" class="form-control" id="city" name="txtcity">
+                      <input type="text" class="form-control" id="city" name="txtcity" required>
                     </div>                
 
                   </div> <!-- /.row -->   
@@ -499,7 +435,7 @@ $a= date("Y-m-d");
 
               </div>
               <div class="modal-footer">
-                <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade" onclick="return confirm('Are you sure?');"><i class="fa fa-send"></i> SAVE</button>  
+                <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>  
 
               </div>
 
@@ -575,32 +511,7 @@ $a= date("Y-m-d");
           
         }
     </script>
-    <!-- jQuery 2.1.3 -->
-    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
-    <!-- <script src="jquery.js" ype="text/javascript"></script> -->
 
-    <!-- jQuery UI 1.11.2 -->
-    <script src="../../plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
-
-    <script src="../../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    
-    <!-- mask -->
-    <script src="../../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-    <script src="../../plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
-
-    <!-- FastClick -->
-    
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
-    <!-- DataTables -->
-    <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-    <script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
 
     </html>
     <script type="text/javascript">
@@ -635,3 +546,101 @@ $a= date("Y-m-d");
       });
 
     </script>
+    <script>
+function myFunction() {
+    var txtname,txtphone,txtemail,txtfirstname, txtmiddlename ,txtlastname, txtcontact, txtstreet, txtcity, textcontact1, txtfax;
+
+
+    txtname = document.getElementById("textbox_A").value;
+    txtphone = document.getElementById("textbox_B").value;
+    txtemail = document.getElementById("email").value;
+    txtfax = document.getElementById("textbox_C").value;
+    txtfirstname = document.getElementById("firstname").value;
+txtmiddlename = document.getElementById("middlename").value;
+    txtlastname = document.getElementById("lastname").value;
+    txtcontact = document.getElementById("contact").value;
+    txtcontact1 = document.getElementById("contact").value.length;
+    txtstreet = document.getElementById("street").value;
+    txtcity = document.getElementById("city").value;
+
+    if (txtname=='') 
+    {
+        alert("Company Name is a required field");
+        return false;
+    } 
+
+ else if (txtstreet=='') 
+    {
+        alert("Street is a required field");
+        return false;
+    } 
+    else if (txtcity=='') 
+    {
+        alert("City Address is a required field");
+        return false;
+    } 
+
+
+
+    else if (txtphone=='') 
+    {
+        alert("Phone is a required field");
+        return false;
+    } 
+    else if (txtemail=='') 
+    {
+        alert("Email Address is a required field");
+        return false;
+    } 
+     else if (txtfirstname=='') 
+    {
+        alert("First Name is a required field");
+        return false;
+    } 
+    
+     else if (txtlastname=='') 
+    {
+        alert("Last Name is a required field");
+        return false;
+    } 
+      else if (txtphone.match(/[a-zA-Z]/g)) 
+    {
+        alert("phone must not contain alphabet");
+        return false;
+    } 
+
+      else if (txtcontact.match(/[a-zA-Z]/g)) 
+    {
+        alert("contact number must not contain letters");
+        return false;
+    } 
+
+     else if (txtfax.match(/[a-zA-Z]/g)) 
+    {
+        alert("fax must not contain letters");
+        return false;
+    } 
+else if (txtlastname.match(/[0-9]/g)) 
+    {
+        alert("Last name must not be numerical");
+        return false;
+    } 
+    else if (txtfirstname.match(/[0-9]/g)) 
+    {
+        alert("First name must not be numerical");
+        return false;
+    } 
+
+ else if (txtmiddlename.match(/[0-9]/g)) 
+    {
+        alert("Middle name must not be numerical");
+        return false;
+    } 
+
+    
+    else 
+    {
+        text = "Input OK";
+    }
+}
+</script>

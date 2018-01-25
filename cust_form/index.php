@@ -12,14 +12,16 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-  header('Location: index.php');
+  header('Location: ../index.php');
 }
 
 $content2=mysql_query("SELECT * from customer where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
+$cont2=mysql_query("SELECT * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
 $total2=@mysql_affected_rows();
 
     
 $row1=mysql_fetch_array($content2);
+$row=mysql_fetch_array($cont2);
 
 $user2=$row1['username'];
 $pass2=$row1['password'];
@@ -34,21 +36,24 @@ $lastname2=$row1['lastname'];
 $contact2=$row1['contact'];
 $city2=$row1['city'];
 $street2=$row1['street'];
-
+$position=$row['position'];
 
 $a= date("Y-m-d");
 
 ?>
 
-<?php
-if(isset($_GET['logout']))
-{
-  mysql_query("UPDATE sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-  session_destroy();
-   echo '<script type="text/javascript">';
-        echo 'setTimeout(function () { swal("","You have ended your Session","success");';
-        echo '},);</script>';
-}
+ <?php
+              if(isset($_GET['logout']))
+              {
+                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
+                session_destroy();
+                 echo '<script type="text/javascript">window.location.href="../index.php";</script>';
+              }
+
+
+
+
+      
 
 $proj=$_POST['c_name1'];
 
@@ -100,28 +105,71 @@ $result = $dbLink->query($sql);
     <meta charset="UTF-8">
     <title>Customer</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- Bootstrap 3.3.2 -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
-    <!-- ionics -->   
-    <link href="../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />  
-    <!-- FontAwesome 4.3.0 -->
-    <link href="../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
-    <!-- Theme style -->
-    <link href="../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+
+  <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+  <!-- ionics -->   
+  <link href="../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />  
+  <!-- FontAwesome 4.3.0 -->
+  <link href="../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
+  <!-- Theme style -->
+  <link href="../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins 
-         folder instead of downloading all of them to reduce the load. -->
-    <link href="../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-    <!-- SweetAlert -->    
-    <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
-    <!-- Date Picker -->
-    <link href="../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-    <!-- Daterange picker -->
-    <link href="../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+     folder instead of downloading all of them to reduce the load. -->
+     <link href="../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+     <!-- SweetAlert -->    
+     <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
+     <!-- Date Picker -->
+     <link href="../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+     <!-- Daterange picker -->
+     <link href="../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+
+
+         <script src="../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
+    <!-- <script src="jquery.js" ype="text/javascript"></script> -->
+
+    <!-- jQuery UI 1.11.2 -->
+    <script src="../plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
+
+    <script src="../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+
+    <!-- mask -->
+    <script src="../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
+    <script src="../plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
+    
+    <!-- FastClick -->
+
+    <!-- AdminLTE App -->
+    <script src="../dist/js/app.min.js" type="text/javascript"></script>
+    <!-- DataTables -->
+    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+
+       <style type="text/css">
+    no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(../assets/img/Preloader_3.gif) center no-repeat #fff;
+}
+</style>
+  <div class="se-pre-con"></div>
    
     
   </head>
          
-<body class='skin-red'>
+<body class='skin-red fixed sidebar-collapse'>
     
       <header class="main-header">
         <!-- Logo --> 
@@ -134,36 +182,50 @@ $result = $dbLink->query($sql);
      </a>
     <!-- Logo -->
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>      
-          </a>
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                 
-                  <span class="hidden-xs"><?php echo"".ucfirst($username)."" ?></span>
-                </a>
-                  <ul class="dropdown-menu" style="width:10%;border-radius:5px">
-                    <li style="text-align:center"> 
-                      <small style="font-size:0.8em"><?php echo ucfirst($usertype); ?></small>
-                    </li>
-                      <li class="divider"></li>
-                    <?php if($usertype=="root"){ ?>                      
-                      <li><a href="../uc/uc.php"><i class="fa fa-gear"></i> User Accounts</a></li>
-                    <?php } ?>
-                      <li><a onclick="return logout()" href="../user/processlogout.php"> <i class="fa fa-sign-in"></i><span>Log-out</span></a>
-                      </li>
-                    <br>
-                  </ul>
-              </li>      
-              <!-- User Account: style can be found in dropdown.less -->
+           <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+           
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+            
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+              <span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Customer</font> <i class="fa fa-user fa-lg"></i></span>
+               <?php include("../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+               
+
+                <p>
+                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
+                  <br>
+                  <label>Customer</label>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div>
+                   <a href="account.php" class="pull-left btn btn-primary btn-flat btn-center"><i class="fa fa-gear"></i> Edit Account</a>
+                  <a href="?logout=true" class="pull-right btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+
+                </div>
+
+              </li>
             </ul>
-          </div>
-        </nav>
+          </li> 
+         
+            <!-- User Account: style can be found in dropdown.less -->
+          </ul>
+        </div>
+      </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
 <?php include("aside.php") ?>
@@ -212,26 +274,6 @@ $result = $dbLink->query($sql);
                        </div>                                        
                       </div>
 
-
-
-                  
-
-
-                      
-
-                      <div id="loading" class="modal fade">
-                          <div class="modal-dialog">
-                              <div class="overlay">
-                                  <div class="modal-body" style="text-align:center">
-                                    <div class="overlay">
-                                      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                      <i class="fa fa-spinner fa-pulse fa-spin"  
-                                      style="font-size:60px;"></i>
-                                    </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
 <?php include("crud.php") ?>
   
                  
@@ -240,7 +282,7 @@ $result = $dbLink->query($sql);
           <div class="col-lg-12 col-sm-12 col-xs-12">
               <div class="box box-solid">
                 <div class="box-header">
-                  <h3 class="box-title">Browse Customer's Project</h3>
+                  <h3 class="box-title">Browse Customer's Quotation</h3>
                   <div class="myData"></div>
 
                 </div><!-- /.box-header -->
@@ -274,7 +316,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-                      $sql = "SELECT * FROM quotation where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' and status='active'";
+                      $sql = "SELECT * FROM quotation where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."'";
       $result = $conn->query($sql);
     while($row = $result->fetch_assoc())
       { 
@@ -285,7 +327,7 @@ if ($conn->connect_error) {
                             echo'<td>'.ucfirst($row['project']).'</td>';
                                    echo'<td>'.ucfirst($row['date']).'</td>';
                                     echo'<td>'.ucfirst($row['prepared_by']).'</td>';
-                                    echo'<td>'.ucfirst($row['status']).'</td>';
+                                    echo'<td><label class="label label-primary">'.ucfirst($row['status']).'</label></td>';
                                    
 
 
@@ -341,7 +383,7 @@ if ($conn->connect_error) {
                             <div class="modal-content" >
                                 <div class="modal-header">
                                     <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title"> <i class="fa fa-tasks"></i> Add Project </h4>
+                                    <h4 class="modal-title"> <i class="fa fa-tasks"></i> Request Quotation </h4>
                                 </div>          
                                 <div class="modal-body" >
 <!-- ------------------------------------------------------------------------------------------- -->
@@ -354,14 +396,19 @@ if ($conn->connect_error) {
                                   <div class="row" style="margin-bottom:5px"> <!-- ROW 2-->
                                     
                                     <div class="col-xs-6" id="addErDv"> 
-                                      <label><font color="darkred">*</font>Project Name</label> <!-- Prod_Name -->
-                                     <input type="text" class="form-control" name="c_name1" id="c_name1">
-                                    </div>                   
+                                      <label><font color="darkred">*</font>Project Name</label> 
+                                     <input type="text" class="form-control" name="c_name1" id="c_name1" required="">
+                                    </div>   
+
+                                    <div class="col-xs-6" id="addErDv"> 
+                                      <label><font color="darkred">*</font>Description</label> 
+                                     <input type="text" class="form-control" name="desc" id="desc" required>
+                                    </div>                  
   
                                                                      
                                     <div class="col-xs-6" id="addErDv"> 
-                                      <label><font color="darkred">*</font>Address</label> <!-- Prod_Name -->
-                                     <input type="text" class="form-control" name="c_name2" id="c_name2">
+                                      <label><font color="darkred">*</font>Address</label> 
+                                     <input type="text" class="form-control" name="c_name2" id="c_name2" required>
                                     </div>           
 
                                                  
@@ -378,7 +425,7 @@ if ($conn->connect_error) {
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" id="req" name="req" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade" onclick="return confirm('Are you sure?');"><i class="fa fa-send"></i> REQUEST</button>  
+                                    <button type="submit" id="req" name="req" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> REQUEST</button>  
                                                                   
                                 </div>
                                 
@@ -403,8 +450,7 @@ if ($conn->connect_error) {
                                 <div class="modal-body" >
                                 
                                   
-                                  <?php include('update.php');
-?>
+                                  <?php include('update.php');?>
 
                                   </form>
                                 </div>
@@ -434,32 +480,7 @@ if ($conn->connect_error) {
           
         }
     </script>
-    <!-- jQuery 2.1.3 -->
-    <script src="../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
-    <!-- <script src="jquery.js" ype="text/javascript"></script> -->
 
-    <!-- jQuery UI 1.11.2 -->
-    <script src="../plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
-
-    <script src="../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    
-    <!-- mask -->
-    <script src="../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-    <script src="../plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
-   
-    <!-- FastClick -->
-    
-    <!-- AdminLTE App -->
-    <script src="../dist/js/app.min.js" type="text/javascript"></script>
-      <!-- DataTables -->
-    <link href="../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <script src="../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-    <script src="../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
    
 </html>
   <script type="text/javascript">
@@ -471,3 +492,12 @@ if ($conn->connect_error) {
 });
  
  </script>
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut("slow");;
+
+    });
+</script> 

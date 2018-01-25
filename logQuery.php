@@ -1,4 +1,4 @@
-<link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" /> 
+<script src="plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>   
 <?php
 ini_set('display-error',1);
 error_reporting(E_ALL&~E_NOTICE);
@@ -31,6 +31,7 @@ if(isset($_POST['login']) && $user!=$user2 && $pass!=$pass2)
   echo '<script type="text/javascript">';
   echo 'setTimeout(function () { swal("warning!","Invalid Username or Password","warning");';
   echo '},);</script>'; 
+  $_SESSION["counting"]=$_POST['count']+1;//tries
 
 }
 
@@ -45,7 +46,7 @@ if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='customer')
   header('Location: cust_form/index.php');
 
 }
-else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2)
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='admin' || $pos=='Admin')
 {
 
   $_SESSION['user']=$user;
@@ -53,13 +54,67 @@ else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2)
   $_SESSION['pos']=$pos;
 
   mysql_query("UPDATE sample set status='active' where user='".$user."' and pass='".$pass."' ");
-  header('Location: home/ongoing/index.php');
+  header('Location: home/ongoing/dashboard.php');
 
 }
 
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Stockman')
+{
 
+  $_SESSION['user']=$user;
+  $_SESSION['pass']=$pass;
+  $_SESSION['pos']=$pos;
 
+  mysql_query("UPDATE sample set status='active' where user='".$user."' and pass='".$pass."' ");
+   echo '<script type="text/javascript">window.location.href="transaction/purchase/index.php";</script>'; 
 
+}
+
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Accountant')
+{
+
+  $_SESSION['user']=$user;
+  $_SESSION['pass']=$pass;
+  $_SESSION['pos']=$pos;
+
+  mysql_query("UPDATE sample set status='active' where user='".$user."' and pass='".$pass."' ");
+   echo '<script type="text/javascript">window.location.href="transaction/payment/index.php";</script>'; 
+
+}
+
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Foreman')
+{
+
+  $_SESSION['user']=$user;
+  $_SESSION['pass']=$pass;
+  $_SESSION['pos']=$pos;
+
+  mysql_query("UPDATE sample set status='active' where user='".$user."' and pass='".$pass."' ");
+   echo '<script type="text/javascript">window.location.href="transaction/delivery/index.php";</script>'; 
+
+}
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Quantity Surveyor')
+{
+
+  $_SESSION['user']=$user;
+  $_SESSION['pass']=$pass;
+  $_SESSION['pos']=$pos;
+
+  mysql_query("UPDATE sample set status='active' where user='".$user."' and pass='".$pass."' ");
+   echo '<script type="text/javascript">window.location.href="transaction/quotation/index.php";</script>'; 
+
+}
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Secretary')
+{
+
+  $_SESSION['user']=$user;
+  $_SESSION['pass']=$pass;
+  $_SESSION['pos']=$pos;
+
+  mysql_query("UPDATE sample set status='active' where user='".$user."' and pass='".$pass."' ");
+   echo '<script type="text/javascript">window.location.href="transaction/billing/index.php";</script>'; 
+
+}
 
 
 if(isset($_POST['btnSave']))
@@ -109,12 +164,10 @@ if(isset($_POST['btnSave']))
   function myFunction() {
     var user,pass, text;
 
-    // Get the value of the input field with id="numb"
     user = document.getElementById("user").value;
     pass = document.getElementById("pass").value;
     pos = document.getElementById("pos").value;
 
-    // If x is Not a Number or less than one or greater than 10
     if (pass==''&& user=='') 
     { 
       clear();
@@ -140,16 +193,15 @@ if(isset($_POST['btnSave']))
     {
       text = "Input OK";
     }
-    document.getElementById("demo").innerHTML = text;
+   
   }
   function clear()
   {
-      //$('#uname').val('');
-     // $('#upass').val('');
-      //$('#branch').val('- Select Branch -');
+      
       $('#pass').val('');
       $('#user').val('');
-     // $('#branchDiv').removeClass('has-warning');
+      $('#user').focus();
+
    }
    
    function get_id(o) {
@@ -241,6 +293,6 @@ if(isset($_POST['btnSave']))
   {
     text = "Input OK";
   }
-  document.getElementById("demo").innerHTML = text;
+ 
 }
 </script>

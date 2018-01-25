@@ -60,6 +60,7 @@ switch($_POST["action"]) {
   <link rel="stylesheet" href="http://localhost/xampp/capstone/DataTables/css/jquery.dataTables.min.css">
   <script src="http://localhost/xampp/capstone/DataTables/js/jquery.dataTables.min.js"></script>
   <script src="http://localhost/xampp/capstone/DataTables/responsive/js/dataTables.responsive.min.js"></script>
+  
   <!--- datatables -->
   <style type="text/css">
 body
@@ -93,7 +94,7 @@ if(isset($_SESSION["cart_itempo"])){
     $item_total = 0;
 ?>  
 <div class="container" style="width:100%; margin-left: 0px; margin-top:0px;">
-<table class="table table-condensed table-striped table-hover" id="jsontable1" name="jsontable1" style="font-size: 0.8em;">
+<table class="table table-condensed table-striped table-hover" id="jsontable1" name="jsontable1" style="font-size: 1em;">
 <thead>
 <tr class="w3-green">
 <th>Brand</th>

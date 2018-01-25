@@ -1,3 +1,4 @@
+ <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />    
 <?php
 $content1=mysql_query("select max(position_no) as max from position");
 $total1=@mysql_affected_rows();
@@ -21,7 +22,9 @@ if(isset($_POST['btnAdd']) && !empty($pname) && $pname == $name)
 
 {
 
-  echo '<script type="text/javascript">alert("Duplicate position is not allowed")</script>'; 
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Error!","Duplicate position not allowed","error");';
+        echo '},);</script>';
 
 }
 
@@ -41,8 +44,9 @@ else if(isset($_POST['btnAdd']) && !empty($pname) && $pname != $name)
 
     mysql_query("insert into position (position_name,  status) values('".ucfirst($pname1)."','".$status."')");
     
-    echo '<script type="text/javascript">alert("Position has been added")</script>'; 
-    echo "<meta http-equiv='refresh' content='0'>";
+    echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","New Position Added!","success");';
+        echo '},);</script>';
   }
 
 
@@ -59,8 +63,9 @@ if(isset($_POST['btnSave']))
   $pos_name = $_POST['pos_name1'];
   
   mysql_query("UPDATE position SET position_name='".ucfirst($pos_name)."' WHERE position_no='".$pos_no."'");
-  echo "<script type='text/javascript'>alert('Update Successful!')</script>";
-  echo "<meta http-equiv='refresh' content='0'>";
+  echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","Position Updated","success");';
+        echo '},);</script>';
   
   
 }
@@ -79,8 +84,9 @@ if(isset($_POST['btnRemove'])) {
 mysql_query("update position set status='".$status."' 
   where position_no=".$nos);
   echo'<div class="bottom">';
-echo "<script type='text/javascript'>alert('Update Successful!')</script>";
-echo "<meta http-equiv='refresh' content='0'>";
+echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","Position Deleted","success");';
+        echo '},);</script>';
 
 
 }

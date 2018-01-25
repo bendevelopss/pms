@@ -1,4 +1,5 @@
-<?php
+ <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />    
+ <?php
 $content1=mysql_query("select max(unit_no) as max from unitmeasurement");
 $total1=@mysql_affected_rows();
 

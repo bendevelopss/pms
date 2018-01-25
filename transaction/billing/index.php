@@ -11,7 +11,7 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-  header('Location: login.php');
+  header('Location: ../../index.php');
 }
 
 $content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
@@ -34,6 +34,7 @@ $contact2=$row1['contact'];
 $city2=$row1['city'];
 $street2=$row1['street'];
 $b=''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.';
+$position=$row1['position'];
 
 $a= date("Y-m-d");
 
@@ -51,34 +52,21 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 ?>
 <!DOCTYPE html>
+  <?php include("../../maintenance/plugins.php"); ?>
+  <div class="se-pre-con"></div>
 <html>
 
 <head>
   <meta charset="UTF-8">
   <title>Billing</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-  <!-- Bootstrap 3.3.2 -->
-  <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
-  <!-- ionics -->   
-  <link href="../../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />  
-  <!-- FontAwesome 4.3.0 -->
-  <link href="../../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
-  <!-- Theme style -->
-  <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins 
-     folder instead of downloading all of them to reduce the load. -->
-     <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-     <!-- SweetAlert -->    
-     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
-     <!-- Date Picker -->
-     <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-     <!-- Daterange picker -->
-     <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+
 
 
    </head>
 
    <body class='skin-red fixed'>
+
     <?php
 
 
@@ -98,67 +86,45 @@ $conn = new mysqli($servername, $username, $password, $dbname);
        </a>
        <!-- Logo -->
        <!-- Header Navbar: style can be found in header.less -->
-       <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>      
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a class="label-primary" >
-                <!-- The user image in the navbar-->
+            
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+             
+               <?php include("../../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+               
 
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <?php
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' || $_SESSION['pos']=='Admin') )
-                {
-                  ?>
-                  <span class="hidden-xs" style="font-weight: bolder;"><?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?></span>
-                </a>
-                <?php
-              } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              ?>
-              <!--navbar-->
+               <?php include("../../maintenance/user_type.php"); ?>
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+         
+            <!-- User Account: style can be found in dropdown.less -->
+          </ul>
+        </div>
+      </nav>
 
               <?php
               if(isset($_GET['logout']))
@@ -167,36 +133,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                 session_destroy();
                 echo "<meta http-equiv='refresh' content='0'>";
               }
-
-
-
-
               ?>  
-            </li>
-            <li class="dropdown user user-menu" style="width: 80px; text-align: center;" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>
-              </a>
-
-              <ul class="dropdown-menu" style="width:10%;border-radius:5px">
-                <li style="text-align:center"> 
-                  <small style="font-size:0.8em"><?php echo ucfirst($usertype); ?></small>
-                </li>
-
-
-                <li><a href="#"><i class="fa fa-gear"></i> Account Setting</a></li>
-
-                <li><a href="?logout=true"> <i class="fa fa-sign-in"></i><span>Log-out</span></a>
-                </li>
-                <br>
-              </ul>
-            </li>     
-            <!-- User Account: style can be found in dropdown.less -->
-          </ul>
-        </div>
-      </nav>
+           
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <?php include("aside.php") ?>
+   <?php include("../../maintenance/side_account.php"); ?>
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -232,12 +173,12 @@ $conn = new mysqli($servername, $username, $password, $dbname);
       $topay=$_POST['totalamount'];
       $start=$_POST['startdate'];
       $end=$_POST['enddate'];
-
+      
 
       $status="Active";
 
 
-      $prep= mysql_real_escape_string($_GET['prepared']);
+      $prep= $row['prepared_by'];
 
 
 
@@ -252,8 +193,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
         mysql_query("insert into billing (customer, project,totalcost, balance, topay, datee, enddate, prepared, status ) 
           values('".$cust."','". $proj."','". $total."','".$total."', '".$topay."','".$a."' ,'".$end."', '".$prep."', '".$status."')");
 
-        echo '<script type="text/javascript">alert("It has been added")</script>'; 
-        echo "<meta http-equiv='refresh' content='0'>";
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","New Billing Added!","success");';
+        echo '},);</script>';
 
       }
 
@@ -284,12 +226,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
 
-        echo'<div class="bottom">';
-        echo'<div class="alert alert-success">
-        <strong>Success!</strong> Billing has been deleted 
-        </div></div>
-        ';
-        echo "<meta http-equiv='refresh' content='0'>";
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","Billing Deleted","success");';
+        echo '},);</script>';
 
 
       }
@@ -309,7 +248,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
 
-      $a= date("d/m/Y");
+      $a= date("m/d/Y");
 
 
 
@@ -336,15 +275,16 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
         if ($conn->query($sql) === TRUE) {
 
-          echo "<script type='text/javascript'>alert('Update Successful!')</script>";
-          echo "Record updated successfully";
+          echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","Billing Updated","success");';
+        echo '},);</script>';
         } else {
           echo "Error updating record: " . $conn->error;
         }
 
 
 
-        echo "<meta http-equiv='refresh' content='0'>";
+      
 
 
       }
@@ -365,19 +305,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                 + ADD NEW RECORD</button> </a> -->
                 <div class="box-header with-border">
 
-                  <div id="loading" class="modal fade">
-                    <div class="modal-dialog">
-                      <div class="overlay">
-                        <div class="modal-body" style="text-align:center">
-                          <div class="overlay">
-                            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                            <i class="fa fa-spinner fa-pulse fa-spin"  
-                            style="font-size:60px;"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+   
 
 
 
@@ -456,7 +384,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
                                   <td style="text-align:center"><button type="submit" name="btnRemove" value="<?php echo''.$billing_no.''; ?>" class="btn btn-primary btn btn-danger glyphicon glyphicon-remove btn-xs"  onclick="return confirm('Are you sure?');"></button>
                                     <?php
-                                    echo'<button type="button" name="btnEdit" id="bntEdit" value="'.$billing_no.'" data-toggle="modal" data-target="#myModal" class="btn btn-primary glyphicon glyphicon-pencil btn-xs center" onclick="get_id(this)" ></button>
+                                    echo'
 
 
                                     <button class="glyphicon glyphicon-print btn btn-success btn-xs" type="button" name="btnprint" id="btnprint" onclick="print(this)" value ="'.$billing_no.'" class="w3-btn"></button>
@@ -498,7 +426,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
                                 <div class="col-sm-2">
                                   <label >Customer:</label>
-                                  <select class="form-control" name="cname" id="cname" class="form-control" onChange="getState(this.value);" style="width:100%;"></p>
+                                  <select class="form-control" name="cname" id="cname" class="form-control" onChange="getState(this.value);" style="width:100%;" required></p>
                                     <option value="">--Select Customer--</option>
                                     <?php
                                     foreach($results as $country) {
@@ -514,7 +442,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
                                 <?php
-                                $a= date("d/m/Y");
+                                $a= date("m/d/Y");
                                 ?>
 
                                                 
@@ -528,7 +456,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                                       <div class="col-xs-2" id="addErDv"> 
                                       <label>Due Date:</label>
                                       
-                                        <input class="form-control" type="date" placeholder="TAX"  id="enddate" name="enddate" >
+                                        <input class="form-control" type="date" placeholder="TAX"  id="enddate" name="enddate" required>
 
                                       </div>
                                       </div>
@@ -537,14 +465,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                                          <div class="row" style="margin-bottom:5px; margin-left: 10px;"> <!-- ROW 2-->
                                      <div class="col-xs-2" id="addErDv"> 
                                   <label>Total Cost:</label>
-                                  <select name="scname" id="scname" class="form-control"  " >
+                                  <select name="scname" id="scname" class="form-control">
                                   </select>
 
                                 </div>
                                    <div class="row" style="margin-bottom:5px; margin-left: 10px;">
                                    <div class="col-xs-2" id="addErDv"> 
                                   <label  margin-top: 10px;">Amount to Pay:</label>
-                                  <input class="form-control" type="number" placeholder="Amount to Pay" id=totalamount name="totalamount">
+                                  <input class="form-control" type="number" placeholder="Amount to Pay" id=totalamount name="totalamount" required>
                                 </div>
                                  
 
@@ -691,7 +619,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
             function print(a) {
              myRowIndex = $(a).parent().parent().index();
              var getid=  (document.getElementById("jsontable").rows[($(a).parent().parent().index())+1].cells[0].innerHTML);
-             window.open("../../pdf/tutorial/tutobill.php?billing_no="+getid+"& customer=<?php echo ''.$customer.'';?>&totalcost=<?php echo ''.$totalcost.'';?>&topay=<?php echo ''.$topay.'';?>&datee=<?php echo ''.$datee.'';?>&enddate=<?php echo ''.$enddate.'';?>&prepare=<?php echo ''.$prepare.'';?>");
+             window.open("../../pdf/print/printbill.php?billing_no="+getid+"& customer=<?php echo ''.$customer.'';?>&totalcost=<?php echo ''.$totalcost.'';?>&topay=<?php echo ''.$topay.'';?>&datee=<?php echo ''.$datee.'';?>&enddate=<?php echo ''.$enddate.'';?>&prepare=<?php echo ''.$prepare.'';?>");
            }
          </script>
 
@@ -716,35 +644,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
             $end1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[5].innerHTML); 
           }
         </script>
-        <!-- jQuery 2.1.3 -->
-        <script src="../../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
-        <!-- <script src="jquery.js" ype="text/javascript"></script> -->
-
-        <!-- jQuery UI 1.11.2 -->
-        <script src="../../plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
-        <!-- Bootstrap 3.3.2 JS -->
-        <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
-
-        <script src="../../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-        <!-- Bootstrap WYSIHTML5 -->
-
-        <!-- mask -->
-        <script src="../../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-        <script src="../../plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
-
-        <!-- FastClick -->
-
-        <!-- AdminLTE App -->
-        <script src="../../dist/js/app.min.js" type="text/javascript"></script>
-        <!-- DataTables -->
-        <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-        <script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-        <script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
-
-
-
 
         <script>
           function myFunction() {

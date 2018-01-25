@@ -11,10 +11,19 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-  echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
+  echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
 }
 
 $content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
+$projno = mysql_query("SELECT project FROM  quotation where status='active' ");
+$projno = mysql_num_rows($projno);
+$userno = mysql_query("SELECT user FROM  sample");
+$userno = mysql_num_rows($userno);
+$inveno = mysql_query("SELECT material_no FROM  materials where status='Active' ");
+$inveno = mysql_num_rows($inveno);
+$custno = mysql_query("SELECT * FROM  sample where position='customer' ");
+$custno = mysql_num_rows($custno);
+
 $total2=@mysql_affected_rows();
 
 
@@ -29,10 +38,12 @@ $fax2=$row['fax'];
 $email2=$row['email'];
 $firstname2=$row['firstname'];
 $middlename2=$row['middlename'];
-$lastname2=$row['lastname'];
+$position=$row['position'];
 $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
+$lastname2=$row['lastname'];
+$position=$row['position'];
 
 
 $a= date("Y-m-d");
@@ -41,39 +52,27 @@ $a= date("Y-m-d");
 
 
 <!DOCTYPE html>
+  <?php include("../../maintenance/plugins.php"); ?>
+  <div class="se-pre-con"></div>
 <html>
 
 <head>
   <meta charset="UTF-8">
-  <title>Home</title>
+  <title>Projects</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
   <!-- Bootstrap 3.3.2 -->
-  <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
-  <!-- ionics -->   
-  <link href="../../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />  
-  <!-- FontAwesome 4.3.0 -->
-  <link href="../../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
-  <!-- Theme style -->
-  <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins 
-     folder instead of downloading all of them to reduce the load. -->
-     <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-     <!-- SweetAlert -->    
-     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
-     <!-- Date Picker -->
-     <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-     <!-- Daterange picker -->
-     <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
 
+     <link href="bar.css" rel="stylesheet" type="text/css" />
 
    </head>
 
    <body class='skin-red'>
+    
     <?php
 
 
 
-    $prepare= $_POST['prepared'];
+    $prepare= $_POST['prepared_by'];
     ?>
 
     <form action="" method="post" name="frm" id="frm">
@@ -96,93 +95,44 @@ $a= date("Y-m-d");
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a class="label-primary" >
-                <!-- The user image in the navbar-->
+            
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+             
+               <?php include("../../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+               
 
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <?php
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' || $_SESSION['pos']=='Admin') )
-                {
-                  ?>
-                  <span class="hidden-xs" style="font-weight: bolder;"><?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?></span>
-                </a>
-                <?php
-              } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              ?>
-              <!--navbar-->
-
-              <?php
-              if(isset($_GET['logout']))
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo "<meta http-equiv='refresh' content='0'>";
-              }
-              ?>  
-            </li>
-            <li class="dropdown user user-menu" style="width: 80px; text-align: center;" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>
-              </a>
-
-              <ul class="dropdown-menu" style="width:10%;border-radius:5px">
-                <li style="text-align:center"> 
-                  <small style="font-size:0.8em"><?php echo ucfirst($usertype); ?></small>
-                </li>
-
-
-                <li><a href="#"><i class="fa fa-gear"></i> Account Setting</a></li>
-
-                <li><a href="?logout=true"> <i class="fa fa-sign-in"></i><span>Log-out</span></a>
-                </li>
-                <br>
-              </ul>
-            </li>     
+                <p>
+                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
+                  <br>
+                  <label><?php echo ''.ucfirst($position).''; ?></label>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+         
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
       </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <?php include("aside.php") ?>
+    <?php include("../../maintenance/side.php") ?>
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -194,9 +144,9 @@ $a= date("Y-m-d");
           <small>Projects</small>
         </h1>                              
       </section>
-
+      
       <?php
-      $content1=mysql_query("SELECT max(delivery_no) as max from delivery");
+      $content1=mysql_query("SELECT max(quote_no) as max from quotation");
       $total1=@mysql_affected_rows();
 
 
@@ -214,7 +164,12 @@ $a= date("Y-m-d");
       <!-- Main content -->
       <section class="content">
         <!--Table function-->
-
+        <div class="row">
+         <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+         
+        <!-- ./col -->
+      </div>
 
         <!-- Small boxes (Stat box) -->
         <div class="row" >                                 
@@ -223,15 +178,6 @@ $a= date("Y-m-d");
                   box-shadow: 0px 4px 8px #888888"> 
                 + ADD NEW RECORD</button> </a> -->
                 <div class="box-header with-border">
-
-
-
-
-
-
-
-
-
 
                   <div id="loading" class="modal fade">
                     <div class="modal-dialog">
@@ -264,8 +210,8 @@ $a= date("Y-m-d");
                               <tr>
 
 
-                                <th>Customer</th>
                                 <th>Project</th>
+                                <th>Customer</th>
                                 <th>Date Started</th>
                                 <th>Due Date</th>
                                 <th>Address</th>
@@ -304,7 +250,7 @@ $a= date("Y-m-d");
                                 while($row = $result->fetch_assoc())
                                 { 
                                   echo'<tr>';
-                                  echo'<td><a href="quotstatus12.php?project='.ucfirst($row['project']).'&id='.$row['quote_no'].'" style="color:blue; ">'.ucfirst($row['project']).'</a></td>';
+                                  echo'<td><a class="form-control btn btn-primary" href="quotstatus12.php?project='.ucfirst($row['project']).'&id='.$row['quote_no'].'" style="color:white; ">'.ucfirst($row['project']).'</a></td>';
                                   echo'<td>'.$row['customer'].'</td>';
                                   echo'<td>'.$row['date'].'</td>';
                                   echo'<td>'.$row['due_date'].'</td>';
@@ -312,7 +258,8 @@ $a= date("Y-m-d");
                                   echo'<td>'.$row['phone'].'</td>';
                                   echo'<td>'.$row['email'].'</td>';
                                   echo'<td>'.$row['prepared_by'].'</td>';
-                                  echo'<td>'.$row['status'].'</td>';
+                                  echo'<td><span class="label label-primary">'.$row['status'].'</span></td>';
+                                  
 
                                 }
 
@@ -326,13 +273,11 @@ $a= date("Y-m-d");
 
                                ?> 
                              </form>
+                             </form>
 
-
-                             <script>
-                              function print(a) {
-                                window.open("../../pdf/tutorial/tutoinventory.php");
-                              }
-                            </script>
+                            <div style="text-align: center; float: center">
+<button type="button"  onclick="print()" class="btn btn-primary">Print</button></button>
+</div>
 
 
 
@@ -344,11 +289,13 @@ $a= date("Y-m-d");
                         </div><!-- /.box -->
                       </div><!-- /.col -->
                     </div>  <!-- /.row -->         
-
+                            
 
 
                   </div> <!-- /.row --> 
                 </section><!-- right col -->
+                </div>
+                
               </div><!-- /.row (main row) -->
             </section><!-- /.content -->
             <footer class="main-footer">
@@ -429,7 +376,7 @@ $a= date("Y-m-d");
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" name="btnSave" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>                                
+              <button type="submit" name="btnSave" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>                             
             </div>
 
           </div>
@@ -455,31 +402,7 @@ $a= date("Y-m-d");
       }
     </script>
     <!-- jQuery 2.1.3 -->
-    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
-    <!-- <script src="jquery.js" ype="text/javascript"></script> -->
 
-    <!-- jQuery UI 1.11.2 -->
-    <script src="../../plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
-
-    <script src="../../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-
-    <!-- mask -->
-    <script src="../../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-    <script src="../../plugins/sweetalert/sweetalert.min.js" type="text/javascript"></script>
-
-    <!-- FastClick -->
-
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
-    <!-- DataTables -->
-    <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-    <script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
 
     </html>
     <script type="text/javascript">
@@ -504,3 +427,8 @@ $a= date("Y-m-d");
 
 
   </script>
+   <script>
+    function print() {
+    window.open("../../pdf/print/printproject.php");
+    }
+    </script>
