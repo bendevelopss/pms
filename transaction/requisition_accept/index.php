@@ -14,7 +14,7 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-  echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
+  echo '<script type="text/javascript">window.location.href="index.php";</script>'; 
 }
 
 $content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
@@ -36,7 +36,6 @@ $lastname2=$row['lastname'];
 $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
-$position=$row['position'];
 
 require_once("dbcontroller.php");
 $db_handle = new DBController();
@@ -48,20 +47,7 @@ $a= date("d/m/Y");
 ?>
 <!DOCTYPE html>
 <html>
-<style type="text/css">
-    no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
-.se-pre-con {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background: url(../../assets/img/Preloader_3.gif) center no-repeat #fff;
-}
-</style>
-  <div class="se-pre-con"></div>
+
 <head>
   <meta charset="UTF-8">
   <title>Requisition</title>
@@ -83,8 +69,6 @@ $a= date("d/m/Y");
      <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
      <!-- Daterange picker -->
      <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
-      
-
 <script>
 function showEditBox(editobj,id) {
   $('#frmAdd').hide();
@@ -174,7 +158,7 @@ function cartAction(action,product_code) {
        </a>
        <!-- Logo -->
        <!-- Header Navbar: style can be found in header.less -->
-      <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>      
@@ -183,13 +167,26 @@ function cartAction(action,product_code) {
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
             
+                <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a class="label-primary" data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
+            
+          </li>
+
+
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
+
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
              
              
                <?php include("../../maintenance/nav.php"); ?>  
             </a>
+
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
@@ -213,15 +210,16 @@ function cartAction(action,product_code) {
           </ul>
         </div>
       </nav>
+
               <?php
-if(isset($_GET['logout']))
-{
-  mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-  session_destroy();
-  echo "<meta http-equiv='refresh' content='0'>";
-}
-?>
-          
+              if(isset($_GET['logout']))
+              {
+                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
+                session_destroy();
+                echo "<meta http-equiv='refresh' content='0'>";
+              }
+              ?>  
+           
     </header>
     <!-- Left side column. contains the logo and sidebar -->
     <?php include("../../maintenance/side_account.php") ?>
@@ -464,7 +462,7 @@ else
 {
   ?>
 <div class="container" style="width:100%; margin-left: 0px; margin-top:0px;">
-<table class="table-bordered w3-table w3-bordered w3-striped w3-border w3-hoverable" id="tableko" name="tableko" style="font-size: 0.9em;">
+<table class="table table-condensed table-striped table-hover" id="tableko" name="tableko" style="font-size: 1em;">
 <thead>
 <tr class="w3-green">
 <th><strong>No.</strong></th>
@@ -480,7 +478,12 @@ else
 </tr> 
 </thead>
 <tbody>
-<H1> RECENTLY ADDED </H1>
+ <div class="col-lg-12 col-xs-12"> 
+       <div class="alert alert-xs  bg-teal alert-dismissable" style="width:100%; float: center;" >
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <label><i class="icon fa fa-check"></i> Materials has been Added!</label>
+               
+              </div> 
 <br>
 <?php   
     foreach ($_SESSION["cart_itemmq"] as $item){
@@ -551,7 +554,7 @@ $content5=mysql_query("select *, max(material_no) as max from materialreq_cart w
     if($row5['max']>=1)
 {
      mysql_query("UPDATE materialreq_cart SET quantity='".$quantity_total."' where req_no='".$_GET['id']."' and material_no='".$material_no."' ");
-    echo '<script type="text/javascript">alert("Materials '.$_GET['po_no'].' has been sssadded")</script>'; 
+    echo '<script type="text/javascript">alert("Materials has been added")</script>'; 
 }
 else  
 {
@@ -562,8 +565,7 @@ else
    
   
     }
-    mysql_query("insert into materialreq (req_no,customer,project,date,requested_by,status) values ('".$_GET['id']."','".$cust."','".$project."','".$a."','".$order."','".$accepted."') ");
-     echo '<script type="text/javascript">alert("Materials has been added")</script>'; 
+
 
 
      ?>
@@ -718,11 +720,4 @@ oTable.api().ajax.reload();
 $(document).ready(function () {
   cartAction('','');
 })
-</script>
-<script type="text/javascript">
-    $(window).load(function() {
-        // Animate loader off screen
-        $(".se-pre-con").fadeOut("slow");
-
-    });
 </script>

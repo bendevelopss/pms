@@ -42,7 +42,7 @@ $db_handle = new DBController();
 
 
 
-$a= date("d/m/Y");
+$a= date("m-d-Y");
 
 ?>
 <!DOCTYPE html>
@@ -234,7 +234,7 @@ $supp3=$row3['supp_name'];
 
                     <div class="col-xs-4" style="text-align: center;"> 
                       <label>P.O. ID:</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo ''.$_GET['po_no'].''; ?>" style="text-align: center;" readonly>
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'PO-000'.$_GET['po_no'].''; ?>" style="text-align: center;" readonly>
                       
                     </div>  
 

@@ -44,17 +44,9 @@ switch($_POST["action"]) {
 <HTML>
 <HEAD>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="w3.css">
-<link rel="stylesheet" href="http://localhost/xampp/capstone/font-awesome-4.6.3/css/font-awesome.min.css">
-  <script src="jQuery/jQuery-2.1.3.min.js"></script>
-  <script src="bootstrap/js/bootstrap.min.js"></script>
-      <!--- datatables -->
-  <link rel="stylesheet" href="http://localhost/xampp/capstone/DataTables/responsive/css/responsive.dataTables.min.css">
-  <link rel="stylesheet" href="http://localhost/xampp/capstone/DataTables/css/jquery.dataTables.min.css">
-  <script src="http://localhost/xampp/capstone/DataTables/js/jquery.dataTables.min.js"></script>
-  <script src="http://localhost/xampp/capstone/DataTables/responsive/js/dataTables.responsive.min.js"></script>
+
   <!--- datatables -->
   <style type="text/css">
 body

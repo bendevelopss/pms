@@ -138,7 +138,7 @@ $a= date("Y-m-d");
 
 
 
-      $a= date("d/m/Y");
+      $a= date("m-d-Y");
 
       if(isset($_POST['btnDec']))
       {
@@ -171,14 +171,9 @@ $a= date("Y-m-d");
                       <label>Quotation ID</label> <!-- Prod_Name -->
           
 <input class="form-control" type="text" id="quote_no" name="quote_no" value="<?php  echo'QUOT' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" style="text-align: center;" readonly>
-                    </div>   
-
-                    <div class="col-xs-6" style="text-align: center;"> 
-                      <label>Person-In-Charge</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" id="prepared" name="prepared" value="<?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.ucfirst($middlename2[0]).'.'; ?>" style="text-align: center;" readonly>
                     </div>           
 
-                    <div class="col-xs-6" style="text-align: center; margin-top: 8px;"> 
+                    <div class="col-xs-6" style="text-align: center;"> 
                       <label>Date Requested</label> <!-- Prod_Name -->
                       <input class="form-control" type="text" name="date" value="<?php echo $a; ?> " style="text-align: center;" readonly>
                       

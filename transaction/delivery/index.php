@@ -36,7 +36,7 @@ $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
 
-$a= date("Y-m-d");
+$a= date("m-d-Y");
 
 ?>
 <!DOCTYPE html>
@@ -149,7 +149,7 @@ $hell=$noo+1;
 
 
 
-$a= date("d/m/Y");
+$a= date("m-d-Y");
 
 
 ?>
@@ -171,7 +171,7 @@ $a= date("d/m/Y");
 
                      <div class="col-xs-2" style="text-align: center;"> 
                       <label>Delivery ID</label> <!-- Prod_Name -->
-                       <input class="form-control" style="text-align: center;" type="text" id ="quote_no" name="quote_no" value="<?php  echo'DEL' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" readonly>
+                       <input class="form-control" style="text-align: center;" type="text" id ="quote_no" name="quote_no" value="<?php  echo'DEL-' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" readonly>
                     </div>   
 
                              
@@ -181,11 +181,7 @@ $a= date("d/m/Y");
                       <input class="form-control" type="text" style="text-align: center;" name="date" value="<?php echo $a; ?>" readonly>
                       
                     </div>  
-
-                     <div class="col-xs-2" style="text-align: center; float: right;"> 
-                      <label>Verified By</label> <!-- Prod_Name -->
-                       <input class="form-control" style="text-align: ; float: right;" type="text" id="prepared" name="prepared" value="<?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?>" readonly>
-                    </div>   
+ 
 
 
                 </div>          

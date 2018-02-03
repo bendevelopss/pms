@@ -35,7 +35,7 @@ $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
 
-$a= date("Y-m-d");
+$a= date("m-d-Y");
 
 ?>
 <!DOCTYPE html>
@@ -146,7 +146,7 @@ $hell=$noo+1;
 
 
 
-$a= date("d/m/Y");
+$a= date("m-d-Y");
 
 
 ?>
@@ -179,10 +179,6 @@ $a= date("d/m/Y");
                       
                     </div>  
 
-                    <div class="col-xs-2" style="text-align: center; float: right;">
-    <label>Ordered by</label>
-    <input class="form-control" type="text" style="text-align: center;" placeholder="Prepared by" id="prepared" name="prepared" value="<?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?>" readonly>
-  </div> 
 
 
                 </div>          

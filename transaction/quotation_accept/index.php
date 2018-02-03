@@ -49,7 +49,7 @@ $position=$row['position'];
 require_once("dbcontroller.php");
 $db_handle = new DBController();
 
-$a= date("Y-m-d");
+$a= date("m-d-Y");
 
 ?>
   <script>
@@ -322,12 +322,7 @@ $cust2=$row['customer'];
                       <label>Due Date:</label> <!-- Prod_Name -->
                       <input class="form-control" type="date" name="ddate" value="<?php echo $a; ?>" readonly style="text-align: center;">
                       
-                    </div>   
-
-                    <div class="col-xs-3" style="text-align: center;"> 
-                      <label>Customer:</label> <!-- Prod_Name -->
-                       <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$cust2.''; ?>" readonly style="text-align: center;">
-                    </div>           
+                    </div>            
 
                     <div class="col-xs-3" style="text-align: center;"> 
                       <label>Project Name:</label> <!-- Prod_Name -->

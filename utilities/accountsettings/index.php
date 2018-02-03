@@ -14,7 +14,7 @@ if($_SESSION['user']=='' && $_SESSION['pass']=='')
  echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
 }
 
-$content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
+$content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' and position='".$_SESSION['pos']."' ");
 $total2=@mysql_affected_rows();
 
 

@@ -36,7 +36,7 @@ $city2=$row['city'];
 $street2=$row['street'];
 
 
-$a= date("Y-m-d");
+$a= date("m-d-Y");
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +53,7 @@ $a= date("Y-m-d");
 
    </head>
 
-   <body class='skin-red'>
+   <body class='skin-red fixed'>
     <?php
 
 
@@ -73,101 +73,51 @@ $prepare= $_POST['prepared'];
        </a>
        <!-- Logo -->
        <!-- Header Navbar: style can be found in header.less -->
-       <nav class="navbar navbar-static-top" role="navigation">
+      <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>      
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown user user-menu">
-              <!-- Menu Toggle Button -->
-              <a class="label-primary" >
-                <!-- The user image in the navbar-->
+            
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+             
+               <?php include("../../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+               
 
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <?php
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' || $_SESSION['pos']=='Admin') )
-                {
-                  ?>
-                  <span class="hidden-xs" style="font-weight: bolder;"><?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?></span>
-                </a>
-                <?php
-              } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
-              {
+ <?php include("../../maintenance/user_type.php"); ?>  
 
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
-
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo '<script type="text/javascript">window.location.href="login.php";</script>'; 
-              }
-              ?>
-              <!--navbar-->
-
-              <?php
-              if(isset($_GET['logout']))
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                echo "<meta http-equiv='refresh' content='0'>";
-              }
-              ?>  
-            </li>
-            <li class="dropdown user user-menu" style="width: 80px; text-align: center;" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>
-              </a>
-
-              <ul class="dropdown-menu" style="width:10%;border-radius:5px">
-                <li style="text-align:center"> 
-                  <small style="font-size:0.8em"><?php echo ucfirst($usertype); ?></small>
-                </li>
-
-
-                <li><a href="#"><i class="fa fa-gear"></i> Account Setting</a></li>
-
-                <li><a href="?logout=true"> <i class="fa fa-sign-in"></i><span>Log-out</span></a>
-                </li>
-                <br>
-              </ul>
-            </li>     
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+         
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
       </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <?php include("../../maintenance/side_account.php") ?>
+    <?php include("../../maintenance/side_account.php"); ?>
+
+
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -192,7 +142,7 @@ $hell=$noo+1;
 
 
 
-$a= date("d/m/Y");
+$a= date("m-d-Y");
 
 
 ?>
@@ -214,7 +164,7 @@ $a= date("d/m/Y");
 
                      <div class="col-xs-2" style="text-align: center;"> 
                       <label>Pullout ID</label> <!-- Prod_Name -->
-                       <input class="form-control" type="text" style="text-align: center;" id ="quote_no" name="quote_no" value="<?php  echo'PULL' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" readonly style="text-align: center;">
+                       <input class="form-control" type="text" style="text-align: center;" id ="quote_no" name="quote_no" value="<?php  echo'PULL-' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" readonly style="text-align: center;">
                     </div>   
 
                              
@@ -224,11 +174,7 @@ $a= date("d/m/Y");
                       <input class="form-control" type="text" style="text-align: center;" name="date" value="<?php echo $a; ?>" readonly>
 
                     </div>
-
-                       <div class="col-xs-2" style="text-align: center; float: right;"> 
-                      <label>Verified By</label> <!-- Prod_Name -->
-                       <input class="form-control" type="text" style="text-align: center;" id="prepared" name="prepared" value="<?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?>" readonly>
-                    </div>   
+ 
                       
                     </div>  
 

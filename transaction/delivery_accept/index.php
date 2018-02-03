@@ -101,7 +101,7 @@ break;
 }
 
 
-$a= date("Y-m-d");
+$a= date("m-d-Y");
 
 ?>
 <!DOCTYPE html>

@@ -35,7 +35,7 @@ $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
 
-$a= date("Y-m-d");
+$a= date("m-d-Y");
 
 ?>
 <!DOCTYPE html>
@@ -79,7 +79,16 @@ $prepare= $_POST['prepared'];
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+
+                <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
             
+          </li>
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
@@ -147,7 +156,7 @@ $hell=$noo+1;
 
 
 
-$a= date("d/m/Y");
+$a= date("m-d-Y");
 
 
 ?>
@@ -169,7 +178,7 @@ $a= date("d/m/Y");
                       
                      <div class="col-xs-2" style="text-align: center;"> 
                       <label>Material Requisition ID</label> <!-- Prod_Name -->
-                       <input class="form-control" style="text-align: center;" type="text" name="quote_no" value="<?php  echo'MATREQ' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" readonly>
+                       <input class="form-control" style="text-align: center;" type="text" name="quote_no" value="<?php  echo'MATREQ-' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" readonly>
                     </div>   
 
                              
@@ -180,11 +189,7 @@ $a= date("d/m/Y");
                       
                     </div>  
 
-                    <div class="col-xs-2" style="text-align: center;"> 
-                      <label>Customer</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" style="text-align: center;" id="prepared" name="prepared" value="<?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?>" readonly>
-                      
-                    </div>  
+
 
                     
 
