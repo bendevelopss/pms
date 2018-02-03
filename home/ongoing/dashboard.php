@@ -76,7 +76,7 @@ $a= date("Y-m-d");
 
    </head>
 
-   <body class='skin-red'>
+   <body class='skin-red fixed'>
 
     <?php
 
@@ -105,7 +105,16 @@ $a= date("Y-m-d");
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+
+                <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
             
+          </li>            
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
@@ -117,12 +126,8 @@ $a= date("Y-m-d");
               <!-- The user image in the menu -->
               <li class="user-header">
                
+               <?php include("../../maintenance/user_type.php"); ?>  
 
-                <p>
-                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                  <br>
-                  <label><?php echo ''.ucfirst($position).''; ?></label>
-                </p>
               </li>
               <!-- Menu Body -->
               

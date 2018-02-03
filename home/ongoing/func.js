@@ -15,7 +15,7 @@ $(document).ready(function() {
       width++; 
       elem.style.width = width + '%'; 
       //document.getElementById("demo1").innerHTML = width * 1  + '%';
-       if(width<='100')
+       if(width=='100')
       {
       document.getElementById("demo1").innerHTML = "COMPLETE";
       elem.style.width= 100 +'%';
@@ -46,4 +46,3 @@ $(document).ready(function() {
     }
   }
 });
-

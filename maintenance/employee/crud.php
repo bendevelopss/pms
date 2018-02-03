@@ -74,6 +74,7 @@ mysql_query("INSERT into sample (user, pass, position , status, account_status )
                   
                     mysql_query("UPDATE employee SET firstname='".$fname."',middlename='".$mname."',lastname='".$lname."',position='".$position."', contact='".$contact."', email='".$email."', street='".$street."', city='".$city."', username='".$username."', password='".$password."' WHERE emp_no='".$emp_no."'");
                     
+                    
                     echo '<script type="text/javascript">';
                     echo 'setTimeout(function () { swal("Success!","Employee Updated!","success");';
                     echo '},);</script>';

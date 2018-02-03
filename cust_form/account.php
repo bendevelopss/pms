@@ -193,7 +193,7 @@ $result = $dbLink->query($sql);
        <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-            
+
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
@@ -203,7 +203,6 @@ $result = $dbLink->query($sql);
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
              
              
-              <span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Customer</font> <i class="fa fa-user fa-lg"></i></span>
                <?php include("../maintenance/nav.php"); ?>  
             </a>
             <ul class="dropdown-menu">
@@ -211,20 +210,15 @@ $result = $dbLink->query($sql);
               <li class="user-header">
                
 
-                <p>
-                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                  <br>
-                  <label><?php echo ''.ucfirst($position).''; ?></label>
-                </p>
+                 <?php include("../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
               
               <!-- Menu Footer-->
               <li class="user-footer">
                 
-                <div>
-                  <a href="?logout=true" class="pull-left btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
-                  <a href="index.php" class="pull-right btn btn-primary btn-flat btn-center">Request Quotation</a>
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
                 </div>
               </li>
             </ul>

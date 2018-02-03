@@ -33,7 +33,7 @@
 
 
 
-
+           <script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.js" type="text/javascript"></script>
          <script src="../../plugins/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
     <!-- <script src="jquery.js" ype="text/javascript"></script> -->
 

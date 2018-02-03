@@ -193,7 +193,7 @@ $result = $dbLink->query($sql);
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
              
-              <span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Customer</font> <i class="fa fa-user fa-lg"></i></span>
+              
                <?php include("../maintenance/nav.php"); ?>  
             </a>
             <ul class="dropdown-menu">
@@ -201,12 +201,7 @@ $result = $dbLink->query($sql);
               <li class="user-header">
                
 
-                <p>
-                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                  <br>
-                  <label>Customer</label>
-                </p>
-              </li>
+              <?php include("../maintenance/user_type.php"); ?>
               <!-- Menu Body -->
               
               <!-- Menu Footer-->

@@ -2,7 +2,7 @@
                 if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' && 'Admin') )
                 {
                   
-                  include("side.php") 
+                  include("side.php"); 
                 ?>
                 <?php
               } 
@@ -34,7 +34,7 @@
               {
                 include("account/account_accountant.php");
               }
-              else if(isset($_SESSION['pos']) && ($_SESSION['pos']=='customer'))
+              else if(isset($_SESSION['pos']) && ($_SESSION['pos']=='customer' || 'Customer'))
               {
                 include("../../cust_form/aside.php");
               }

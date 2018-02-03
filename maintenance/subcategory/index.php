@@ -73,7 +73,16 @@ $a= date("Y-m-d");
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+
+                <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
             
+          </li>            
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >

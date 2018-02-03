@@ -110,8 +110,9 @@ if(isset($_POST['btnAdd']) && !empty($cname)  && !empty($scname))
     mysql_query("insert into materials (code,category, scategory_name,description, brand_name, color, package, unit_measurement, abbre, price, status ) 
       values('". $hell2."','". $cname."','".$scname."', '".$descs."','".$brands."'  ,'".$color."', '".$packs."','".$unitname."', '".$abbrev."', '".$pricing."', '".$status."')");
     
-    echo '<script type="text/javascript">alert("Materials has been added")</script>'; 
-    echo "<meta http-equiv='refresh' content='0'>";
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","New Material Added!","success");';
+        echo '},);</script>';
 
   }
 }
@@ -137,8 +138,9 @@ if(isset($_POST['btnSave']))
 
   
   mysql_query("UPDATE materials SET category='".$cname11."',scategory_name='".$scname11."',description='".$desc11."',brand_name='".$brand11."', color='".$color11."', package='".$pack11."', unit_measurement='".$unitname11."', abbre='".$abbrev11."' , price='".$price11."'  WHERE material_no='".$material_no11."'");
-  echo "<script type='text/javascript'>alert('Update Successful!')</script>";
-  echo "<meta http-equiv='refresh' content='0'>";
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","Update Successful!","success");';
+        echo '},);</script>';
   
   
 }
@@ -197,9 +199,19 @@ if(isset($_POST['btnRemove'])) {
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+
+                <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
             
+          </li>
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
+
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
              
              
@@ -210,11 +222,7 @@ if(isset($_POST['btnRemove'])) {
               <li class="user-header">
                
 
-                <p>
-                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                  <br>
-                  <label><?php echo ''.ucfirst($position).''; ?></label>
-                </p>
+               <?php include("../../maintenance/user_type.php"); ?> 
               </li>
               <!-- Menu Body -->
               
@@ -234,7 +242,7 @@ if(isset($_POST['btnRemove'])) {
       </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php include("../../maintenance/side.php") ?>
+  <?php include("../../maintenance/side_account.php") ?>
 
 
   <!-- Right side column. Contains the navbar and content of the page -->
@@ -513,8 +521,9 @@ if(isset($_POST['btnRemove'])) {
 
             
             mysql_query("UPDATE materials SET category='".$cname11."',scategory_name='".$scname11."',description='".$desc11."',brand_name='".$brand11."', color='".$color11."', package='".$pack11."', unit_measurement='".$unitname11."', abbre='".$abbrev11."' , price='".$price11."'  WHERE material_no='".$material_no11."'");
-            echo "<script type='text/javascript'>alert('Update Successful!')</script>";
-            echo "<meta http-equiv='refresh' content='0'>";
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","Update Successful!","success");';
+        echo '},);</script>';
             
             
           }
@@ -538,7 +547,7 @@ if(isset($_POST['btnRemove'])) {
 
                       <div class="col-xs-4" id="empnameErDv"> 
                         <label><font color="darkred">*</font>Category</label> 
-                        <select name="cname" id="cname" class="form-control" onChange="getState(this.value);" class="form-control"></p>
+                        <select name="cname" id="cname" class="form-control" onChange="getState(this.value);" class="form-control" required></p>
                           <option value="">Select Category</option>
                           <?php
                           foreach($results as $country) {
@@ -551,12 +560,12 @@ if(isset($_POST['btnRemove'])) {
 
                       <div class="col-xs-4" id="empnameErDv"> 
                         <label><font color="darkred">*</font>Measurement</label> <!-- Prod_Name -->
-                        <input type="number" class="form-control" name="unitname" id="unitname">
+                        <input type="number" class="form-control" name="unitname" id="unitname" required>
                       </div>     
 
                       <div class="col-xs-4" id="empnameErDv"> 
                         <label><font color="darkred">*</font>Unit</label> 
-                        <select id="abbrev" name="abbrev" class="form-control" style="margin-left: -20px"></p>
+                        <select id="abbrev" name="abbrev" class="form-control" style="margin-left: -20px" required></p>
                           <?php
                           $content1=mysql_query("SELECT * from unitmeasurement where status='Active'");
                           $total1=@mysql_affected_rows();
@@ -582,14 +591,14 @@ if(isset($_POST['btnRemove'])) {
 
                       <div class="col-sm-5" id="empnameErDv"> 
                         <label><font color="darkred">*</font>Subcategory</label> 
-                        <select name="scname" id="scname" class="form-control" ></p>
+                        <select name="scname" id="scname" class="form-control" required></p>
                           <option value="">Select Subcategory</option>
                         </select>
                       </div>      
 
                       <div class="col-xs-6" id="phoneErDv"> 
                         <label><font color="darkred">*</font>Description</label> <!-- Prod_Name -->
-                        <input type="text" class="form-control" id="desc" name="desc">
+                        <input type="text" class="form-control" id="desc" name="desc" required>
                       </div>    
 
 
@@ -601,17 +610,17 @@ if(isset($_POST['btnRemove'])) {
                     <div class="row" style="margin-bottom:5px"> <!-- ROW 2-->
 
                       <div class="col-xs-4" id="emailErDv"> 
-                        <label><font color="darkred">*</font>Brand</label> <!-- Prod_Name -->
-                        <input type="text" class="form-control" id=brand name="brand" >
+                        <label>Brand</label> <!-- Prod_Name -->
+                        <input type="text" class="form-control" id=brand name="brand" required>
                       </div>   
 
                       <div class="col-xs-4" id="addErDv"> 
-                        <label><font color="darkred">*</font>Color</label> <!-- Prod_Name -->
+                        <label>Color</label> <!-- Prod_Name -->
                         <input type="text" class="form-control" id="color" name="color">
                       </div>    
 
                       <div class="col-xs-4" id="addErDv"> 
-                        <label><font color="darkred">*</font>Package</label> <!-- Prod_Name -->
+                        <label>Package</label> <!-- Prod_Name -->
                         <input type="text" class="form-control" id="pack" name="pack">
                       </div> 
 
