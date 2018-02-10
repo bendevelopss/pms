@@ -234,7 +234,7 @@ $supp3=$row3['supp_name'];
 
                     <div class="col-xs-4" style="text-align: center;"> 
                       <label>P.O. ID:</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'PO-000'.$_GET['po_no'].''; ?>" style="text-align: center;" readonly>
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo ''.$_GET['po_no'].''; ?>" style="text-align: center;" readonly>
                       
                     </div>  
 
@@ -289,7 +289,7 @@ $supp3=$row3['supp_name'];
               <div class="col-lg-12 col-sm-12 col-xs-12">
                 <div class="box box-solid">
                   <div class="box-header">
-                    <h3 class="box-title">Available Items</h3>
+                    <center><h3>Available Items</h3></center>
                     <div class="myData"></div>
 
                   </div><!-- /.box-header -->
@@ -346,8 +346,8 @@ foreach($product_array as $key=>$value)
       <td><?php echo $product_array[$key]["package"]; ?></td>
       <td><?php echo $product_array[$key]["unit_measurement"];?></strong></td>
       <td><?php echo $product_array[$key]["abbre"];?></td>
-      <td><input type="text" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control" name="quantity" value="" size="2" /></td>
-      <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add Item" class="btn btn-primary btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
+      <td><input type="text" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control" name="quantity" value="" style="text-align: center;" size="2" /></td>
+      <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add Item" class="btn btn-block bg-blue btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
       </form>
       </tr>
     </div>
@@ -397,7 +397,7 @@ else
 {
 ?>
 <div class="container" style="width:100%; margin-left: 0px; margin-top:0px;">
-<table class="table table-condensed table-striped table-hover" id="jsontable1" name="jsontable1" style="font-size: 0.9em;">
+<table class="table table-condensed table-striped table-hover" id="jsontable1" name="jsontable1" style="font-size: 1.1em;">
 <thead>
 <tr class="w3-green">
 <th><strong>No.</strong></th>
@@ -415,11 +415,11 @@ else
 <tbody>
  <div class="col-lg-12 col-xs-12"> 
        <div class="alert alert-xs  bg-teal alert-dismissable" style="width:100%; float: center;" >
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <label><i class="icon fa fa-check"></i> Order has been Added!</label>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <label><i class="icon fa fa-check"></i>ORDER HAS BEEN ADDED!</label>
                
               </div> 
-<br>
+
 <?php   
     foreach ($_SESSION["cart_itempo"] as $item){
     ?>
@@ -493,12 +493,12 @@ else
 }
 else  
 {
-  mysql_query("insert into purchase_cart (po_no,code, supplier,material_no,brand_name,category,scategory_name,description,color,package,unit_measurement,abbre,quantity,status) values('".$_GET['po_no']."','".$hash2."','".$_GET['scname']."','".$material_no."','".$brand_name."','".$category."','".$scategory_name."','".$description."','".$color."','".$package."','".$unit_measurement."','".$abbre."','".$quantity."','".$accepted."') ");
+  mysql_query("insert into purchase_cart (po_no,code, supplier,material_no,brand_name,category,scategory_name,description,color,package,unit_measurement,abbre,quantity,status) values('".$_GET['po_no']."','".$hash2."','".$_GET['scname']."','".$material_no."','".$brand_name."','".$category."','".$scategory_name."','".$description."','".$color."','".$package."','".$unit_measurement."','".$abbre."','".$quantity."','".$accepted."') ") or die (mysql_error());
   echo '<script type="text/javascript">alert("Materials has been added")</script>'; 
 }
      
     }
-    mysql_query("insert into purchase_order (po_no,supplier,date,ordered_by,status) values ('".$_GET['po_no']."','".$supp3."','".$a."','".$_GET['ordered']."','".$accepted."') ");
+    mysql_query("insert into purchase_order (po_no,supplier,date,ordered_by,status) values ('".$_GET['po_no']."','".$supp3."','".$a."','".$_GET['ordered']."','".$accepted."') ") or die (mysql_error());
    
 
      unset($_SESSION["cart_itempo"]);
@@ -509,7 +509,7 @@ else
 </div>
     <script>
     function print() {
-    window.open("../../pdf/tutorial/tuto10.php?po_no=<?php echo $_GET['po_no']?>&id=<?php echo $_GET['scname']?>&ordered=<?php echo $_GET['ordered']?>");
+    window.open("../../pdf/print/printpurchase.php?po_no=<?php echo $_GET['po_no']?>&id=<?php echo $_GET['scname']?>&ordered=<?php echo $_GET['ordered']?>");
     }
     </script>
 
@@ -526,9 +526,9 @@ else
     }
     </script>
     <div style="text-align: center; float: center">
-<button type="button"  onclick="done();" class="btn btn-default">Go Back</button>
-<button type="button"  class="btn btn-danger"> <a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');" style="color: white;"><span class="fa fa-trash"></span></a></button>
-<button type="submit" name="btnAdd" class="btn btn-primary">Add</button>
+<button type="button" class="btn btn-default" style="font-color: white;"><a href="../purchase/index.php" style="font-color: white">Go Back</a></button>
+<button type="button"  class="btn btn-danger"> <a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');" style="color: white;">Remove All</a></button>
+<button type="submit" name="btnAdd" class="btn btn-primary">Add Items</button>
 </div>
 </form>
  <br>

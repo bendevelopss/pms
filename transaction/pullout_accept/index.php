@@ -76,7 +76,9 @@ $a= date("Y-m-d");
      <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
      <!-- Daterange picker -->
      <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
-
+    <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
 
    </head>
 
@@ -84,62 +86,68 @@ $a= date("Y-m-d");
    <body class="skin-red fixed">
 
 
-   <form action="" method="post" name="frm" id="frm">
-     <header class="main-header">
-       <!-- Logo --> 
-       <a href="index.php" class="logo">
+    <form action="" method="post" name="frm" id="frm">
+      <header class="main-header">
+        <!-- Logo --> 
+        <a href="index.php" class="logo">
 
-        <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
+         <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
 
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
-      </a>
-      <!-- Logo -->
-      <!-- Header Navbar: style can be found in header.less -->
-     <nav class="navbar navbar-static-top" role="navigation">
-       <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-           <span class="sr-only">Toggle navigation</span>      
-         </a>
-       <div class="navbar-custom-menu">
-         <ul class="nav navbar-nav">
-           <!-- Messages: style can be found in dropdown.less-->
-           
-                <li class="dropdown user user-menu">
-           <!-- Menu Toggle Button -->
-           <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
-            
-            
-              <?php include("../../maintenance/nav.php"); ?>  
-           </a>
-           <ul class="dropdown-menu">
-             <!-- The user image in the menu -->
-             <li class="user-header">
-              
-
-               <p>
-                 <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                 <br>
-                 <label><?php echo ''.ucfirst($position).''; ?></label>
-               </p>
-             </li>
-             <!-- Menu Body -->
+         <!-- logo for regular state and mobile devices -->
+         <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
+       </a>
+       <!-- Logo -->
+       <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>      
+          </a>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+                        
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
              
-             <!-- Menu Footer-->
-             <li class="user-footer">
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
+            
+          </li> 
+                 <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
+             
+             
+               <?php include("../../maintenance/nav.php"); ?>  
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
                
-               <div class="pull-center">
-                 <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
-               </div>
-             </li>
-           </ul>
-         </li> 
-        
-           <!-- User Account: style can be found in dropdown.less -->
-         </ul>
-       </div>
-     </nav>
-             <?php
+
+                <?php include("../../maintenance/user_type.php"); ?>
+              </li>
+              <!-- Menu Body -->
+              
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                
+                <div class="pull-center">
+                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+
+            <!-- User Account: style can be found in dropdown.less -->
+          </ul>
+        </div>
+      </nav>
+    </header>
+                      <?php
 if(isset($_GET['logout']))
 {
  mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
@@ -147,10 +155,8 @@ if(isset($_GET['logout']))
  echo "<meta http-equiv='refresh' content='0'>";
 }
 ?>
-         
-   </header>
-   <!-- Left side column. contains the logo and sidebar -->
-   <?php include("../../maintenance/side.php") ?>
+    <!-- Left side column. contains the logo and sidebar -->
+    <?php include("../../maintenance/side_account.php") ?>
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -226,14 +232,14 @@ $project=$row['project'];
               <div class="col-lg-12 col-sm-12 col-xs-12">
                 <div class="box box-solid">
                   <div class="box-header">
-                    <h3 class="box-title">Available Items</h3>
+                    <center><h1 class="box-title">Available Items</h1></center>
                     <div class="myData"></div>
 
                   </div><!-- /.box-header -->
                   <div class="box-body">
 
 
-                  <table id="tableko" name="tableko" class="table table-condensed table-striped table-hover" style="font-size: 1em;">
+                  <table id="jsontable" name="jsontable" class="table table-condensed table-striped table-hover" style="font-size: 1em;">
     
     <thead>
 <tr>
@@ -365,7 +371,6 @@ else
 
 <br>
 
-
 <?php
  $prep=mysql_real_escape_string($_GET['prepared']);
     $accepted='active';
@@ -398,7 +403,7 @@ $content5=mysql_query("select *, max(material_no) as max from pullout_cart where
     if($row5['max']>=1)
 {
      mysql_query("UPDATE pullout_cart SET quantity='".$quantity_totals."' where pullout_no='".$_GET['id']."' and material_no='".$material_no."' ");
-    echo '<script type="text/javascript">alert("Materials '.$_GET['po_no'].' has been added")</script>'; 
+    echo '<script type="text/javascript">alert("Materials '.$_GET['po_no'].' has been sssadded")</script>'; 
 }
 else  
 {
@@ -477,7 +482,7 @@ $(document).ready(function () {
 
     <script>
     function done() {
-    window.location.href="delivery1.php";
+    window.location.href="../pullout/index.php";
     }
     </script>
     
@@ -506,44 +511,7 @@ $(document).ready(function () {
       });
     });
     </script>
-<script>
- function setTime() {
-    var d = new Date(),
-      el = document.getElementById("time");
 
-      el.innerHTML = formatAMPM(d);
-
-    setTimeout(setTime, 1000);
-    }
-
-    function formatAMPM(date) {
-        var weekday = new Array(7);
-        weekday[0]=  "Sunday";
-        weekday[1] = "Monday";
-        weekday[2] = "Tuesday";
-        weekday[3] = "Wednesday";
-        weekday[4] = "Thursday";
-        weekday[5] = "Friday";
-        weekday[6] = "Saturday";
-      var hours = date.getHours(),
-        minutes = date.getMinutes(),
-        seconds = date.getSeconds(),
-        months = date.getMonth(),
-        days = date.getDate(),
-        year = date.getFullYear(),
-        n = weekday[date.getDay()];
-        ampm = hours >= 12 ? 'pm' : 'am';
-      hours = hours % 12;
-      hours = hours ? hours : 12; // the hour '0' should be '12'
-      minutes = minutes < 10 ? '0'+minutes : minutes;
-      months=months+1;
-    
-      var strTime = n + ' ' + months + '/' + days + '/' + year + '\n' + hours + ':' + minutes + ':' + seconds + ' ' + ampm;
-      return strTime;
-    }
-
-    setTime();
-</script>
   <?php include("../../maintenance/plugins.php"); ?>
   <div class="se-pre-con"></div>
   <script src="func.js" type="text/javascript"></script>

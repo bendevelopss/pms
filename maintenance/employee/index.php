@@ -70,7 +70,7 @@ $a= date("Y-m-d");
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-
+            
                 <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
             <a data-toggle="dropdown">
@@ -79,8 +79,8 @@ $a= date("Y-m-d");
               <span id="time" style="font-weight: bold; color: "></span>
             </a>
             
-          </li>           
-                 <li class="dropdown user user-menu">
+          </li>  
+            <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
              
@@ -93,9 +93,7 @@ $a= date("Y-m-d");
                
 
                 <p>
-                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                  <br>
-                  <label><?php echo ''.ucfirst($position).''; ?></label>
+               <?php include("../../maintenance/user_type.php"); ?>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -116,7 +114,7 @@ $a= date("Y-m-d");
       </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
-<?php include("../../maintenance/side.php") ?>
+<?php include("../../maintenance/side_account.php") ?>
 
 
       <!-- Right side column. Contains the navbar and content of the page -->

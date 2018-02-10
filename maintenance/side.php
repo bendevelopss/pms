@@ -1,5 +1,5 @@
 <?php 
-$projno = mysql_query("SELECT project FROM  quotation where status='active' ");
+$projno = mysql_query("SELECT project FROM  quotation where status='active'");
 $projno = mysql_num_rows($projno);
 ?>
 <aside class="main-sidebar">

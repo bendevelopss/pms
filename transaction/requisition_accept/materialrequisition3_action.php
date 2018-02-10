@@ -7,8 +7,8 @@ if(!empty($_POST["action"])) {
 switch($_POST["action"]) {
   case "add":
     if(!empty($_POST["quantity"]) && !empty($_POST["po_no"])) {
-      echo "<h3>List of Available Items</h3>";
-           $productByCode = $db_handle->runQuery("SELECT * FROM quotation_cart WHERE code='" . $_POST["code"] . "' and quote_no='" . $_POST["po_no"] . "' ORDER BY material_no ASC ");
+      echo "<center><h3>List of Available Items</h3></center>";
+           $productByCode = $db_handle->runQuery("SELECT * FROM quotation_cart WHERE code='" . $_POST["code"] . "' ORDER BY material_no ASC ");
       $itemArray = array($productByCode[0]["code"]=>array('material_no'=>$productByCode[0]["material_no"], 'code'=>$productByCode[0]["code"],  'category'=>$productByCode[0]["category"], 'scategory_name'=>$productByCode[0]["scategory_name"], 'brand_name'=>$productByCode[0]["brand_name"], 'description'=>$productByCode[0]["description"], 'color'=>$productByCode[0]["color"], 'package'=>$productByCode[0]["package"], 'unit_measurement'=>$productByCode[0]["unit_measurement"],'quantitys'=>$productByCode[0]["quantity"], 'quantity'=>$_POST["quantity"],'abbre'=>$productByCode[0]["abbre"]));
 
       if(!empty($_SESSION["cart_itemmq"])) {
@@ -37,16 +37,24 @@ switch($_POST["action"]) {
   break;
   case "empty":
     unset($_SESSION["cart_itemmq"]);
-  break;    
+  break;
 }
 }
 ?>
 <HTML>
 <HEAD>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="http://localhost/xampp/capstone/font-awesome-4.6.3/css/font-awesome.min.css">
+  <script src="jQuery/jQuery-2.1.3.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+      <!--- datatables -->
+  <link rel="stylesheet" href="http://localhost/xampp/capstone/DataTables/responsive/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" href="http://localhost/xampp/capstone/DataTables/css/jquery.dataTables.min.css">
+  <script src="http://localhost/xampp/capstone/DataTables/js/jquery.dataTables.min.js"></script>
+  <script src="http://localhost/xampp/capstone/DataTables/responsive/js/dataTables.responsive.min.js"></script>
   <!--- datatables -->
   <style type="text/css">
 body
@@ -57,7 +65,7 @@ body
 h6
 {
   border-bottom: 2px solid black;
- 
+
 }
 .w3-camo-dark-green
 {
@@ -78,7 +86,7 @@ h6
 <?php
 if(isset($_SESSION["cart_itemmq"])){
     $item_total = 0;
-?>  
+?>
 <div class="container" style="width:100%; margin-left: 0px; margin-top:0px;">
 <table class="table table-condensed table-striped table-hover" id="tableko" name="tableko" style="font-size: 0.9em;">
 <thead>
@@ -93,11 +101,11 @@ if(isset($_SESSION["cart_itemmq"])){
 <th>Abbreviation</th>
 <th>Quantity</th>
 <th>Action</th>
-</tr> 
+</tr>
 </thead>
 <tbody>
 
-<?php   
+<?php
     foreach ($_SESSION["cart_itemmq"] as $item){
     ?>
        <?php
@@ -127,13 +135,13 @@ if(isset($_SESSION["cart_itemmq"])){
         <?php
 
     }
-      
+
     ?>
 
 </tbody>
-</table>  
+</table>
 <br>
-</div> 
+</div>
 <script type="text/javascript">
         $(document).ready(function(){
     $('#tableko').DataTable({

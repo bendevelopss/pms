@@ -5,39 +5,39 @@ $db_handle = new DBController();
 
 if(!empty($_POST["action"])) {
 switch($_POST["action"]) {
-	case "add":
-		if(!empty($_POST["quantity"])) {
+  case "add":
+    if(!empty($_POST["quantity"])) {
       echo '<h2 style="text-align: center; font-weight: bolder;">List of Order</h2>';
-			     $productByCodeq = $db_handle->runQuery("SELECT * FROM materials WHERE code='" . $_POST["code"] . "' ORDER BY material_no ASC ");
+           $productByCodeq = $db_handle->runQuery("SELECT * FROM materials WHERE code='" . $_POST["code"] . "' ORDER BY material_no ASC ");
       $itemArrayq = array($productByCodeq[0]["code"]=>array('material_no'=>$productByCodeq[0]["material_no"], 'code'=>$productByCodeq[0]["code"],  'category'=>$productByCodeq[0]["category"], 'scategory_name'=>$productByCodeq[0]["scategory_name"], 'brand_name'=>$productByCodeq[0]["brand_name"], 'description'=>$productByCodeq[0]["description"], 'color'=>$productByCodeq[0]["color"], 'package'=>$productByCodeq[0]["package"], 'unit_measurement'=>$productByCodeq[0]["unit_measurement"], 'abbre'=>$productByCodeq[0]["abbre"],'quantity'=>$_POST["quantity"], 'price'=>$productByCodeq[0]["price"]));
 
-			if(!empty($_SESSION["cart_itempoq"])) {
-				if(in_array($productByCodeq[0]["code"],$_SESSION["cart_itempoq"])) {
-					foreach($_SESSION["cart_itempoq"] as $k => $v) {
-							if($productByCodeq[0]["code"] == $k)
-								$_SESSION["cart_itempoq"][$k]["quantity"] = $_POST["quantity"];
-					}
-				} else {
-					$_SESSION["cart_itempoq"] = array_merge($_SESSION["cart_itempoq"],$itemArrayq);
-				}
-			} else {
-				$_SESSION["cart_itempoq"] = $itemArrayq;
-			}
-		}
-	break;
-	case "remove":
-		if(!empty($_SESSION["cart_itempoq"])) {
-			foreach($_SESSION["cart_itempoq"] as $k => $v) {
-					if($_POST["code"] == $k)
-						unset($_SESSION["cart_itempoq"][$k]);
-					if(empty($_SESSION["cart_itempoq"]))
-						unset($_SESSION["cart_itempoq"]);
-			}
-		}
-	break;
-	case "empty":
-		unset($_SESSION["cart_itempoq"]);
-	break;		
+      if(!empty($_SESSION["cart_itempoq"])) {
+        if(in_array($productByCodeq[0]["code"],$_SESSION["cart_itempoq"])) {
+          foreach($_SESSION["cart_itempoq"] as $k => $v) {
+              if($productByCodeq[0]["code"] == $k)
+                $_SESSION["cart_itempoq"][$k]["quantity"] = $_POST["quantity"];
+          }
+        } else {
+          $_SESSION["cart_itempoq"] = array_merge($_SESSION["cart_itempoq"],$itemArrayq);
+        }
+      } else {
+        $_SESSION["cart_itempoq"] = $itemArrayq;
+      }
+    }
+  break;
+  case "remove":
+    if(!empty($_SESSION["cart_itempoq"])) {
+      foreach($_SESSION["cart_itempoq"] as $k => $v) {
+          if($_POST["code"] == $k)
+            unset($_SESSION["cart_itempoq"][$k]);
+          if(empty($_SESSION["cart_itempoq"]))
+            unset($_SESSION["cart_itempoq"]);
+      }
+    }
+  break;
+  case "empty":
+    unset($_SESSION["cart_itempoq"]);
+  break;    
 }
 }
 ?>

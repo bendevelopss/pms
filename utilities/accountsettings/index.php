@@ -11,10 +11,10 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
- echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
+ echo '<script type="text/javascript">window.location.href="../../index.php";</script>';
 }
 
-$content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' and position='".$_SESSION['pos']."' ");
+$content2=mysql_query("SELECT * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' and position='".$_SESSION['pos']."' ");
 $total2=@mysql_affected_rows();
 
 
@@ -40,26 +40,25 @@ $a= date("Y-m-d");
 
 
 //Update query
-if(isset($_POST['btnSave']))
-{
-  $user=$_POST['user'];
-  $pass=$_POST['pass'];
-  $email=$_POST['txtemail'];
-  $fname=$_POST['txtfirstname'];
-  $mname=$_POST['txtmiddlename'];
-  $lname=$_POST['txtlastname'];
-  $contact=$_POST['txtcontact'];
-  $street=$_POST['txtstreet'];
-  $city=$_POST['txtcity'];
-  
-  mysql_query("UPDATE employee SET username='".$user."', password='".$pass."' ,firstname='".$fname."', middlename='".$mname."' ,lastname='".$lname."' ,contact='".$contact."' ,email='".$email."' ,street='".$street."',city='".$city."' where username='".$user2."' and password='".$pass2."' ");
-  mysql_query("UPDATE sample SET username='".$user."', password='".$pass."' where username='".$user2."' and password='".$pass2."' ");
-        echo '<script type="text/javascript">';
-        echo 'setTimeout(function () { swal("Success!","Account Update Successful!","success");';
-        echo '},);</script>';
-  
-  
-}
+  if(isset($_POST['btnSave']))
+                {
+                    $user=$_POST['user'];
+                    $pass=$_POST['pass'];
+                    $email=$_POST['txtemail'];
+                    $fname=$_POST['txtfirstname'];
+                    $mname=$_POST['txtmiddlename'];
+                    $lname=$_POST['txtlastname'];
+                    $contact=$_POST['txtcontact'];
+                    $street=$_POST['txtstreet'];
+                    $city=$_POST['txtcity'];
+
+                    mysql_query("UPDATE employee SET username='".$user."', password='".$pass."' ,firstname='".$fname."', middlename='".$mname."' ,lastname='".$lname."' ,contact='".$contact."' ,email='".$email."' ,street='".$street."',city='".$city."' where username='".$user2."' and password='".$pass2."' ");
+                    mysql_query("UPDATE sample SET username='".$user."', password='".$pass."' where username='".$user2."' and password='".$pass2."' ");
+                    echo "<script type='text/javascript'>alert('Update Successfull!')</script>";
+                    echo "<meta http-equiv='refresh' content='0'>";
+
+
+                }
 
 
 
@@ -89,7 +88,7 @@ if(isset($_POST['btnSave']))
 
     <form action="" method="post" name="frm" id="frm">
       <header class="main-header">
-        <!-- Logo --> 
+        <!-- Logo -->
         <a href="index.php" class="logo">
 
          <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
@@ -102,38 +101,46 @@ if(isset($_POST['btnSave']))
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>      
+            <span class="sr-only">Toggle navigation</span>
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            
+            <li class="dropdown notifications-menu">
+              <!-- Menu toggle button -->
+              <a data-toggle="dropdown">
+
+
+                <span id="time" style="font-weight: bold; color: "></span>
+              </a>
+
+            </li>
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
-             
-             
-               <?php include("../../maintenance/nav.php"); ?>  
+
+
+               <?php include("../../maintenance/nav.php"); ?>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+
 
                  <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
-              
+
               <!-- Menu Footer-->
               <li class="user-footer">
-                
+
                 <div class="pull-center">
                   <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
                 </div>
               </li>
             </ul>
-          </li> 
-         
+          </li>
+
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
@@ -146,8 +153,8 @@ if(isset($_POST['btnSave']))
                 session_destroy();
                 echo "<meta http-equiv='refresh' content='0'>";
               }
-              ?>  
-           
+              ?>
+
     </header>
     <!-- Left side column. contains the logo and sidebar -->
     <?php include("../../maintenance/side_account.php") ?>
@@ -160,7 +167,7 @@ if(isset($_POST['btnSave']))
         <h1>
           User Account
           <small>Settings</small>
-        </h1>                              
+        </h1>
       </section>
 
       <!-- Main content -->
@@ -169,10 +176,10 @@ if(isset($_POST['btnSave']))
 
 
         <!-- Small boxes (Stat box) -->
-        <div class="row" >                                 
+        <div class="row" >
           <div class="col-lg-12 col-lg-12 col-lg-12">             <!-- NEW RECORD -->
                 <!-- <a href="addTax.php"><button class="btn btn-success btn-lg" style="margin-bottom:5px;
-                  box-shadow: 0px 4px 8px #888888"> 
+                  box-shadow: 0px 4px 8px #888888">
                 + ADD NEW RECORD</button> </a> -->
                 <div class="box-header with-border">
 
@@ -191,7 +198,7 @@ if(isset($_POST['btnSave']))
                         <div class="modal-body" style="text-align:center">
                           <div class="overlay">
                             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                            <i class="fa fa-spinner fa-pulse fa-spin"  
+                            <i class="fa fa-spinner fa-pulse fa-spin"
                             style="font-size:60px;"></i>
                           </div>
                         </div>
@@ -199,10 +206,10 @@ if(isset($_POST['btnSave']))
                     </div>
                   </div>
 
-                  <?php include("crud.php") ?>
 
 
-          
+
+
                   <div class="row">                     <!-- TABLES -->
                     <div class="col-lg-12 col-sm-12 col-xs-12">
                       <div class="box box-solid">
@@ -218,7 +225,7 @@ if(isset($_POST['btnSave']))
                       <label><font color="darkred">*</font>User Name:</label> <!-- DESCRIPTION -->
                       <input class="form-control" type="text" placeholder="Username" name="user" id="user" value="<?php echo $user2; ?>" style="height:33px;" required>
                               </div>
-                      
+
 
                            <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
                             <label for="email"><font color="darkred">*</font>Password:</label>
@@ -274,7 +281,7 @@ if(isset($_POST['btnSave']))
                             <input class="form-control" type="email" placeholder="Email Address" style="height:33px; " id="email" name="txtemail" value="<?php echo $email2; ?>" required>
                           </div>
 
-                          
+
 
                           <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
                             <label for="email"><font color="darkred">*</font>Street:</label>
@@ -284,11 +291,11 @@ if(isset($_POST['btnSave']))
 
 
                           <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email"><font color="darkred">*</font>City:</label> 
+                            <label for="email"><font color="darkred">*</font>City:</label>
                         <input class="form-control" type="text" placeholder="City" style="height:33px;" id="city" name="txtcity" value="<?php echo $city2; ?>" required>
                           </div>
                         </div>
-                          
+
 
                           <center style="margin-top: 20px;">
                           <div class="row" id="f_desc_div" class='form-group' >
@@ -305,11 +312,11 @@ if(isset($_POST['btnSave']))
                         </div><!-- /.box-body -->
                       </div><!-- /.box -->
                     </div><!-- /.col -->
-                  </div>  <!-- /.row -->         
+                  </div>  <!-- /.row -->
 
 
 
-                </div> <!-- /.row --> 
+                </div> <!-- /.row -->
               </section><!-- right col -->
             </div><!-- /.row (main row) -->
           </section><!-- /.content -->
@@ -318,30 +325,30 @@ if(isset($_POST['btnSave']))
               <b>Version</b> 3.0
             </div>
             <strong>Copyright &copy; 2016<?php if(date("Y")!=2015)echo" - ".date("Y")."";?></strong> All rights reserved.
-          </footer>        
+          </footer>
         </div><!-- /.content-wrapper -->
 
       </div><!-- ./wrapper -->
 
-    
-          
+
+
           </div>
         </div>
       </form>
-    </div> 
+    </div>
 
-         
+
 
         </div>
       </div>
     </form>
-  </div> 
+  </div>
 
 
 
 
   <!--Clear Fields-->
-  <script type="text/javascript"> 
+  <script type="text/javascript">
     function ClearFields() {
       document.getElementById("firstname").value = "";
       document.getElementById("middlename").value = "";
@@ -373,12 +380,12 @@ if(isset($_POST['btnSave']))
       alert("Your Password doesn't match!");
       return false;
     }
-   
-    else 
+
+    else
     {
       text = "Input OK";
     }
-    
+
   }
 </script>
 

@@ -15,7 +15,7 @@ if($_SESSION['user']=='' && $_SESSION['pass']=='')
 }
 
 $content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
-$projno = mysql_query("SELECT * FROM  quotation where status='active' ");
+$projno = mysql_query("SELECT * FROM  quotation WHERE balance != 0 ");
 $projno = mysql_num_rows($projno);
 $userno = mysql_query("SELECT * FROM  sample"); //all accounts
 $userno = mysql_num_rows($userno);

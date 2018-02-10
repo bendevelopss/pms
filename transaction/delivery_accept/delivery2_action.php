@@ -7,7 +7,7 @@ if(!empty($_POST["action"])) {
 switch($_POST["action"]) {
   case "add":
     if(!empty($_POST["quantity"]) && !empty($_POST["po_no"])) {
-      echo' <h3> List of Deliveries</h3>';
+      echo' <center><h3> List of Deliveries</h3></center>';
            $productByCode = $db_handle->runQuery("SELECT * FROM purchase_cart WHERE code='" . $_POST["code"] . "' and po_no='" . $_POST["po_no"] . "' ORDER BY material_no ASC ");
       $itemArray = array($productByCode[0]["code"]=>array('material_no'=>$productByCode[0]["material_no"], 'code'=>$productByCode[0]["code"],  'category'=>$productByCode[0]["category"], 'scategory_name'=>$productByCode[0]["scategory_name"], 'brand_name'=>$productByCode[0]["brand_name"], 'description'=>$productByCode[0]["description"], 'color'=>$productByCode[0]["color"], 'package'=>$productByCode[0]["package"], 'unit_measurement'=>$productByCode[0]["unit_measurement"], 'abbre'=>$productByCode[0]["abbre"], 'quantitys'=>$productByCode[0]["quantity"], 'quantity'=>$_POST["quantity"]));
 

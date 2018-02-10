@@ -9,7 +9,7 @@ switch($_POST["action"]) {
     if(!empty($_POST["quantity"])) {
       echo'
      
-                    <h3 style="">List of Order</h3>
+                    <center><h3 style="">Orders to be Purchased</h3></center>
                    
 
                   <br>';

@@ -96,9 +96,7 @@ $a= date("Y-m-d");
                
 
                 <p>
-                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                  <br>
-                  <label><?php echo ''.ucfirst($position).''; ?></label>
+               <?php include("../../maintenance/user_type.php"); ?>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -119,7 +117,7 @@ $a= date("Y-m-d");
       </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php include("../../maintenance/side.php"); ?>
+  <?php include("../../maintenance/side_account.php"); ?>
 
 
   <!-- Right side column. Contains the navbar and content of the page -->
@@ -339,13 +337,13 @@ $a= date("Y-m-d");
                     </div>  
 
                     <div class="col-xs-4" id="empnameErDv"> 
-                      <label><font color="darkred">*</font>Phone Number</label> <!-- Prod_Name -->
+                      <label>Phone Number</label> <!-- Prod_Name -->
                       <input type="number" class="form-control" name="txtphone" id="textbox_B" required>
                     </div>     
 
                     <div class="col-xs-4" id="empnameErDv"> 
-                      <label><font color="darkred">*</font>Fax Number</label> <!-- Prod_Name -->
-                      <input type="number" class="form-control" name="txtfax" id="textbox_C" required>
+                      <label>Fax Number</label> <!-- Prod_Name -->
+                      <input type="number" class="form-control" name="txtfax" id="textbox_C" >
                     </div>  
 
                   </div>
@@ -429,7 +427,7 @@ $a= date("Y-m-d");
                     </div>           
 
                     <div class="col-xs-6" id="emailErDv"> 
-                      <label>City</label> <!-- Prod_Name -->
+                      <label><font color="darkred">*</font>City</label> <!-- Prod_Name -->
                       <input type="text" class="form-control" id="city" name="txtcity" required>
                     </div>                
 

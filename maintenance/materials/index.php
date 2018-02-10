@@ -548,7 +548,7 @@ if(isset($_POST['btnRemove'])) {
                       <div class="col-xs-4" id="empnameErDv"> 
                         <label><font color="darkred">*</font>Category</label> 
                         <select name="cname" id="cname" class="form-control" onChange="getState(this.value);" class="form-control" required></p>
-                          <option value="">Select Category</option>
+                          <option value="">---Select Category---</option>
                           <?php
                           foreach($results as $country) {
                             ?>
@@ -565,11 +565,11 @@ if(isset($_POST['btnRemove'])) {
 
                       <div class="col-xs-4" id="empnameErDv"> 
                         <label><font color="darkred">*</font>Unit</label> 
-                        <select id="abbrev" name="abbrev" class="form-control" style="margin-left: -20px" required></p>
+                        <select id="abbrev" name="abbrev" class="form-control" style="" required></p>
                           <?php
                           $content1=mysql_query("SELECT * from unitmeasurement where status='Active'");
                           $total1=@mysql_affected_rows();
-                          echo'<option value=""></option>';
+                          echo'<option value="" style="text-align: center;">------Select Unit-------</option>';
                           for($x=1;$x<=$total1;$x++)
                           {
 
@@ -589,10 +589,10 @@ if(isset($_POST['btnRemove'])) {
                     <div class="row" style="margin-bottom:5px"> <!-- ROW 2-->
 
 
-                      <div class="col-sm-5" id="empnameErDv"> 
+                      <div class="col-sm-5" id="empnameErDv" > 
                         <label><font color="darkred">*</font>Subcategory</label> 
-                        <select name="scname" id="scname" class="form-control" required></p>
-                          <option value="">Select Subcategory</option>
+                        <select name="scname" id="scname" class="form-control" style="text-align: center;" required></p>
+                          <option value="" >-----Select Subcategory------</option>
                         </select>
                       </div>      
 

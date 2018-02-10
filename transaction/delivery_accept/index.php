@@ -212,7 +212,16 @@ function cartAction(action,product_code) {
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+              
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
             
+          </li> 
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
@@ -356,7 +365,7 @@ $supplier=$row['supplier'];
               <div class="col-lg-12 col-sm-12 col-xs-12">
                 <div class="box box-solid">
                   <div class="box-header">
-                    <h3 class="box-title">Available Items</h3>
+                    <center><h2>Available Items</h2></center>
                     <div class="myData"></div>
 
                   </div><!-- /.box-header -->
@@ -513,7 +522,7 @@ else
     $hash3= mt_rand(1,9999999);
     $hash2= md5($material_no+$hash3);
 
-     mysql_query("INSERT into delivery_cart (delivery_no,po_no, code,supplier,material_no,brand_name,category,scategory_name,description,color,package,unit_measurement,quantity,abbre,status) values('".$_GET['id']."','".$_GET['scname']."','".$hash2."','".$supplier."','".$material_no."','".$brand_name."','".$category."','".$scategory_name."','".$description."','".$color."','".$packages."','".$unit_measurement."','".$quantity."','".$abbre."','".$accepted."') ");
+     mysql_query("insert into delivery_cart (delivery_no,po_no, code,supplier,material_no,brand_name,category,scategory_name,description,color,package,unit_measurement,quantity,abbre,status) values('".$_GET['id']."','".$_GET['scname']."','".$hash2."','".$supplier."','".$material_no."','".$brand_name."','".$category."','".$scategory_name."','".$description."','".$color."','".$packages."','".$unit_measurement."','".$quantity."','".$abbre."','".$accepted."') ");
 
     mysql_query("UPDATE purchase_cart SET quantity='".$quantity_total."' where material_no='".$material_no."' and po_no='".$_GET['scname']."' ");
    
@@ -531,7 +540,7 @@ else
     }
 
      mysql_query("insert into delivery (delivery_no,supplier,date,verified_by,status) values ('".$deliv_no."','".$supplier."','".$a."','".$prep."','".$accepted."')");
-     echo '<script type="text/javascript">alert("Order has been Added")</script>'; 
+     echo '<script type="text/javascript">alert("Materials has been added")</script>'; 
         
      ?>
 
@@ -543,11 +552,26 @@ else
 }
     
 ?>
- <div style="text-align: center; float: center">
+
+
+
+<?php
+    $contents6=mysql_query("select max(delivery_no) as max from delivery_cart where delivery_no='".$_GET['id']."'");   
+    $rows6=mysql_fetch_array($contents6);
+
+ if($rows6['max']>=1)
+{
+  echo'<center><button type="button"  onclick="print()" class="btn btn-success">Print</button></center>';
+}
+else{
+   echo'<center><button type="button"  onclick="print()" class="btn btn-success" disabled>Print</button></center>';
+}
+?>
+<center>
 <button type="button"  onclick="done()" class="btn btn-default">Go Back</button>
 <button type="button"  class="btn btn-danger"> <a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');" style="color: white;">Remove All</a></button>
 <button type="submit" name="btnAdd" id="btnAdd" class="btn btn-primary">Process</button>
-</div>
+</center>
 
 
 

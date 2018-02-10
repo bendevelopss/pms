@@ -31,7 +31,7 @@ $results = $db_handle->runQuery($query);
 <div class="col-xs-4" id="empnameErDv"> 
   <label><font color="darkred">*</font>Category</label> 
   <select name="cname1" id="cname1" class="form-control" onChange="getState1(this.value);" class="form-control" required>
-    <option value="">--Select Category--</option>
+    <option value="">---Select Category---</option>
     <?php
     foreach($results as $country1) {
       ?>
@@ -72,7 +72,7 @@ echo'</select>';?>
   <div class="col-sm-5" id="empnameErDv"> 
     <label><font color="darkred">*</font>Subcategory</label> 
     <select name="scname1" id="scname1" class="form-control" required></p>
-      <option value="">Select Subcategory</option>
+      <option value="">-----Select Subcategory------</option>
     </select>
   </div>      
 

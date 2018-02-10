@@ -11,7 +11,7 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-  echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
+  echo '<script type="text/javascript">window.location.href="../../index.php";</script>';
 }
 
 $content2=mysql_query("SELECT * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
@@ -62,7 +62,7 @@ $a= date("Y-m-d");
 
     <form action="" method="post" name="frm" id="frm">
       <header class="main-header">
-        <!-- Logo --> 
+        <!-- Logo -->
         <a href="index.php" class="logo">
 
          <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
@@ -75,38 +75,46 @@ $a= date("Y-m-d");
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>      
+            <span class="sr-only">Toggle navigation</span>
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            
+            <li class="dropdown notifications-menu">
+              <!-- Menu toggle button -->
+              <a data-toggle="dropdown">
+
+
+                <span id="time" style="font-weight: bold; color: "></span>
+              </a>
+
+            </li>
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
-             
-             
-               <?php include("../../maintenance/nav.php"); ?>  
+
+
+               <?php include("../../maintenance/nav.php"); ?>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+
 
                 <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
-              
+
               <!-- Menu Footer-->
               <li class="user-footer">
-                
+
                 <div class="pull-center">
                   <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
                 </div>
               </li>
             </ul>
-          </li> 
-         
+          </li>
+
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
@@ -123,7 +131,7 @@ $a= date("Y-m-d");
         <h1>
           Quotation Approval
           <small>Transaction</small>
-        </h1>                              
+        </h1>
       </section>
 
       <?php
@@ -157,39 +165,39 @@ $a= date("Y-m-d");
 
 
         <!-- Small boxes (Stat box) -->
-        <div class="row" >                                 
+        <div class="row" >
           <div class="col-lg-12 col-lg-12 col-lg-12">             <!-- NEW RECORD -->
                 <!-- <a href="addTax.php"><button class="btn btn-success btn-lg" style="margin-bottom:5px;
-                  box-shadow: 0px 4px 8px #888888"> 
+                  box-shadow: 0px 4px 8px #888888">
                 + ADD NEW RECORD</button> </a> -->
                 <div class="box-header with-border">
 
-                  <div class="col-sm-4 ">                        
+                  <div class="col-sm-4 ">
                    <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
 
-                     <div class="col-xs-6" style="text-align: center;"> 
+                     <div class="col-xs-6" style="text-align: center;">
                       <label>Quotation ID</label> <!-- Prod_Name -->
-          
-<input class="form-control" type="text" id="quote_no" name="quote_no" value="<?php  echo'QUOT' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" style="text-align: center;" readonly>
-                    </div>           
 
-                    <div class="col-xs-6" style="text-align: center;"> 
+<input class="form-control" type="text" id="quote_no" name="quote_no" value="<?php  echo'QUOT' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" style="text-align: center;" readonly>
+                    </div>
+
+                    <div class="col-xs-6" style="text-align: center;">
                       <label>Date Requested</label> <!-- Prod_Name -->
                       <input class="form-control" type="text" name="date" value="<?php echo $a; ?> " style="text-align: center;" readonly>
-                      
-                    </div>   
+
+                    </div>
 
 
-                  </div>          
+                  </div>
 
                   <div class="col-md-9 col-xs-12"> <!-- MESSAGE -->
 
                     <div class="alert alert-xs  bg-teal alert-dismissable" style="width:85%; display:none" id="msg">
                       <i class="icon fa fa-check"></i>
                       <label id="msgContent"></label>
-                    </div>  
+                    </div>
 
-                  </div>    
+                  </div>
 
                 </div>
 
@@ -206,7 +214,7 @@ $a= date("Y-m-d");
                       <div class="modal-body" style="text-align:center">
                         <div class="overlay">
                           <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                          <i class="fa fa-spinner fa-pulse fa-spin"  
+                          <i class="fa fa-spinner fa-pulse fa-spin"
                           style="font-size:60px;"></i>
                         </div>
                       </div>
@@ -229,7 +237,7 @@ $a= date("Y-m-d");
                         <table id="jsontable" class="table table-condensed table-striped table-hover">
                           <thead>
                             <tr>
-                              <th>ID</th>  
+                              <th>ID</th>
 
                               <th>Project</th>
                               <th>Customer</th>
@@ -243,7 +251,7 @@ $a= date("Y-m-d");
 
                           </thead>
                           <form action="" method="post">
-                            <?php  
+                            <?php
 
 
                             $servername = "localhost";
@@ -265,30 +273,30 @@ $a= date("Y-m-d");
                               <?php
                               $sql = "SELECT * FROM quotation where status='requested' or status='active'";
                               $result = $conn->query($sql);
-                              $statcol;          
+                              $statcol;
 
                               while($row = $result->fetch_assoc())
-                              { 
+                              {
                                $category_no=$row['category_no'];
                                $category_name=$row['category_name'];
                                if($row['status']=='active')
                                 $statcol = "label label-primary";
                               else if($row['status']=='requested')
-                                $statcol = "label label-default";     
-                              echo '<tr>'; 
+                                $statcol = "label label-default";
+                              echo '<tr>';
                                echo'<td>' .str_pad($row['quote_no'], 4, '0', STR_PAD_LEFT).'</td>';
                               echo'<td>'.ucfirst($row['project']).'</td>';
                               echo'<td>'.ucfirst($row['customer']).'</td>';
                               echo'<td>'.ucfirst($row['date']).'</td>';
                               echo'<td>'.ucfirst($row['due_date']).'</td>';
                               echo'<td>'.ucfirst($row['prepared_by']).'</td>';
-                              echo'<td><span class="label '.$statcol.'">'.ucfirst($row['status']).'</span></td>';
+                              echo'<td><span class="label '.$statcol.'">'.strtoupper($row['status']).'</span></td>';
                               echo'<td style="text-align:center;">';
-                              
+
                               if($row['status']=='requested')
                               {
 
-                                echo'<button type="button" name="btnNext" onclick="return myFunctions();" class="btn btn-primary  btn-xs center"><a href="../quotation_accept/index.php?id='.$hell.'&scname='.$row['quote_no'].'&prepared='.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'" style="color:White; text-align: center;"<span class="glyphicon glyphicon-ok"></span></a></button> 
+                                echo'<button type="button" name="btnNext" onclick="return myFunctions();" class="btn btn-primary  btn-xs center"><a href="../quotation_accept/index.php?id='.$hell.'&scname='.$row['quote_no'].'&prepared='.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'" style="color:White; text-align: center;"<span class="glyphicon glyphicon-ok"></span></a></button>
 
                                 <button type="button" title="Decline" name="btnDec" value="'.$row['quote_no'].'" onclick="return done();" class="btn btn-danger glyphicon glyphicon-remove btn-xs center"></a></button></td>';
                               }
@@ -302,14 +310,14 @@ $a= date("Y-m-d");
                               }
                             }
                             echo'</tr>';
-                            echo' 
+                            echo'
 
                             </tbody>
 
                             </table>
                             <br></br>';
                             $conn->close();
-                            ?> 
+                            ?>
                           </form>
 
 
@@ -324,11 +332,11 @@ $a= date("Y-m-d");
                         </div><!-- /.box-body -->
                       </div><!-- /.box -->
                     </div><!-- /.col -->
-                  </div>  <!-- /.row -->         
+                  </div>  <!-- /.row -->
 
 
 
-                </div> <!-- /.row --> 
+                </div> <!-- /.row -->
               </section><!-- right col -->
             </div><!-- /.row (main row) -->
           </section><!-- /.content -->
@@ -337,7 +345,7 @@ $a= date("Y-m-d");
               <b>Version</b> 3.0
             </div>
             <strong>Copyright &copy; 2016<?php if(date("Y")!=2015)echo" - ".date("Y")."";?></strong> All rights reserved.
-          </footer>        
+          </footer>
         </div><!-- /.content-wrapper -->
 
       </div><!-- ./wrapper -->
@@ -349,7 +357,7 @@ $a= date("Y-m-d");
               <div class="modal-header">
                 <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"> <i class="ion-android-person"></i> Position Form </h4>
-              </div>          
+              </div>
               <div class="modal-body" >
                 <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -360,15 +368,15 @@ $a= date("Y-m-d");
 
                 <div class="row" style="margin-bottom:5px"> <!-- ROW 2-->
 
-                  <div class="col-xs-6" id="addErDv"> 
+                  <div class="col-xs-6" id="addErDv">
                     <label><font color="darkred">*</font>Category</label> <!-- Prod_Name -->
                     <input type="text" class="form-control" name="txtname" id="textbox_A">
-                  </div>           
+                  </div>
 
 
 
-                </div> <!-- /.row -->   
-                <!-- ------------------------------------------------------------------------------------------- <-->                               
+                </div> <!-- /.row -->
+                <!-- ------------------------------------------------------------------------------------------- <-->
                 <!-- ------------------------------------------------------------------------------------------- -->
 
 
@@ -379,14 +387,14 @@ $a= date("Y-m-d");
 
             </div>
             <div class="modal-footer">
-              <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade" onclick="return confirm('Are you sure?');"><i class="fa fa-send"></i> SAVE</button>  
+              <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade" onclick="return confirm('Are you sure?');"><i class="fa fa-send"></i> SAVE</button>
 
             </div>
 
           </div>
         </div>
       </form>
-    </div> 
+    </div>
 
 
 
@@ -400,7 +408,7 @@ $a= date("Y-m-d");
             <div class="modal-header">
               <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title"> <i class="ion-android-person"></i> Edit Category Form </h4>
-            </div>          
+            </div>
             <div class="modal-body" >
 
 
@@ -410,19 +418,19 @@ $a= date("Y-m-d");
             </form>
           </div>
           <div class="modal-footer">
-            <button type="submit" name="btnSave" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>                                
+            <button type="submit" name="btnSave" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>
           </div>
 
         </div>
       </div>
     </form>
-  </div> 
+  </div>
 
 
   <script type="text/javascript">
     function get_id(o) {
       myRowIndex = $(o).parent().parent().index();
-      var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);    
+      var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);
       var $modal = $('#editModal'),
       $category_no1 = $modal.find('#category_no1');
       $category_no1.val(getid);
@@ -476,7 +484,7 @@ $a= date("Y-m-d");
      id = document.getElementById("quote_no").value;
      if (confirm("Are you sure?") == true) {
 
-     } 
+     }
      else {
       return false;
         //window.location.href="purchaseorder1.php";
@@ -494,7 +502,7 @@ $a= date("Y-m-d");
      id = document.getElementById("quote_no").value;
      if (confirm("Are you sure?") == true) {
 
-     } 
+     }
      else {
       return false;
         //window.location.href="purchaseorder1.php";

@@ -8,7 +8,7 @@ switch($_POST["action"]) {
 	case "add":
 		if(!empty($_POST["quantity"]) && !empty($_POST["po_no"])) {
       echo'
-      <h3 style="">List of Order</h3>
+      <center><h3 style="">List of Order</h3></center>
       ';
 			     $productByCode = $db_handle->runQuery("SELECT * FROM materialreq_cart WHERE code='" . $_POST["code"] . "' and req_no='" . $_POST["po_no"] . "' ORDER BY material_no ASC ");
       $itemArray = array($productByCode[0]["code"]=>array('material_no'=>$productByCode[0]["material_no"], 'code'=>$productByCode[0]["code"],  'category'=>$productByCode[0]["category"], 'scategory_name'=>$productByCode[0]["scategory_name"], 'brand_name'=>$productByCode[0]["brand_name"], 'description'=>$productByCode[0]["description"], 'color'=>$productByCode[0]["color"], 'package'=>$productByCode[0]["package"], 'unit_measurement'=>$productByCode[0]["unit_measurement"], 'abbre'=>$productByCode[0]["abbre"], 'quantitys'=>$productByCode[0]["quantity"], 'quantity'=>$_POST["quantity"]));
@@ -98,7 +98,7 @@ if(isset($_SESSION["cart_itemp"])){
     $item_total = 0;
 ?>  
 <div class="container" style="width:100%; margin-left: 0px; margin-top:0px;">
-<table id="tableko" name="tableko" class="table table-condensed table-striped table-hover" style="font-size: 1em;">
+<table id="tableko1" name="tableko1" class="table table-condensed table-striped table-hover" style="font-size: 1em;">
 <thead>
 <tr>
 <th>Brand</th>

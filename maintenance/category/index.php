@@ -98,9 +98,7 @@ $a= date("Y-m-d");
                
 
                 <p>
-                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                  <br>
-                  <label><?php echo ''.ucfirst($position).''; ?></label>
+               <?php include("../../maintenance/user_type.php"); ?>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -121,7 +119,7 @@ $a= date("Y-m-d");
       </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
-<?php include("../../maintenance/side.php") ?>
+<?php include("../../maintenance/side_account.php") ?>
 
 
       <!-- Right side column. Contains the navbar and content of the page -->

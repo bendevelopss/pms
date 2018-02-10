@@ -14,13 +14,13 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-  echo '<script type="text/javascript">window.location.href="index.php";</script>'; 
+  echo '<script type="text/javascript">window.location.href="../../index.php";</script>';
 }
 
 $content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
 $total2=@mysql_affected_rows();
 
-    
+
 $row=mysql_fetch_array($content2);
 
 $user2=$row['username'];
@@ -53,18 +53,18 @@ $a= date("d/m/Y");
   <title>Requisition</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
   <!-- Bootstrap 3.3.2 -->
-  <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
-  <!-- ionics -->   
-  <link href="../../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />  
+  <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <!-- ionics -->
+  <link href="../../plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
   <!-- FontAwesome 4.3.0 -->
-  <link href="../../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />  
+  <link href="../../bootstrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
   <!-- Theme style -->
   <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins 
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
      folder instead of downloading all of them to reduce the load. -->
      <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-     <!-- SweetAlert -->    
-     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />       
+     <!-- SweetAlert -->
+     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
      <!-- Date Picker -->
      <link href="../../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
      <!-- Daterange picker -->
@@ -94,7 +94,7 @@ function cartAction(action,product_code) {
       {
        alert("The quantity should not be  higher than the quantity needed");
       break;
-      }  
+      }
        if(qty1<=0)
       {
         alert("Quantity cannot be zero or negative values");
@@ -102,7 +102,7 @@ function cartAction(action,product_code) {
       }
       else
       {
-        queryString = 'action='+action+'&code='+ product_code+'&quantity='+$("#qty_"+product_code).val()+'&po_no='+$("#samp").val(); 
+        queryString = 'action='+action+'&code='+ product_code+'&quantity='+$("#qty_"+product_code).val()+'&po_no='+$("#samp").val();
       break;
       }
       case "remove":
@@ -111,7 +111,7 @@ function cartAction(action,product_code) {
       case "empty":
         queryString = 'action='+action;
       break;
-    }  
+    }
   }
   jQuery.ajax({
   url: "materialrequisition3_action.php",
@@ -133,7 +133,7 @@ function cartAction(action,product_code) {
           $(".btnAddAction").show();
           $(".btnAdded").hide();
         break;
-      }  
+      }
     }
   },
   error:function (){}
@@ -148,7 +148,7 @@ function cartAction(action,product_code) {
 
     <form action="" method="post" name="frm" id="frm">
       <header class="main-header">
-        <!-- Logo --> 
+        <!-- Logo -->
         <a href="index.php" class="logo">
 
          <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
@@ -161,51 +161,55 @@ function cartAction(action,product_code) {
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>      
+            <span class="sr-only">Toggle navigation</span>
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            
-                <li class="dropdown notifications-menu">
+
+          <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
-            <a class="label-primary" data-toggle="dropdown">
-             
-              
+            <a data-toggle="dropdown">
+
+
               <span id="time" style="font-weight: bold; color: "></span>
             </a>
-            
+
           </li>
-
-
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
-             
-             
-               <?php include("../../maintenance/nav.php"); ?>  
-            </a>
 
+
+               <?php include("../../maintenance/nav.php"); ?>
+            </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
 
-         <?php include("../../maintenance/user_type.php"); ?>
+
+                <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
-              
+
               <!-- Menu Footer-->
               <li class="user-footer">
-                
+
                 <div class="pull-center">
                   <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
                 </div>
               </li>
             </ul>
-          </li> 
-         
+          </li>
+
+            <!-- User Account: style can be found in dropdown.less -->
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <?php include("../../maintenance/side_account.php") ?>
+
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
@@ -218,11 +222,11 @@ function cartAction(action,product_code) {
                 session_destroy();
                 echo "<meta http-equiv='refresh' content='0'>";
               }
-              ?>  
-           
+              ?>
+
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <?php include("../../maintenance/side_account.php") ?>
+
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -232,7 +236,7 @@ function cartAction(action,product_code) {
         <h1>
           Material Requisition
           <small>Transaction</small>
-        </h1>                              
+        </h1>
       </section>
 <?php
 if(isset($_POST['scname']) && isset($_POST['quote_no'])  && isset($_POST['prepared']) )
@@ -258,74 +262,52 @@ $cust=$row4['customer'];
 
 
         <!-- Small boxes (Stat box) -->
-        <div class="row" >                                 
+        <div class="row" >
           <div class="col-md-12 col-sm-8 col-xs-8">             <!-- NEW RECORD -->
                 <!-- <a href="addTax.php"><button class="btn btn-success btn-lg" style="margin-bottom:5px;
-                  box-shadow: 0px 4px 8px #888888"> 
+                  box-shadow: 0px 4px 8px #888888">
                 + ADD NEW RECORD</button> </a> -->
                 <div class="box-header with-border">
-                
-                  <div class="col-sm-6" style="margin-bottom: 10px;">                        
+
+                  <div class="col-sm-6" style="margin-bottom: 10px;">
                    <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
 
-                    <div class="col-xs-3" style="text-align: center;"> 
+                    <div class="col-xs-3" style="text-align: center;">
                       <label>Material Req ID</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'MAT-000'.$_GET['id'].''; ?>" style="text-align: center;" readonly>
-                      
-                    </div>  
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo ''.$_GET['id'].''; ?>" style="text-align: center;" readonly>
 
-                     <div class="col-xs-3" style="text-align: center;"> 
+                    </div>
+
+                     <div class="col-xs-3" style="text-align: center;">
                       <label>Customer Name</label> <!-- Prod_Name -->
                       <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$cust.''; ?>" style="text-align: center;" readonly>
                       <input class="form-control" type="hidden"name="samp" id="samp" value="<?php echo ''.$_GET['scname'].''; ?>"">
-                      
-                    </div>   
 
-                    <div class="col-xs-3" style="text-align: center;"> 
+                    </div>
+
+                    <div class="col-xs-3" style="text-align: center;">
                       <label>Project Name</label> <!-- Prod_Name -->
                       <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$project.''; ?>" style="text-align: center;" readonly>
-                      
-                      
-                    </div>   
-
-                                          
-                    </div>   
 
 
-                </div>          
+                    </div>
+
+
+                    </div>
+
+
+                </div>
 
                 <div class="col-md-9 col-xs-12"> <!-- MESSAGE -->
 
                   <div class="alert alert-xs  bg-teal alert-dismissable" style="width:85%; display:none" id="msg">
                     <i class="icon fa fa-check"></i>
                     <label id="msgContent"></label>
-                  </div>  
-
-                </div>    
-                                                
-            </div>
-
-
-
-
-
-
-
-
-            <div id="loading" class="modal fade">
-              <div class="modal-dialog">
-                <div class="overlay">
-                  <div class="modal-body" style="text-align:center">
-                    <div class="overlay">
-                      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                      <i class="fa fa-spinner fa-pulse fa-spin"  
-                      style="font-size:60px;"></i>
-                    </div>
                   </div>
+
                 </div>
-              </div>
+
             </div>
-           
 
 
 
@@ -333,83 +315,60 @@ $cust=$row4['customer'];
               <div class="col-lg-12 col-sm-12 col-xs-12">
                 <div class="box box-solid">
                   <div class="box-header">
-                    <h3 class="box-title">Available Items</h3>
+                    <center><h1 class="box-title" style="text-align: center; font-size: 20pt;">Available Items</h1></center>
                     <div class="myData"></div>
 
                   </div><!-- /.box-header -->
                   <div class="box-body">
-                    <table id="jsontable" class="table table-condensed table-striped table-hover" style="font-size: 0.9em;">
-                      <thead>
-
-                        <tr>
-                         
-
-                      <th style="text-align:center"><strong>Brand</strong></th>
-                      <th style="text-align:center"><strong>Category</strong></th>
-                      <th style="text-align:center"><strong>Subcategory</strong></th>
-                      <th style="text-align:center"><strong>Description</strong></th>
-                      <th style="text-align:center"><strong>Color</strong></th>
-                      <th style="text-align:center"><strong>Package</strong></th>
-                      <th style="text-align:center"><strong>Measurement</strong></th>
-
-                      <th style="text-align:center"><strong>Qty remaining</strong>
-                      <strong>(Quotation)</strong>
-                      </th>
-                      <th  style="text-align:center"><strong>Qty Available</strong>
-                      <strong>(Inventory)</strong>
-                      </th>
-                      <th style="text-align:center"><strong>Quantity</strong></th>
-                      <th style="text-align:center"><strong>Action</strong></th>
-                        </tr>
-
-                      </thead>
-
-                      <?php  
-
-
-                      $servername = "localhost";
-                      $username = "root";
-                      $password = "";
-                      $dbname = "pms";
-
-// Create connection
-                      $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-                      if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                      } ?>
-                  
-  <?php
-   /*$product_array = $db_handle->runQuery("SELECT quotation_cart.quote_no,quotation_cart.material_no, quotation_cart.code,quotation_cart.brand_name,quotation_cart.category,quotation_cart.scategory_name,quotation_cart.description,quotation_cart.color,quotation_cart.package,quotation_cart.unit_measurement,quotation_cart.abbre,quotation_cart.quantity_remaining,quotation_cart.price, materials.quantity as quantity_available 
-      FROM quotation_cart 
-      INNER JOIN materials 
-      ON quotation_cart.material_no=materials.material_no where quotation_cart.quote_no = '".$_GET['scname']."' and quotation_cart.quantity_remaining >'0' ORDER BY quote_no ASC");
-*/   $product_array = $db_handle->runQuery("SELECT `quotation`.*, `quotation_cart`.*, materials.quantity as quantity_available FROM `quotation` LEFT JOIN `quotation_cart` ON `quotation`.project = `quotation_cart`.project INNER JOIN materials ON quotation_cart.material_no=materials.material_no WHERE `quotation`.quote_no = '".$_GET['scname']."' AND `quotation_cart`.quantity_remaining >'0' ORDER BY `quotation_cart`.quote_no ASC");
-     
+                  <?php
+   $product_array = $db_handle->runQuery("SELECT `quotation`.*, `quotation_cart`.*, materials.quantity as quantity_available FROM `quotation` LEFT JOIN `quotation_cart` ON `quotation`.project = `quotation_cart`.project INNER JOIN materials ON quotation_cart.material_no=materials.material_no WHERE `quotation`.quote_no = '".$_GET['scname']."' AND `quotation_cart`.quantity_remaining >'0' ORDER BY `quotation_cart`.quote_no ASC");
   if (!empty($product_array))
-   {  
-    echo'<tbody>';
+   {
+    echo'<table class="table table-condensed table-striped table-hover" id="tableko1" name="tableko1" style="font-size: 1em;">
+
+    <thead>
+<tr>
+<th style="text-align:center"><strong>Brand</strong></th>
+<th style="text-align:center"><strong>Category</strong></th>
+<th style="text-align:center"><strong>Sub-Category</strong></th>
+<th style="text-align:center"><strong>Description</strong></th>
+<th style="text-align:center"><strong>Color</strong></th>
+<th style="text-align:center"><strong>Package</strong></th>
+<th style="text-align:center"><strong>Measurement</strong></th>
+
+<th style="text-align:center"><strong>Quantity remaining</strong>
+<strong>(Quotation)</strong>
+</th>
+<th  style="text-align:center"><strong>Quantity Available</strong>
+<strong>(Inventory)</strong>
+</th>
+<th style="text-align: center"><strong>Quantity</strong></th>
+<th style="text-align:center"><strong>Action</strong></th>
+</tr>
+</thead>
+<tbody>';
     foreach($product_array as $key=>$value)
     {
   ?>    <tr>
-        <form method="post" action="index.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>&employee=<?php echo $scname?>&materialreq=<?php echo $quote_no?>">
-      <td class="brand_name"><?php echo $value["brand_name"]; ?></td>
-      <td class="category"><?php echo $value["category"]; ?></td>
-      <td class="scategory_name"><?php echo $value["scategory_name"]; ?></td>
-      <td class="description"><?php echo $value["description"]; ?></td>
-      <td class="color"><?php echo $value["color"]; ?></td>
-      <td class="package"><?php echo $value["package"]; ?></td>
-      <td class="unit_measurement" style="text-align: center;"><?php echo $product_array[$key]["unit_measurement"];?> <?php echo $product_array[$key]["abbre"];?></strong></td>
-      <td class="quantity_remaining" style="text-align: center;"><?php echo $product_array[$key]["quantity_remaining"];?>
-          <input type="number" hidden id="qty2_<?php echo $product_array[$key]["code"]; ?>" class="qty2" name="quantity2" value="<?php echo $product_array[$key]["quantity"]; ?>" size="1"/ ></td>
+      <form method="post" action="materialrequisition3.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>&employee=<?php echo $scname?>&materialreq=<?php echo $quote_no?>">
+      <td style="text-align: center;"><?php echo $product_array[$key]["brand_name"]; ?></td>
+      <td style="text-align: center;"><?php echo $product_array[$key]["category"]; ?></td>
+      <td style="text-align: center;"><?php echo $product_array[$key]["scategory_name"]; ?></td>
+      <td style="text-align: center;"><?php echo $product_array[$key]["description"]; ?></td>
+      <td style="text-align: center;"><?php echo $product_array[$key]["color"]; ?></td>
+      <td style="text-align: center;"><?php echo $product_array[$key]["package"]; ?></td>
+      <td style="text-align: center;"><?php echo $product_array[$key]["unit_measurement"];?><?php echo $product_array[$key]["abbre"];?></strong></td>
+
+      <td style="text-align: center;"><?php echo $product_array[$key]["quantity_remaining"];?>
+          <input type="number" hidden id="qty2_<?php echo $product_array[$key]["code"]; ?>" class="form" name="quantity2" value="<?php echo $product_array[$key]["quantity"]; ?>" size="2"></td>
 
       </td>
-      <td class="quantity_available" style="text-align: center;"><?php echo $product_array[$key]["quantity_available"];?>
-         <input type="number" hidden id="qty1_<?php echo $product_array[$key]["code"]; ?>" class="qty1"  name="quantity1" value="<?php echo $product_array[$key]["quantity_available"]; ?>" size="" />
+      <td style="text-align: center;"><?php echo $product_array[$key]["quantity_available"];?>
+         <input type="number" hidden id="qty1_<?php echo $product_array[$key]["code"]; ?>" class="qty1" name="quantity1" value="<?php echo $product_array[$key]["quantity_available"]; ?>" size="2" style="text-align: center;">
 
       </td>
-      <td style="text-align: center;"><input type="number" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control qty" name="quantity" value="" size="1" style="text-align: center; width: 30%;"/></td>
-      <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add" class="btn btn-primary btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
+      <td style="text-align: right;"><input type="number" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control qty" name="quantity" style="text-align: center;" /></td>
+      <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add to cart" class="btn btn-block bg-blue btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
       </form>
       </tr>
     </div>
@@ -417,7 +376,7 @@ $cust=$row4['customer'];
   <?php
       }
   }
-  ?> 
+  ?>
      </tbody>
   </table>
 
@@ -426,22 +385,22 @@ $cust=$row4['customer'];
                       </div><!-- /.box-body -->
                     </div><!-- /.box -->
                   </div><!-- /.col -->
-                </div>  <!-- /.row -->         
-                
+                </div>  <!-- /.row -->
 
-  
-                  </div> <!-- /.row --> 
+
+
+                  </div> <!-- /.row -->
                 </section><!-- right col -->
-                 
+
                   <section class="content-header">
-                             
+
 
                   </section>
                           <section class="content">
 
 
     <div class="row">
-    <div class="col-md-12 col-sm-8 col-sm-8">     
+    <div class="col-md-12 col-sm-8 col-sm-8">
 <div class="box box-solid">
   <div class="box-body">
     <div id="cart-item"></div>
@@ -455,7 +414,7 @@ if(isset($_POST['btnAdd']))
 
 if(empty($_SESSION["cart_itemmq"]))
 {
- echo '<script type="text/javascript">alert("Cart empty")</script>'; 
+ echo '<script type="text/javascript">alert("Cart empty")</script>';
 }
 
 else
@@ -475,17 +434,17 @@ else
 <th><strong>Measurement</strong></th>
 <th><strong>Abbreviation</strong></th>
 <th><strong>Quantity</strong></th>
-</tr> 
+</tr>
 </thead>
 <tbody>
- <div class="col-lg-12 col-xs-12"> 
+ <div class="col-lg-12 col-xs-12">
        <div class="alert alert-xs  bg-teal alert-dismissable" style="width:100%; float: center;" >
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <label><i class="icon fa fa-check"></i> Materials has been Added!</label>
-               
-              </div> 
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <label><i class="icon fa fa-check"></i> MATERIALS HAS BEEN ADDED!</label>
+
+              </div>
 <br>
-<?php   
+<?php
     foreach ($_SESSION["cart_itemmq"] as $item){
     ?>
        <?php
@@ -519,15 +478,14 @@ else
     ?>
 
 </tbody>
-</table> 
+</table>
 <?php
-
   $order=mysql_real_escape_string($_GET['prepared']);
 
     $accepted='active';
     foreach($_SESSION["cart_itemmq"] as $item)
     {
-     
+
 
     $material_no = $item['material_no'];
     $brand_name = $item['brand_name'];
@@ -546,7 +504,7 @@ else
     $hash2= md5($hash1+$material_no+$hash3);
 
 $content5=mysql_query("select *, max(material_no) as max from materialreq_cart where req_no='".$_GET['id']."' and material_no='".$material_no."'");
-    $total5=@mysql_affected_rows();
+    $total5=mysql_affected_rows();
     $row5=mysql_fetch_array($content5);
 
     $quantity_total=$quantity+$row5['quantity'];
@@ -554,35 +512,36 @@ $content5=mysql_query("select *, max(material_no) as max from materialreq_cart w
     if($row5['max']>=1)
 {
      mysql_query("UPDATE materialreq_cart SET quantity='".$quantity_total."' where req_no='".$_GET['id']."' and material_no='".$material_no."' ");
-    echo '<script type="text/javascript">alert("Materials has been added")</script>'; 
+
 }
-else  
+else
 {
- mysql_query("insert into materialreq_cart (req_no, code, customer,project,material_no,brand_name,category,scategory_name,description,color,package,unit_measurement,quantity,abbre,status) values('".$_GET['id']."','".$hash2."','".$cust."','".$project."','".$material_no."','".$brand_name."','".$category."','".$scategory_name."','".$description."','".$color."','".$packages."','".$unit_measurement."','".$quantity."','".$abbre."','".$accepted."') ");
+ mysql_query("insert into materialreq_cart (req_no, code, customer,project,material_no,brand_name,category,scategory_name,description,color,package,unit_measurement,quantity,abbre,status) values('".$_GET['id']."','".$hash2."','".$cust."','".$project."','".$material_no."','".$brand_name."','".$category."','".$scategory_name."','".$description."','".$color."','".$packages."','".$unit_measurement."','".$quantity."','".$abbre."','".$accepted."') ") or die (mysql_error());
 
 }
 
-   
-  
-    }
 
+
+    }
+    mysql_query("insert into materialreq (req_no,customer,project,date,requested_by,status) values ('".$_GET['id']."','".$cust."','".$project."','".$a."','".$order."','".$accepted."') ") or die (mysql_error());
+     echo '<script type="text/javascript">alert("Materials has been added")</script>';
 
 
      ?>
-     
+
 
    <?php
     unset($_SESSION["cart_itemmq"]);
   }
-  }  
+  }
 ?>
-<div style="text-align: center; float: center;">
-<button type="button"  onclick="done()" class="btn btn-default">Go Back</button>
-<button type="button"  class="btn btn-danger"> <a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');" style="color: white;">Remove All</a></button>
-<button type="submit" name="btnAdd" id="btnAdd" class="btn btn-primary">Process Order</button>
-     
-    <?php
-    $contents6=mysql_query("select max(req_no) as max from materialreq_cart where req_no='".$_GET['id']."'");   
+<center>
+<button type="button"  onclick="done()" class="btn btn-default">Back</button>
+<button type="button"  class="btn btn-danger"> <a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');"><font color="white">Empty Cart</font></a></button>
+<button type="submit" name="btnAdd" id="btnAdd" class="btn btn-primary">Add Materials</button>
+
+     <?php
+    $contents6=mysql_query("select max(req_no) as max from materialreq_cart where req_no='".$_GET['id']."'");
     $rows6=mysql_fetch_array($contents6);
 
  if($rows6['max']>=1)
@@ -593,7 +552,7 @@ else{
    echo'<button type="button"  onclick="print()" class="btn btn-success" disabled>Print</button>';
 }
 ?>
-
+</center>
 <script>
 $(document).ready(function () {
   cartAction('','');
@@ -624,7 +583,7 @@ $(document).ready(function () {
     </div> <!-- /. col -->
   </div> <!--/.box-body-->
 </div> <!-- /.box -->
-        
+
     </div> <!-- /. row -->
 
             </section><!-- right col -->
@@ -637,17 +596,17 @@ $(document).ready(function () {
               <b>Version</b> 3.0
             </div>
             <strong>Copyright &copy; 2016<?php if(date("Y")!=2015)echo" - ".date("Y")."";?></strong> All rights reserved.
-          </footer>        
+          </footer>
         </div><!-- /.content-wrapper -->
 
       </div><!-- ./wrapper -->
 
 
-     
+
   <script type="text/javascript">
     function get_id(o) {
       myRowIndex = $(o).parent().parent().index();
-      var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);    
+      var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);
       var $modal = $('#editModal'),
       $category_no1 = $modal.find('#category_no1');
       $category_no1.val(getid);
@@ -670,7 +629,7 @@ $(document).ready(function () {
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
   <!-- Bootstrap 3.3.2 JS -->
-  <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
+  <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
   <script src="../../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
   <!-- Bootstrap WYSIHTML5 -->
@@ -691,7 +650,7 @@ $(document).ready(function () {
   </html>
   <script type="text/javascript">
     $(document).ready(function(){
-      $('#jsontable').DataTable({
+      $('#tableko1').DataTable({
         "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
 
       });

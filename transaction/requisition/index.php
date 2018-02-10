@@ -37,6 +37,21 @@ $position=$row['position'];
 
 $a= date("m-d-Y");
 
+
+
+
+$content1=mysql_query("select max(req_no) as max from materialreq");
+$total1=@mysql_affected_rows();
+
+    
+$row=mysql_fetch_array($content1);
+$noo=$row['max'];
+
+$hell=$noo+1;
+
+
+
+$a= date("d/m/Y");
 ?>
 <!DOCTYPE html>
 <html>
@@ -145,21 +160,11 @@ $prepare= $_POST['prepared'];
       </section>
 
 <?php
-$content1=mysql_query("select max(req_no) as max from materialreq");
-$total1=@mysql_affected_rows();
 
-    
-$row=mysql_fetch_array($content1);
-$noo=$row['max'];
-
-$hell=$noo+1;
-
-
-
-$a= date("m-d-Y");
 
 
 ?>
+
       <!-- Main content -->
       <section class="content">
         <!--Table function-->
@@ -178,7 +183,7 @@ $a= date("m-d-Y");
                       
                      <div class="col-xs-2" style="text-align: center;"> 
                       <label>Material Requisition ID</label> <!-- Prod_Name -->
-                       <input class="form-control" style="text-align: center;" type="text" name="quote_no" value="<?php  echo'MATREQ-' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" readonly>
+                       <input class="form-control" style="text-align: center;" type="text" name="quote_no" value="<?php echo ''.$hell.''; ?>" readonly>
                     </div>   
 
                              
@@ -272,14 +277,22 @@ $a= date("m-d-Y");
                       } ?>
                       <script type="text/javascript">
                 
-             
+
 </script>
 <form action="" method="post">
 <?php
-                     $sql = "SELECT * from quotation where status='active' and balance >= 1";
-                      $result = $conn->query($sql);
-                      $hells=$hell;
-                    while($row = $result->fetch_assoc())
+      $sql = "SELECT * from quotation where status='active' and balance >= 1";
+      $result = $conn->query($sql);
+$content1=mysql_query("select max(req_no) as max from materialreq");
+$total1=@mysql_affected_rows();
+
+    
+$row=mysql_fetch_array($content1);
+$noo=$row['max'];
+
+$hell=$noo+1;
+$hells=$hell;
+    while($row = $result->fetch_assoc())
                       { 
                       
                        echo '<tr>'; 

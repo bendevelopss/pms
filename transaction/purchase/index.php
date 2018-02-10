@@ -79,7 +79,16 @@ $prepare= $_POST['prepared'];
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+              
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
             
+          </li> 
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
@@ -168,7 +177,7 @@ $a= date("m-d-Y");
 
                      <div class="col-xs-2" style="text-align: center;"> 
                       <label>Purchase Order ID</label> <!-- Prod_Name -->
-                       <input class="form-control" type="text" style="text-align: center;" id="quote_no" name="quote_no" value="<?php  echo'PO' .str_pad($hell, 4, '0', STR_PAD_LEFT).''; ?>" readonly>
+                       <input class="form-control" type="text" style="text-align: center;" id="quote_no" name="quote_no" value="<?php echo $hell; ?>" readonly>
                     </div>   
 
                              
@@ -265,8 +274,15 @@ $a= date("m-d-Y");
 <?php
                       $sql = "SELECT * FROM supplier where status='active'";
                       $result = $conn->query($sql);
-                             
-                    
+                      $content1=mysql_query("SELECT max(po_no) as max from purchase_order");
+                      $total1=@mysql_affected_rows();
+
+    
+                      $row=mysql_fetch_array($content1);
+                      $noo=$row['max'];
+
+                      $hell=$noo+1;
+                      
                       while($row = $result->fetch_assoc())
                       { 
                       
@@ -278,7 +294,7 @@ $a= date("m-d-Y");
                       echo'<td>'.ucfirst($row['email']).'</td>';
                       
                        echo'<td>';
-                          echo'<button type="button" name="btnNext" onclick="return myFunctions();" class="btn btn-primary btn-md"><a href="../purchase_accept/index.php?po_no='.$hell.'&scname='.$row['supplier_no'].'&ordered='.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'" style="color:White; ">Order</a> </a></button></td> ';
+                          echo'<button type="button" name="btnNext" onclick="return myFunctions();" class="btn btn-primary btn-md"><a href="../purchase_accept/index.php?po_no='.$hell.'&scname='.$row['supplier_no'].'&ordered='.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'" style="color:White; ">Order Items</a> </a></button></td> ';
        }
         
       echo'</tr>';

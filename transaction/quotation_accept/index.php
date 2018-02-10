@@ -49,7 +49,7 @@ $position=$row['position'];
 require_once("dbcontroller.php");
 $db_handle = new DBController();
 
-$a= date("m-d-Y");
+$a= date("Y-m-d");
 
 ?>
   <script>
@@ -314,7 +314,7 @@ $cust2=$row['customer'];
 
                     <div class="col-xs-3" style="text-align: center;"> 
                       <label>Quotation ID:</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'QUOT-000'.$_GET['id'].''; ?>" readonly style="text-align: center;">
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo ''.$_GET['id'].''; ?>" readonly style="text-align: center;">
                       
                     </div>  
 
@@ -327,6 +327,12 @@ $cust2=$row['customer'];
                     <div class="col-xs-3" style="text-align: center;"> 
                       <label>Project Name:</label> <!-- Prod_Name -->
                       <input class="form-control" type="text" name="proj" id="proj" value="<?php echo ''.$project2.''; ?>" readonly style="text-align: center;">
+                      
+                    </div>   
+
+                    <div class="col-xs-3" style="text-align: center;"> 
+                      <label>Customer:</label> <!-- Prod_Name -->
+                      <input class="form-control" type="text" name="proj" id="proj" value="<?php echo ''.$cust2.''; ?>" readonly style="text-align: center;">
                       
                     </div>   
 
@@ -370,18 +376,24 @@ $cust2=$row['customer'];
               <div class="col-lg-12 col-sm-12 col-xs-12">
                 <div class="box box-solid">
                   <div class="box-header">
-                    <h3 class="box-title">Available Items</h3>
+                    <center><h3 class="box-title">Available Items</h3></center>
                     <div class="myData"></div>
 
                   </div><!-- /.box-header -->
                   <div class="box-body">
-                    <table id="jsontable" class="table table-condensed table-striped table-hover" style="font-size: 1em;">
+                    
+
+                       <?php
+  $product_array = $db_handle->runQuery("SELECT * FROM materials ORDER BY material_no ASC");
+  if (!empty($product_array))
+   { 
+    echo'<table class="table table-condensed table-striped table-hover" id="jsontable1" name="jsontable1" style="font-size: 1em;">
                       <thead>
 
                         <tr>
                          
 
-                         <th>Brand</th>
+                          <th>Brand</th>
                           <th>Category</th>
                           <th>Sub-Category</th>
                           <th>Description</th>
@@ -394,43 +406,23 @@ $cust2=$row['customer'];
                           <th>Action</th>
                         </tr>
 
-                      </thead>
+                      </thead>';
 
-                      <?php  
-
-
-                      $servername = "localhost";
-                      $username = "root";
-                      $password = "";
-                      $dbname = "pms";
-
-// Create connection
-                      $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-                      if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                      } ?>
-                  
- <?php
-  $product_array = $db_handle->runQuery("SELECT * FROM materials ORDER BY material_no ASC");
-  if (!empty($product_array))
-   { 
-    echo'<tbody>';
- foreach($product_array as $key=>$value)
+    foreach($product_array as $key=>$value)
     {
   ?>    <tr>
-       <form method="post" action="index.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>&employee=<?php echo $scname?>&materialreq=<?php echo $quote_no?>">
+      <form method="post" action="quotation2.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>&employee=<?php echo $scname?>&materialreq=<?php echo $quote_no?>">
       <td><?php echo $product_array[$key]["brand_name"]; ?></td>
       <td><?php echo $product_array[$key]["category"]; ?></td>
       <td><?php echo $product_array[$key]["scategory_name"]; ?></td>
       <td><?php echo $product_array[$key]["description"]; ?></td>
       <td><?php echo $product_array[$key]["color"]; ?></td>
       <td><?php echo $product_array[$key]["package"]; ?></td>
-      <td><?php echo $product_array[$key]["unit_measurement"];?></td>
-      <td style="text-align: center;"><?php echo $product_array[$key]["abbre"];?></td>
-      <td><input type="text" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control" name="quantity" value="" size="1" style="text-align: center;"/></td>
+      <td><?php echo $product_array[$key]["unit_measurement"];?></strong></td>
+      <td><?php echo $product_array[$key]["abbre"];?></td>
+      <td><input type="text" id="qty_<?php echo $product_array[$key]["code"]; ?>" class="form-control qty" name="quantity" value="1" style="width: 30%; text-align:center;"/></td>
       <td><?php echo '&#8369;'.$product_array[$key]["price"].'';?></td>
-      <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add Item" class="btn btn-block bg-blue btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
+      <td><input type="button" id="add_<?php echo $product_array[$key]["code"]; ?>" name ="adds" value="Add to cart" class="btn btn-block bg-blue btnAddAction cart-action" onClick = "cartAction('add','<?php echo $product_array[$key]["code"]; ?>')" /></td>
       </form>
       </tr>
     </div>
@@ -466,7 +458,7 @@ $cust2=$row['customer'];
 <div class="box box-solid">
   <div class="box-body">
     <div id="cart-item"></div>
-     <form method="post" action="index.php?id=<?php echo ''.$_GET['id'].''?>&scname=<?php echo ''.$_GET['scname'].''?>&customer=<?php echo ''.$_GET['customer'].''?>&project=<?php echo ''.$project2.''?>&prepared=<?php echo ''.$_GET['prepared'].''?>">
+<form method="post" action="index.php?id=<?php echo ''.$_GET['id'].''?>&scname=<?php echo ''.$_GET['scname'].''?>&customer=<?php echo ''.$_GET['customer'].''?>&project=<?php echo ''.$project2.''?>&prepared=<?php echo ''.$_GET['prepared'].''?>">
 <?php
 $content3=mysql_query("SELECT * from quotation where customer='".$_GET['customer']."'");
 $total3=@mysql_affected_rows();
@@ -493,7 +485,7 @@ else
   ?>
 
 <div class="box-body">
-<table class="table table-condensed table-striped table-hover" id="jsontable1" name="jsontable1" style="font-size: 0.8em;">
+<table class="table table-condensed table-striped table-hover" id="jsontable1" name="jsontable1" style="font-size: 1em;">
 <thead>
 <tr>
 <th>Brand</th>
@@ -508,12 +500,12 @@ else
 </tr> 
 </thead>
 <tbody>
-    <h2 style="text-align: center; font-weight: bolder; text-decoration: underline">List of Order</h2>
+    <h2 style="text-align: center;">List of Order</h2>
 
         <div class="col-lg-12 col-xs-12"> 
-       <div class="alert alert-xs  bg-teal alert-dismissable" style="width:85%; float: center;" >
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <label><i class="icon fa fa-check"></i> Order has been added!</label>
+       <div class="alert alert-xs  bg-teal alert-dismissable" style="width:100%; float: center;" >
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <label><i class="icon fa fa-check"></i> ORDER HAS BEEN ADDED!</label>
                
               </div>           
 </div>
@@ -551,14 +543,6 @@ else
 
 </tbody>
 </table>  
-<script type="text/javascript">
-      $(document).ready(function(){
-      $('#jsontable1').DataTable({
-        "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
-
-      });
-    });
-    </script>
 
 <?php
     $prep=mysql_real_escape_string($_GET['prepared']);
@@ -592,12 +576,6 @@ $content5=mysql_query("select *, max(material_no) as max from quotation_cart whe
 
     $quantity_total=$quantity+$row5['quantity'];
 
-    if($row5['max']>=1)
-{
-     mysql_query("UPDATE quotation_cart SET quantity='".$quantity_total."', quantity_remaining='".$quantity_total."' where quote_no='".$_GET['id']."' and material_no='".$material_no."' ");
-    echo '<script type="text/javascript">alert("Materials '.$_GET['po_no'].' has been Added")</script>'; 
-}
-else  
 {
 mysql_query("insert into quotation_cart (quote_no, company,project,material_no,code,brand_name,category,scategory_name,description,color,package,unit_measurement,quantity,quantity_remaining,price,abbre,status) values('".$_GET['id']."','".$cust2."','".$_GET['project']."','".$material_no."','".$hash2."','".$brand_name."','".$category."','".$scategory_name."','".$description."','".$color."','".$package."','".$unit_measurement."','".$quantity."','".$quantity."','".$price."','".$abbre."','".$accepted."') ");
 
@@ -614,11 +592,11 @@ mysql_query("insert into quotation_cart (quote_no, company,project,material_no,c
     $total_ammount=$item_total+$row5['total_amount'];
   
     mysql_query("UPDATE quotation SET status='".$accepted."' , prepared_by='".$prep."', total_amount='".$total_ammount."', balance='".$total_balance."',due_date='".$datepic."' where project='".$project2."' ");
-     echo '<script type="text/javascript">alert("Order has been added")</script>'; 
+     echo '<script type="text/javascript">alert("Materials has been added")</script>'; 
         
      ?>
  
-     
+
       
    <?php
    unset($_SESSION["cart_itempoq"]);
@@ -626,13 +604,28 @@ mysql_query("insert into quotation_cart (quote_no, company,project,material_no,c
 }
     
 ?>
-<div style="text-align: center; float: center">
-<button type="button" id="btnEmpty" class="btn btn-danger cart-action" onClick="cartAction('empty','');">Remove All</button>
-<button type="button" onclick="window.location.href="../quotation/index.php" class="btn btn-default btn-md">Go Back</button>
-<button type="submit" name="btnAdd" id="btnAdd" class="btn btn-primary btn-md" >Add Order</button>      
-</div>
+<center>
+<button type="button"  class="btn btn-danger"><a id="btnEmpty" class="cart-action" onClick="cartAction('empty','');" style="color: white;">Empty Cart</a></button>
+<button type="button"  onclick="done()" class=btn btn-default">Back</button>
+<button type="submit" name="btnAdd" id="btnAdd" class="btn btn btn-primary" >Add</button>
+</center>
 
 </form>
+
+
+
+
+
+<script type="text/javascript">
+      $(document).ready(function(){
+      $('#jsontable1').DataTable({
+        "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
+
+      });
+    });
+    </script>
+
+
 <script>
 $(document).ready(function () {
   cartAction('','');

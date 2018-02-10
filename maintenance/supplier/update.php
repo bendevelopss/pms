@@ -23,18 +23,18 @@
                     </div>  
 
                     <div class="col-xs-4" id="empnameErDv"> 
-                      <label><font color="darkred">*</font>Phone Number</label> 
-                      <input type="text" class="form-control" name="phone_num1" id="phone_num1" required>
+                      <label>Phone Number</label> 
+                      <input type="text" class="form-control" name="phone_num1" id="phone_num1" >
                     </div>     
 
                     <div class="col-xs-4" id="empnameErDv"> 
-                      <label><font color="darkred">*</font>Fax Number</label> 
-                      <input type="text" class="form-control" name="fax1" id="fax1" required>
+                      <label>Fax Number</label> 
+                      <input type="text" class="form-control" name="fax1" id="fax1" >
                     </div>  
 
                   </div>
 
-                  <div class="row" style="margin-bottom:5px"> <
+                  <div class="row" style="margin-bottom:5px">
                   
                     <div class="col-xs-4" id="phoneErDv"> 
                       <label><font color="darkred">*</font>Email Address</label> 
@@ -112,7 +112,7 @@
                     </div>           
 
                     <div class="col-xs-6" id="emailErDv"> 
-                      <label>City</label> <!-- Prod_Name -->
+                      <label><font color="darkred">*</font>City</label> <!-- Prod_Name -->
                       <input type="text" class="form-control" name="city1" id="city1" required>
                     </div>                
 

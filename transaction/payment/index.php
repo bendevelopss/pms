@@ -11,13 +11,13 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-  echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
+  echo '<script type="text/javascript">window.location.href="../../index.php";</script>';
 }
 
 $content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
 $total2=@mysql_affected_rows();
 
-    
+
 $row1=mysql_fetch_array($content2);
 
 $user2=$row1['username'];
@@ -33,7 +33,7 @@ $lastname2=$row1['lastname'];
 $contact2=$row1['contact'];
 $city2=$row1['city'];
 $street2=$row1['street'];
-$position=$row1['position'];
+
 
 $a= date("Y-m-d");
 
@@ -52,115 +52,13 @@ $a= date("Y-m-d");
   </head>
 
   <body class='skin-red fixed'>
-    <?php
-    $content1=mysql_query("select * from billing where billing_no='".$_POST['cname']."'");
-    $total1=@mysql_affected_rows();
-
-    
-    $row=mysql_fetch_array($content1);
-    $noo=$row['max'];
-
-    $hell=$noo+1;
-
-    $customer=$_POST['cname'];
-    $topay=$_POST['scname'];
-    $amount=$_POST['amount'];
-    $bankname=$_POST['bankname'];
-    $chequeno=$_POST['chequeno'];
-    $chequeamount=$_POST['chequeamount'];
-    $chequedate=$_POST['chequedate'];
-    $radio=$_POST['radiobutton'];
-    $status="Active";
-    $cust=$row['customer'];
-    $proj=$row['project'];
-    $tot=$row['totalcost'];
-    $bal=$row['balance'];
-    $top=$row['topay'];
-    $tops=$_POST['total'];
-
-    if(isset($_POST['btnAdd']))
-
-    {
-
-      $status="Active";
-
-      $sub=$bal-$amount;
-
-      mysql_query("insert into payment (customer,project,topay, amount, bankname, chequeno, chequedate, type, status ) 
-        values('". $cust."','".$project."','".$topay."', '".$amount."','".$bankname."'  ,'".$chequeno."', '".$chequedate."','".$radio."','".$status."')");
-
-      mysql_query("UPDATE billing SET balance='".$sub."', topay='".$tops."' WHERE billing_no='".$_POST['cname']."'");
-
-      mysql_query("UPDATE quotation SET balance='".$sub."' WHERE customer='".$cust."' and project='".$proj."'");
-
-      echo '<script type="text/javascript">alert("Payment has been added")</script>'; 
-      echo "<meta http-equiv='refresh' content='0'>";
-
-    }
+<form action="" method="post" name="frm" id="frm">
 
 
 
 
-//Update query
-    if(isset($_POST['btnSave']))
-    {
-      $payment_no11 = $_POST['payment_no1'];           
-      $cname11=$_POST['cname1'];
-      $scname11=$_POST['scname1'];
-      $amount11=$_POST['amount1'];
-      $bankname11=$_POST['bankname1'];
-      $chequeno11=$_POST['chequeno1'];
-      $chequedate11=$_POST['chequedate1'];
-      $type11=$_POST['radiobutton1'];
-
-      mysql_query("UPDATE payment SET customer='".$cname11."',topay='".$scname11."',amount='".$amount11."',bankname='".$bankname11."', chequeno='".$chequeno11."', chequedate='".$chequedate11."', type='".$type11."' WHERE payment_no='".$payment_no11."'");
-      echo "<script type='text/javascript'>alert('Update Successful!')</script>";
-      echo "<meta http-equiv='refresh' content='0'>";
-
-
-    }
-
-
-    ?>
-    <?php
-    require_once("dbcontroller.php");
-    $db_handle = new DBController();
-    $query ="SELECT * FROM billing where topay >0";
-    $results = $db_handle->runQuery($query);
-    ?>
-
-    <script>
-      function getState(val) {
-        $.ajax({
-          type: "POST",
-          url: "get_state4.php",
-          data:'country_id='+val,
-          success: function(data){
-            $("#scname").html(data);
-          }
-        });
-      }
-
-    </script>
-
-
-    <script>
-      function getState1(val) {
-        $.ajax({
-          type: "POST",
-          url: "get_state5.php",
-          data:'country_id='+val,
-          success: function(data){
-            $("#scname1").html(data);
-          }
-        });
-      }
-
-    </script>
-
-    <form action="" method="post" name="frm" id="frm">
       <header class="main-header">
-        <!-- Logo --> 
+        <!-- Logo -->
         <a href="index.php" class="logo">
 
          <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
@@ -173,38 +71,47 @@ $a= date("Y-m-d");
          <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>      
+            <span class="sr-only">Toggle navigation</span>
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            
+
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+
+
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
+
+          </li>
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
-             
-             
-               <?php include("../../maintenance/nav.php"); ?>  
+
+
+               <?php include("../../maintenance/nav.php"); ?>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+
 
                 <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
-              
+
               <!-- Menu Footer-->
               <li class="user-footer">
-                
+
                 <div class="pull-center">
                   <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
                 </div>
               </li>
             </ul>
-          </li> 
-         
+          </li>
+
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
@@ -217,8 +124,8 @@ $a= date("Y-m-d");
                 session_destroy();
                 echo "<meta http-equiv='refresh' content='0'>";
               }
-              ?>  
-           
+              ?>
+
     </header>
     <!-- Left side column. contains the logo and sidebar -->
     <?php include("../../maintenance/side_account.php") ?>
@@ -231,172 +138,21 @@ $a= date("Y-m-d");
         <h1>
           Payment
           <small>Transaction</small>
-        </h1>                              
+        </h1>
       </section>
 
-
-      <?php
-
-
-      $content1=mysql_query("select * from quotation where quote_no='".$_POST['cname']."' and balance >0");
-      $total1=@mysql_affected_rows();
-
-
-      $row=mysql_fetch_array($content1);
-      $noo=$row['max'];
-
-
-
-      $hell=$noo+1;
-
-
-      $cust=$row['customer'];
-      $proj=$row['project'];
-      $total=$_POST['scname'];
-      $balance=$_POST['balance'];
-      $topay=$_POST['totalamount'];
-      $start=$_POST['startdate'];
-      $end=$_POST['enddate'];
-
-
-      $status="Active";
-
-
-      $prep= mysql_real_escape_string($_GET['prepared']);
-
-
-
-
-      if(isset($_POST['btnAdd']))
-
-      {
-
-
-
-
-        mysql_query("insert into billing (customer, project,totalcost, balance, topay, datee, enddate, prepared, status ) 
-          values('".$cust."','". $proj."','". $total."','".$total."', '".$topay."','".$a."' ,'".$end."', '".$prep."', '".$status."')");
-
-        echo '<script type="text/javascript">alert("It has been added")</script>'; 
-        echo "<meta http-equiv='refresh' content='0'>";
-
-      }
-
-
-      if(isset($_POST['btnRemove'])) {
-
-        $nos = $_POST['btnRemove'];
-
-        $status="hidden";
-
-        if ($conn->connect_error) {
-          die("Connection failed: " . $conn->connect_error);
-        } 
-
-        $sql = "update payment set status='".$status."' 
-        where payment_no=".$nos;
-
-        if ($conn->query($sql) === TRUE) {
-        } else {
-          echo "Error updating record: " . $conn->error;
-        }
-
-        echo'<div class="bottom">';
-        echo'<div class="alert alert-success">
-        <strong>Success!</strong> Billing has been deleted 
-      </div></div>
-      ';
-      echo "<meta http-equiv='refresh' content='0'>";
-
-
-    }
-
-    ?>
-
-
-    <?php
-    $content1=mysql_query("SELECT max(delivery_no) as max from delivery");
-    $total1=@mysql_affected_rows();
-
-
-    $row=mysql_fetch_array($content1);
-    $noo=$row['max'];
-
-    $hell=$noo+1;
-
-
-
-    $a= date("d/m/Y");
-
-
-
-    if(isset($_POST['btnSave']))
-    {
-      $billing_no11= $_POST['billing_no1'];
-      $cust11=$_POST['cust1'];  
-      $topay11=$_POST['topay1'];
-      $end11=$_POST['end1'];
-
-      $servername = "localhost";
-      $username = "root";
-      $password = "";
-      $dbname = "pms";
-
-// Create connection
-      $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-      if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-      } 
-
-      $sql = "UPDATE billing SET topay='".$topay11."', enddate='".$end11."' WHERE billing_no=".$billing_no11."";
-
-      if ($conn->query($sql) === TRUE) {
-
-        echo "<script type='text/javascript'>alert('Update Successful!')</script>";
-        echo "Record updated successfully";
-      } else {
-        echo "Error updating record: " . $conn->error;
-      }
-
-
-
-      echo "<meta http-equiv='refresh' content='0'>";
-
-
-    }
-
-
-
-    ?>
     <!-- Main content -->
     <section class="content">
       <!--Table function-->
 
 
       <!-- Small boxes (Stat box) -->
-      <div class="row" >                                 
+      <div class="row" >
         <div class="col-lg-12 col-lg-12 col-lg-12">             <!-- NEW RECORD -->
                 <!-- <a href="addTax.php"><button class="btn btn-success btn-lg" style="margin-bottom:5px;
-                  box-shadow: 0px 4px 8px #888888"> 
+                  box-shadow: 0px 4px 8px #888888">
                   + ADD NEW RECORD</button> </a> -->
                   <div class="box-header with-border">
-
-                    <div id="loading" class="modal fade">
-                      <div class="modal-dialog">
-                        <div class="overlay">
-                          <div class="modal-body" style="text-align:center">
-                            <div class="overlay">
-                              <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                              <i class="fa fa-spinner fa-pulse fa-spin"  
-                              style="font-size:60px;"></i>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-
 
                     <div class="row">                     <!-- TABLES -->
                       <div class="col-lg-12 col-sm-12 col-xs-12">
@@ -425,7 +181,7 @@ $a= date("Y-m-d");
 
                              </thead>
                              <form action="" method="post">
-                              <?php  
+                              <?php
 
 
                               $servername = "localhost";
@@ -445,16 +201,16 @@ $a= date("Y-m-d");
                               </script>
                               <form action="" method="post">
                                 <?php
-                                $sql = "SELECT * FROM payment where status='Active'";
+                                $sql = "SELECT * FROM payment where status='Active'" or die (mysql_error());
                                 $result = $conn->query($sql);
                                 while($row = $result->fetch_assoc())
-                                { 
+                                {
                                   $payment_no=$row['payment_no'];
                                   $customer=$row['customer'];
                                   $topay=$row['topay'];
                                   $amount=$row['amount'];
                                   $bankname=$row['bankname'];
-                                  $chequeno=$row['chequeno']; 
+                                  $chequeno=$row['chequeno'];
                                   $chequedate=$row['chequedate'];
                                   $type=$row['type'];
 
@@ -464,12 +220,12 @@ $a= date("Y-m-d");
                                   echo'<td>'.$customer.'</td>';
                                   echo'<td>'.$topay.'</td>';
                                   echo'<td>'.$amount.'</td>';
-                                  echo'<td>'.$bankname.'</td>';   
-                                  echo'<td>'.$chequeno.'</td>'; 
+                                  echo'<td>'.$bankname.'</td>';
+                                  echo'<td>'.$chequeno.'</td>';
                                   echo'<td>'.$chequedate.'</td>';
                                   echo'<td>'.$type.'</td>';
                                   ?>
-                                  <td style="text-align:center"><button type="submit" name="btnRemove" value="<?php echo''.$payment_no.''; ?>" class="btn btn-primary btn btn-danger fa fa-close btn-xs"  onclick="return confirm('Are you sure?');"></button>
+                                  <td style="text-align:center"><button type="submit" name="btnRemove" value="<?php echo''.$payment_no.''; ?>" class="btn btn-primary btn btn-danger fa fa-close btn-xs"  onclick="return confirm('Delete?');"></button>
                                     <?php
                                     echo'<button type="button" name="btnEdit" id="bntEdit" value="'.$payment_no.'" data-toggle="modal" data-target="#myModal" class="btn btn-primary glyphicon glyphicon-pencil btn-xs center" onclick="get_id(this)" ></button>
                                   </td>';
@@ -477,76 +233,195 @@ $a= date("Y-m-d");
 
 
                                 echo'</tr>';
-                                echo' 
+                                echo'
 
                               </tbody>
 
                             </table>
                             <br></br>';
                             $conn->close();
-                            ?> 
+                            ?>
                           </form>
                         </div><!-- /.box-body -->
                       </div><!-- /.box -->
 
                       <div class="box box-solid">
-                      
+
                         <div class="box-body">
 
+<?php
+$content1=mysql_query("select * from billing where billing_no='".$_POST['cname']."'");
+$total1=@mysql_affected_rows();
 
-                          <?php
-                          require_once("dbcontroller.php");
-                          $db_handle = new DBController();
-                          $query ="SELECT * FROM quotation where status='active' and balance >0";
-                          $results = $db_handle->runQuery($query);
-                          ?>
+
+$row=mysql_fetch_array($content1);
+$noo=$row['max'];
+
+$hell=$noo+1;
+
+$customer=$_POST['cname'];
+$topay=$_POST['scname'];
+$amount=$_POST['amount'];
+$bankname=$_POST['bankname'];
+$chequeno=$_POST['chequeno'];
+$chequeamount=$_POST['chequeamount'];
+$chequedate=$_POST['chequedate'];
+$radio=$_POST['radiobutton'];
+$status="Active";
+$cust=$row['customer'];
+$proj=$row['project'];
+$tot=$row['totalcost'];
+$bal=$row['balance'];
+$top=$row['topay'];
+$tops=$_POST['total'];
+
+if(isset($_POST['btnAdd']))
+
+{
+
+$status="Active";
+$sub= $bal - $amount;
+
+
+$result = mysql_query("INSERT into payment (customer, topay, amount, bankname, chequeno, chequedate, type, status )
+values('".$cust."','".$topay."', '".$amount."','".$bankname."'  ,'".$chequeno."', '".$chequedate."','".$radio."','".$status."')") or die(mysql_error());
+
+mysql_query("UPDATE billing SET balance='".$sub."', topay='".$tops."' WHERE billing_no='".$_POST['cname']."'") or die(mysql_error());
+
+mysql_query("UPDATE quotation SET balance='".$sub."' WHERE customer='".$cust."' and project='".$proj."'") or die(mysql_error());
+
+
+
+        // Check if it was successfull
+        if($result == TRUE)
+         {
+
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","Payment Added!","success");';
+        echo '},);</script>';
+
+        }
+        else
+          {
+              echo '<script type="text/javascript">';
+              echo 'setTimeout(function () { swal("Error!","There Was an error","error");';
+              echo '},);</script>';
+         }
+
+}
+
+
+
+
+//Update query
+  if(isset($_POST['btnSave']))
+                {
+                    $payment_no11 = $_POST['payment_no1'];
+                    $cname11=$_POST['cname1'];
+                    $scname11=$_POST['scname1'];
+                    $amount11=$_POST['amount1'];
+                    $bankname11=$_POST['bankname1'];
+                    $chequeno11=$_POST['chequeno1'];
+                    $chequedate11=$_POST['chequedate1'];
+                    $type11=$_POST['radiobutton1'];
+
+                    mysql_query("UPDATE payment SET customer='".$cname11."',topay='".$scname11."',amount='".$amount11."',bankname='".$bankname11."', chequeno='".$chequeno11."', chequedate='".$chequedate11."', type='".$type11."' WHERE payment_no='".$payment_no11."'");
+                    echo "<script type='text/javascript'>alert('Update Successful!')</script>";
+                    echo "<meta http-equiv='refresh' content='0'>";
+
+
+                }
+
+
+?>
+<?php
+require_once("dbcontroller.php");
+$db_handle = new DBController();
+$query ="SELECT * FROM billing where topay >0";
+$results = $db_handle->runQuery($query);
+?>
+
+<script>
+function getState(val) {
+  $.ajax({
+  type: "POST",
+  url: "get_state4.php",
+  data:'country_id='+val,
+  success: function(data){
+    $("#scname").html(data);
+  }
+  });
+}
+
+</script>
+
+
+<script>
+function getState1(val) {
+  $.ajax({
+  type: "POST",
+  url: "get_state5.php",
+  data:'country_id='+val,
+  success: function(data){
+    $("#scname1").html(data);
+  }
+  });
+}
+
+</script>
+
+
 
                           <?php
                           $a= date("d/m/Y");
                           ?>
+                          <?php
+require_once("dbcontroller.php");
+$db_handle = new DBController();
+$query ="SELECT * FROM billing where topay >0";
+$results = $db_handle->runQuery($query);
+?>
                           <h3>BILLING INFORMATION</h3>
                           <br>
                           <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
-                            <div class="col-xs-2" id="addErDv"> 
+                            <div class="col-xs-2" id="addErDv">
                              <label >Customer:</label>
                              <select name="cname" id="cname" class="form-control" onChange="getState(this.value);" style="width:100%;"></p>
-                              <option value="">--Select Customer--</option>
+                              <option value="">----Select Customer & Project--------</option>
                               <?php
                               foreach($results as $country) {
                                 ?>
-                                <option value="<?php echo $country["quote_no"]; ?>"><?php echo $country["customer"]; ?>|<?php echo $country["project"]; ?>"</option>
+<option value="<?php echo $country["billing_no"]; ?>"> <?php echo $country["customer"]; ?> || "<?php echo $country["project"]; ?>"</option>
+
 
                                 <?php
                               }
                               echo'</select>';?>
                             </div>
 
-                            <div class="col-xs-3"> 
+                            <div class="col-xs-3">
                               <label>Total Amount to pay:</label>
                               <select name="scname" id="scname" class="form-control"  style="width:50%;" ></p>
 
                               </select>
-                            </div> 
+                            </div>
                           </div>
-                          <br>
 
-                        </br>
 
                         <h3>PAYMENT</h3>
 
-                        <br></br>
-                        <div class="row" style="margin-bottom:5px;">
-                          <div class="col-xs-2" id="addErDv"> 
+                        <div class="row">
+                          <div class="col-xs-2" id="addErDv">
                             <label > Amount</label>
                             <strong><span id='messageuser' ></span></strong>
-                            <input class="form-control" type="text" placeholder="Total Amount to Pay" style="height:33px;" id="amount" name="amount" value="0.00">
+                            <input class="form-control" type="text" placeholder="Total Amount to Pay" style="height:33px;" id="amount" name="amount" value="">
                           </div>
 
                           <div class="col-xs-2" id="addErDv">
                             <strong><span id='messages' ></span></strong>
                             <label >Remaining Balance</label>
                             <strong><span id='messageuser' ></span></strong>
-                            <input class="form-control" type="text" placeholder="Total" style="height:33px;" id="total" name="total" value="0.00" readonly>
+                            <input class="form-control" type="text" placeholder="Remaining Balance" style="height:33px;" id="total" name="total" value="" readonly>
                             <input class="form-control" type="hidden" placeholder="test" style="height:33px;" id="test" name="test" value="<?php echo''.$tot.'' ?> " readonly>
                           </div>
                         </div>
@@ -568,8 +443,8 @@ $(document).ready(function () {
 
 </script>
 
-                       <form class="w3-container w3-card-4">
-                        <p >
+
+                        <p style="">
                           <?php if($cust_type2=="Cash")
                           {
                             echo'<input class="w3-radio" type="radio" name="radiobutton" id="no_radio" onChange="disablefield();" value="Cash" checked>
@@ -585,26 +460,26 @@ $(document).ready(function () {
                             <label class="w3-validate"  style="font-size: 1em;" >Cheque</label>';
                           }?>
 
-                          <script type="text/javascript"> 
-                            function disablefield(){ 
-                              if (document.getElementById('no_radio').checked == 1){ 
-                                document.getElementById('bankname').disabled='disabled'; 
-                                document.getElementById('chequeno').disabled='disabled';  
-                                document.getElementById('chequedate').disabled='disabled'; 
-                                document.getElementById('bankname').value=''; 
-                                document.getElementById('chequedate').value=''; 
+                          <script type="text/javascript">
+                            function disablefield(){
+                              if (document.getElementById('no_radio').checked == 1){
+                                document.getElementById('bankname').disabled='disabled';
+                                document.getElementById('chequeno').disabled='disabled';
+                                document.getElementById('chequedate').disabled='disabled';
+                                document.getElementById('bankname').value='';
+                                document.getElementById('chequedate').value='';
                                 document.getElementById('chequeno').value='';
-                                document.getElementById('chequeamount').value=''; 
-                              }else{ 
+                                document.getElementById('chequeamount').value='';
+                              }else{
                                 document.getElementById('bankname').disabled='';
 
                                 document.getElementById('chequeno').disabled='';
-                                document.getElementById('chequedate').disabled='';  
-                              } 
-                            } 
+                                document.getElementById('chequedate').disabled='';
+                              }
+                            }
 
 
-                          </script> 
+                          </script>
 
 
                         </p>
@@ -614,12 +489,12 @@ $(document).ready(function () {
                       <br>
 
                       <div class="row" style="margin-bottom:5px;">
-                        <div class="col-xs-2" "> 
+                        <div class="col-xs-2" ">
                           <label>Bank Name:</label>
                           <strong><span id='messagestreet' ></span></strong>
                           <input class="form-control" type="text" placeholder="Bank Name" id="bankname" name="bankname">
                         </div>
-                        <div class="col-xs-2""> 
+                        <div class="col-xs-2"">
                           <label>Cheque No:</label>
                           <strong><span id='messagecity' ></span></strong>
                           <input class="form-control" type="text" placeholder="Cheque No" style="height:33px;" id="chequeno" name="chequeno">
@@ -629,7 +504,7 @@ $(document).ready(function () {
                       <br></br>
 
                        <div class="row" style="margin-bottom:5px;">
-                         <div class="col-xs-2""> 
+                         <div class="col-xs-2"">
                           <label >Cheque Date:</label>
                           <strong><span id='messagestreet' ></span></strong>
                           <input class="form-control" type="date" placeholder="Cheque Date" style="height:33px;" id="chequedate" name="chequedate">
@@ -645,63 +520,16 @@ $(document).ready(function () {
                       <br>
                       <button type="submit" name="btnAdd" onclick="return myFunction();" class="btn btn-primary">Add</button>
 
-                      <button type="button" class="btn btn-success" onclick="ClearFields();">Reset</button>
-
-
                     </div>
                   </div>
 
 
                 </div><!-- /.col -->
-              </div>  <!-- /.row -->         
+              </div>  <!-- /.row -->
 
 
 
-            </div> <!-- /.row --> 
-
-
-
-            <!--Clear Fields-->
-            <script type="text/javascript"> 
-              function ClearFields() {
-                document.getElementById("textbox_A").value = "";
-                document.getElementById("textbox_B").value = "";
-                document.getElementById("textbox_C").value = "";
-                document.getElementById("firstname").value = "";
-                document.getElementById("middlename").value = "";
-                document.getElementById("lastname").value = "";
-                document.getElementById("contact").value = "";
-                document.getElementById("email").value = "";
-                document.getElementById("city").value = "";
-                document.getElementById("street").value = "";
-
-              }
-            </script>
-
-
-
-
-
-
-
-
-
-
-            <script>
-              function getState(val) {
-                $.ajax({
-                  type: "POST",
-                  url: "get_state3.php",
-                  data:'country_id='+val,
-                  success: function(data){
-                    $("#scname").html(data);
-                  }
-                });
-              }
-
-            </script>
-
-
+            </div> <!-- /.row -->
 
 
           </section><!-- right col -->
@@ -712,7 +540,7 @@ $(document).ready(function () {
           <b>Version</b> 3.0
         </div>
         <strong>Copyright &copy; 2016<?php if(date("Y")!=2015)echo" - ".date("Y")."";?></strong> All rights reserved.
-      </footer>        
+      </footer>
     </div><!-- /.content-wrapper -->
 
   </div><!-- ./wrapper -->
@@ -736,15 +564,15 @@ $(document).ready(function () {
             <div class="modal-body">
 
 
-            <div class="row" style="margin-bottom:5px;">
+      <div class="row" style="margin-bottom:5px;">
             <div class="col-xs-6" style="text-align: center;">
              <label>Payment No</label>
-             <strong><span id='messagestreet'></span></strong>
-             <input class="w3-input w3-border" type="text" placeholder="Bank Name"  id="payment_no1" name="payment_no1">
-              </div>
-              
+             <input class="form-control" type="text" placeholder="Bank Name"  id="payment_no1" name="payment_no1" readonly>
+            </div>
+     </div>
+
              <label>Customer:</label>
-             <select name="cname1" id="cname1" class="form-control"  onChange="getState1(this.value);" style="width: 130%;"></p>
+             <select name="cname1" id="cname1" class="form-control"  onChange="getState1(this.value);" required></p>
               <option value="">--Select Customer--</option>
               <?php
               foreach($results as $country) {
@@ -761,53 +589,49 @@ $(document).ready(function () {
 
               </select>
 
-              <br>
-            </br>
-
             <h1>PAYMENT</h1>
 
-            <br></br>
 
             <label> Amount</label>
-            <strong><span id='messageuser'></span></strong>
-            <input class="w3-input w3-border" type="text" placeholder="Total Amount to Pay" id="amount" name="amount">
+
+            <input class="form-control" type="text" placeholder="Total Amount to Pay" id="amount1" name="amount1" required>
 
             <p style="">
               <?php if($cust_type2=="Cash")
               {
                 echo'<input class="w3-radio" type="radio" name="radiobutton1" id="no_radio1" onChange="disablefield1();" value="Cash" checked>
-                <label class="w3-validate"  style="font-size: 0.8em;" >Cash</label>
+                <label class="w3-validate"  style="font-size: 1.1em;" >Cash</label>
                 <input class="w3-radio" type="radio" id="yes_radio1" name="radiobutton1" onChange="disablefield1();" value="Cheque">
-                <label class="w3-validate"  style="font-size: 0.8em;" >Cheque</label>';
+                <label class="w3-validate"  style="font-size: 1.1em;" >Cheque</label>';
               }
               else
               {
                 echo'<input class="w3-radio" type="radio" name="radiobutton1" id="no_radio1" onChange="disablefield1();" value="Cash">
-                <label class="w3-validate"  style="font-size: 0.8em;">Cash</label>
+                <label class="w3-validate"  style="font-size: 1.1em;">Cash</label>
                 <input class="w3-radio" type="radio" id="yes_radio1" name="radiobutton1" onChange="disablefield1();" value="Cheque" checked>
-                <label class="w3-validate"  style="font-size: 0.8em;" >Cheque</label>';
+                <label class="w3-validate"  style="font-size: 1.1em;" >Cheque</label>';
               }?>
 
-              <script type="text/javascript"> 
-                function disablefield1(){ 
-                  if (document.getElementById('no_radio1').checked == 1){ 
-                    document.getElementById('bankname1').disabled='disabled'; 
-                    document.getElementById('chequeno1').disabled='disabled';  
-                    document.getElementById('chequedate1').disabled='disabled'; 
-                    document.getElementById('bankname1').value=''; 
-                    document.getElementById('chequedate1').value=''; 
+              <script type="text/javascript">
+                function disablefield1(){
+                  if (document.getElementById('no_radio1').checked == 1){
+                    document.getElementById('bankname1').disabled='disabled';
+                    document.getElementById('chequeno1').disabled='disabled';
+                    document.getElementById('chequedate1').disabled='disabled';
+                    document.getElementById('bankname1').value='';
+                    document.getElementById('chequedate1').value='';
                     document.getElementById('chequeno1').value='';
-                    document.getElementById('chequeamount1').value=''; 
-                  }else{ 
+                    document.getElementById('chequeamount1').value='';
+                  }else{
                     document.getElementById('bankname1').disabled='';
 
                     document.getElementById('chequeno1').disabled='';
-                    document.getElementById('chequedate1').disabled='';  
-                  } 
-                } 
+                    document.getElementById('chequedate1').disabled='';
+                  }
+                }
 
 
-              </script> 
+              </script>
 
 
             </p>
@@ -818,59 +642,30 @@ $(document).ready(function () {
 
             <label>Bank Name:</label>
             <strong><span id='messagestreet'></span></strong>
-            <input class="w3-input w3-border" type="text" placeholder="Bank Name"  id="bankname1" name="bankname1">
+            <input class="form-control" type="text" placeholder="Bank Name"  id="bankname1" name="bankname1" required>
 
             <label>Cheque No:</label>
             <strong><span id='messagecity'></span></strong>
-            <input class="w3-input w3-border" type="text" placeholder="Cheque No"  id="chequeno1" name="chequeno1">
+            <input class="form-control" type="number" placeholder="Cheque No"  id="chequeno1" name="chequeno1" required>
 
 
 
             <label>Cheque Date:</label>
             <strong><span id='messagestreet'"></span></strong>
-            <input class="w3-input w3-border" type="date" placeholder="Cheque Date" id="chequedate1" name="chequedate1">
+            <input class="form-control" type="date" placeholder="Cheque Date" id="chequedate1" name="chequedate1" required>
 
 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" name="btnSave" onclick="return confirm('Are you sure?');" >Save changes</button>
+            <button type="submit" class="btn btn-primary" name="btnSave">Save changes</button>
           </div>
         </div>
       </div>
 
     </form>
-  </div> 
+  </div>
 
-
-
-
-  <!-- EDIT MODAL -->
-
-  <div id="editModal" class="fade modal" >
-    <form name="formCust" method="post" action=""> <!-- FORM element -->
-      <div class="modal-dialog">
-        <div class="modal-content" >
-          <div class="modal-header">
-            <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"> <i class="ion-android-person"></i> Edit Category Form </h4>
-          </div>          
-          <div class="modal-body" >
-
-
-            <?php include('update.php');
-            ?>
-
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" name="btnSave" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>                                
-        </div>
-
-      </div>
-    </div>
-  </form>
-</div> 
 
 
 <script>
@@ -888,10 +683,10 @@ $(document).ready(function () {
 <script type="text/javascript">
   function get_id(o) {
     myRowIndex = $(o).parent().parent().index();
-    var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);    
+    var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);
     var $modal = $('#myModal'),
     $payment_no1 = $modal.find('#payment_no1');
-    $payment_no1.val(getid);          
+    $payment_no1.val(getid);
 
     $payment_no1 = $modal.find('#payment_no1');
     $payment_no1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);
@@ -942,18 +737,18 @@ $(document).ready(function () {
     }
 
 
-    if (amount<= -1) 
+    if (amount<= -1)
     {
       alert("Negative amount is not allowed");
       return false;
-    } 
+    }
 
 
-    if (amount== 0) 
+    if (amount== 0)
     {
       alert("Zero amount is not allowed");
       return false;
-    } 
+    }
 
     else
 
@@ -983,7 +778,7 @@ $(document).ready(function () {
 
     if (confirm("Are you sure?") == true) {
 
-    } 
+    }
     else {
       return false;
         //window.location.href="purchaseorder1.php";
@@ -994,6 +789,5 @@ $(document).ready(function () {
   </script>
 
 
-
+</body>
   </html>
-

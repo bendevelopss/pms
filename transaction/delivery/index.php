@@ -80,7 +80,16 @@ $prepare= $_POST['prepared'];
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+              
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
             
+          </li> 
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
@@ -267,6 +276,14 @@ $a= date("m-d-Y");
 <?php
                      $sql = "SELECT distinct (o.supplier) AS supp, o.po_no AS po, o.date AS date, o.ordered_by AS ordered FROM purchase_order AS o, purchase_cart AS p WHERE p.po_no=o.po_no and p.quantity>=1";
                     $result = $conn->query($sql);
+                    $content1=mysql_query("SELECT max(delivery_no) as max from delivery");
+                    $total1=@mysql_affected_rows();
+                    
+    
+                    $row=mysql_fetch_array($content1);
+                    $noo=$row['max'];
+
+                    $hell=$noo+1;
                     while($row = $result->fetch_assoc())
                       { 
                       

@@ -81,7 +81,16 @@ $prepare= $_POST['prepared'];
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+              
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
             
+          </li> 
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
@@ -263,7 +272,16 @@ $a= date("m-d-Y");
 <?php
                       $sql = "SELECT distinct (o.req_no) AS req, o.customer AS cust, o.project AS proj ,o.date AS date FROM materialreq AS o, materialreq_cart AS p WHERE p.req_no=o.req_no and p.quantity>=1 ";
       $result = $conn->query($sql);
-      $hells=$hell;
+      
+      $content1=mysql_query("select max(pullout_no) as max from pullout");
+$total1=@mysql_affected_rows();
+
+    
+$row=mysql_fetch_array($content1);
+$noo=$row['max'];
+
+$hell=$noo+1;
+$hells=$hell;
     while($row = $result->fetch_assoc())
       {  
                       

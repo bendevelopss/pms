@@ -11,7 +11,7 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-  echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
+  echo '<script type="text/javascript">window.location.href="../../index.php";</script>';
 }
 
 $content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
@@ -71,7 +71,7 @@ $date=$row3['date'];
 
     <form action="" method="post" name="frm" id="frm">
       <header class="main-header">
-        <!-- Logo --> 
+        <!-- Logo -->
         <a href="index.php" class="logo">
 
          <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
@@ -84,23 +84,31 @@ $date=$row3['date'];
        <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>      
+            <span class="sr-only">Toggle navigation</span>
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            
+            <li class="dropdown notifications-menu">
+              <!-- Menu toggle button -->
+              <a data-toggle="dropdown">
+
+
+                <span id="time" style="font-weight: bold; color: "></span>
+              </a>
+
+            </li>
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
-             
-             
-               <?php include("../../maintenance/nav.php"); ?>  
+
+
+               <?php include("../../maintenance/nav.php"); ?>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+
 
                 <p>
                   <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
@@ -109,17 +117,17 @@ $date=$row3['date'];
                 </p>
               </li>
               <!-- Menu Body -->
-              
+
               <!-- Menu Footer-->
               <li class="user-footer">
-                
+
                 <div class="pull-center">
                   <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
                 </div>
               </li>
             </ul>
-          </li> 
-         
+          </li>
+
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
@@ -136,7 +144,7 @@ $date=$row3['date'];
         <h1>
           Ongoing Quotation
           <small>Record</small>
-        </h1>                              
+        </h1>
       </section>
 
 
@@ -146,40 +154,40 @@ $date=$row3['date'];
 
 
         <!-- Small boxes (Stat box) -->
-        <div class="row" >                                 
+        <div class="row" >
           <div class="col-lg-12 col-lg-12 col-lg-12">             <!-- NEW RECORD -->
                 <!-- <a href="addTax.php"><button class="btn btn-success btn-lg" style="margin-bottom:5px;
-                  box-shadow: 0px 4px 8px #888888"> 
+                  box-shadow: 0px 4px 8px #888888">
                 + ADD NEW RECORD</button> </a> -->
                 <div class="box-header with-border">
 
-                  <div class="col-sm-4 ">                        
+                  <div class="col-sm-4 ">
                    <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
 
-                    
 
-                    <div class="col-xs-6" style="text-align: center;"> 
+
+                    <div class="col-xs-6" style="text-align: center;">
                       <label>Person-In-Charge</label> <!-- Prod_Name -->
                       <input class="form-control" type="text" id="prepared" name="prepared" value="<?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.ucfirst($middlename2[0]).'.'; ?>" readonly style="text-align: center;">
-                    </div>           
+                    </div>
 
-                    <div class="col-xs-6" style="text-align: center;"> 
+                    <div class="col-xs-6" style="text-align: center;">
                       <label>Date Requested</label> <!-- Prod_Name -->
                       <input class="form-control" type="text" name="date" value="<?php echo $a; ?>" readonly style="text-align: center;">
-                      
-                    </div>   
+
+                    </div>
 
 
-                  </div>          
+                  </div>
 
                   <div class="col-md-9 col-xs-12"> <!-- MESSAGE -->
 
                     <div class="alert alert-xs  bg-teal alert-dismissable" style="width:85%; display:none" id="msg">
                       <i class="icon fa fa-check"></i>
                       <label id="msgContent"></label>
-                    </div>  
+                    </div>
 
-                  </div>    
+                  </div>
 
                 </div>
 
@@ -196,7 +204,7 @@ $date=$row3['date'];
                       <div class="modal-body" style="text-align:center">
                         <div class="overlay">
                           <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                          <i class="fa fa-spinner fa-pulse fa-spin"  
+                          <i class="fa fa-spinner fa-pulse fa-spin"
                           style="font-size:60px;"></i>
                         </div>
                       </div>
@@ -234,7 +242,7 @@ $date=$row3['date'];
 
                           </thead>
                           <form action="" method="post">
-                            <?php  
+                            <?php
 
 
                             $servername = "localhost";
@@ -259,7 +267,7 @@ $date=$row3['date'];
       //$sql = "SELECT * FROM quotation_cart where project='".$_GET['project']."' and status='active'";
                               $result = $conn->query($sql);
                               while($row = $result->fetch_assoc())
-                              { 
+                              {
                                 echo'<tr>';
 
                                 $a++;
@@ -278,14 +286,14 @@ $date=$row3['date'];
 
                               }
                               echo'</tr>';
-                              echo' 
+                              echo'
 
                               </tbody>
 
                               </table>
                               <br></br>';
                               $conn->close();
-                              ?> 
+                              ?>
                             </form>
 
 
@@ -300,11 +308,11 @@ $date=$row3['date'];
                           </div><!-- /.box-body -->
                         </div><!-- /.box -->
                       </div><!-- /.col -->
-                    </div>  <!-- /.row -->         
+                    </div>  <!-- /.row -->
 
 
 
-                  </div> <!-- /.row --> 
+                  </div> <!-- /.row -->
                 </section><!-- right col -->
               </div><!-- /.row (main row) -->
             </section><!-- /.content -->
@@ -313,7 +321,7 @@ $date=$row3['date'];
                 <b>Version</b> 3.0
               </div>
               <strong>Copyright &copy; 2016<?php if(date("Y")!=2015)echo" - ".date("Y")."";?></strong> All rights reserved.
-            </footer>        
+            </footer>
           </div><!-- /.content-wrapper -->
 
         </div><!-- ./wrapper -->
@@ -325,7 +333,7 @@ $date=$row3['date'];
                 <div class="modal-header">
                   <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                   <h4 class="modal-title"> <i class="ion-android-person"></i> Position Form </h4>
-                </div>          
+                </div>
                 <div class="modal-body" >
                   <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -336,15 +344,15 @@ $date=$row3['date'];
 
                   <div class="row" style="margin-bottom:5px"> <!-- ROW 2-->
 
-                    <div class="col-xs-6" id="addErDv"> 
+                    <div class="col-xs-6" id="addErDv">
                       <label><font color="darkred">*</font>Category</label> <!-- Prod_Name -->
                       <input type="text" class="form-control" name="txtname" id="textbox_A">
-                    </div>           
+                    </div>
 
 
 
-                  </div> <!-- /.row -->   
-                  <!-- ------------------------------------------------------------------------------------------- <-->                               
+                  </div> <!-- /.row -->
+                  <!-- ------------------------------------------------------------------------------------------- <-->
                   <!-- ------------------------------------------------------------------------------------------- -->
 
 
@@ -355,14 +363,14 @@ $date=$row3['date'];
 
               </div>
               <div class="modal-footer">
-                <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade" onclick="return confirm('Are you sure?');"><i class="fa fa-send"></i> SAVE</button>  
+                <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade" onclick="return confirm('Are you sure?');"><i class="fa fa-send"></i> SAVE</button>
 
               </div>
 
             </div>
           </div>
         </form>
-      </div> 
+      </div>
 
 
 
@@ -376,7 +384,7 @@ $date=$row3['date'];
               <div class="modal-header">
                 <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"> <i class="ion-android-person"></i> Edit Category Form </h4>
-              </div>          
+              </div>
               <div class="modal-body" >
 
 
@@ -386,19 +394,19 @@ $date=$row3['date'];
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" name="btnSave" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>                                
+              <button type="submit" name="btnSave" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>
             </div>
 
           </div>
         </div>
       </form>
-    </div> 
+    </div>
 
 
     <script type="text/javascript">
       function get_id(o) {
         myRowIndex = $(o).parent().parent().index();
-        var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);    
+        var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);
         var $modal = $('#editModal'),
         $category_no1 = $modal.find('#category_no1');
         $category_no1.val(getid);
@@ -452,7 +460,7 @@ $date=$row3['date'];
        id = document.getElementById("quote_no").value;
        if (confirm("Are you sure?") == true) {
 
-       } 
+       }
        else {
         return false;
         //window.location.href="purchaseorder1.php";
@@ -470,7 +478,7 @@ $date=$row3['date'];
      id = document.getElementById("quote_no").value;
      if (confirm("Are you sure?") == true) {
 
-     } 
+     }
      else {
       return false;
         //window.location.href="purchaseorder1.php";

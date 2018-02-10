@@ -11,7 +11,7 @@ session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-  echo '<script type="text/javascript">window.location.href="../../index.php";</script>'; 
+  echo '<script type="text/javascript">window.location.href="../../index.php";</script>';
 }
 
 $content2=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
@@ -54,89 +54,95 @@ $date=$row3['date'];
   <meta charset="UTF-8">
   <title>Home</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
- 
+
    <?php include("../../maintenance/plugins.php"); ?>
   <div class="se-pre-con"></div>
     <link href="bar.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="w3.css">
-    
+
+
 
   </head>
 
   <body class='skin-red fixed'>
-    <?php
+   <?php
 
 
 
-    $prepare= $_POST['prepared'];
-    ?>  
+   $prepare= $_POST['prepared'];
+   ?>
 
-    <form action="" method="post" name="frm" id="frm">
-      <header class="main-header">
-        <!-- Logo --> 
-        <a href="index.php" class="logo">
-
-         <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
-
-         <!-- logo for regular state and mobile devices -->
-         <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
-       </a>
+   <form action="" method="post" name="frm" id="frm">
+     <header class="main-header">
        <!-- Logo -->
-       <!-- Header Navbar: style can be found in header.less -->
+       <a href="index.php" class="logo">
+
+        <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
+
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
+      </a>
+      <!-- Logo -->
+      <!-- Header Navbar: style can be found in header.less -->
        <nav class="navbar navbar-static-top" role="navigation">
        <!-- Sidebar toggle button-->
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-           <span class="sr-only">Toggle navigation</span>      
+           <span class="sr-only">Toggle navigation</span>
          </a>
        <div class="navbar-custom-menu">
          <ul class="nav navbar-nav">
            <!-- Messages: style can be found in dropdown.less-->
- 
-                <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            <a data-toggle="dropdown">
-             
-              
-              <span id="time" style="font-weight: bold; color: "></span>
-            </a>
-            
-          </li>          
+           <li class="dropdown notifications-menu">
+             <!-- Menu toggle button -->
+             <a data-toggle="dropdown">
+
+
+               <span id="time" style="font-weight: bold; color: "></span>
+             </a>
+
+           </li>
                 <li class="dropdown user user-menu">
            <!-- Menu Toggle Button -->
            <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
-            
-            
-              <?php include("../../maintenance/nav.php"); ?>  
+
+
+              <?php include("../../maintenance/nav.php"); ?>
            </a>
            <ul class="dropdown-menu">
              <!-- The user image in the menu -->
              <li class="user-header">
-              
 
-               <p>
-                 <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                 <br>
-                 <label><?php echo ''.ucfirst($position).''; ?></label>
-               </p>
+
+                <?php include("../../maintenance/user_type.php"); ?>
              </li>
              <!-- Menu Body -->
-             
+
              <!-- Menu Footer-->
              <li class="user-footer">
-               
+
                <div class="pull-center">
                  <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
                </div>
              </li>
            </ul>
-         </li> 
-        
+         </li>
+
            <!-- User Account: style can be found in dropdown.less -->
          </ul>
        </div>
      </nav>
- </header>
-                <?php include("../../maintenance/side.php") ?>
+
+             <?php
+             if(isset($_GET['logout']))
+             {
+               mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
+               session_destroy();
+               echo "<meta http-equiv='refresh' content='0'>";
+             }
+             ?>
+
+   </header>
+   <!-- Left side column. contains the logo and sidebar -->
+   <?php include("../../maintenance/side_account.php") ?>
 
 
                     <!-- Right side column. Contains the navbar and content of the page -->
@@ -146,23 +152,23 @@ $date=$row3['date'];
                         <h1>
                           Ongoing
                           <small>Project</small>
-                        </h1>                              
+                        </h1>
                       </section>
 
-                      
+
                       <!-- Main content -->
                       <section class="content">
                         <!--Table function-->
 
 
                         <!-- Small boxes (Stat box) -->
-                        <div class="row" >                                 
+                        <div class="row" >
                           <div class="col-lg-12 col-lg-12">             <!-- NEW RECORD -->
                                 <!-- <a href="addTax.php"><button class="btn btn-success btn-lg" style="margin-bottom:5px;
-                                  box-shadow: 0px 4px 8px #888888"> 
+                                  box-shadow: 0px 4px 8px #888888">
                                   + ADD NEW RECORD</button> </a> -->
-                            
-                                  
+
+
                                     <div class="row">                     <!-- TABLES -->
                                       <div class="col-lg-12 col-sm-12 col-xs-12">
                                         <div class="box box-solid">
@@ -185,7 +191,7 @@ $date=$row3['date'];
                 // Check connection
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
-                } 
+                }
 
                 $contents=mysql_query("select * from quotation where quote_no='".$_GET['id']."'");
                     $totals=@mysql_affected_rows();
@@ -193,11 +199,11 @@ $date=$row3['date'];
 
                 echo'
                 <div class="container" style="width:100%; margin-left: 10px;">
-                  
+
                     <label style="margin-left:">Project: '.$_GET['project'].'</label>
                     <br>
                     <label>Start Date: '.$rows['date'].'</label>
-                    <br> 
+                    <br>
                     <label>Due Date: '.$rows['due_date'].'</label>
                     ';
 
@@ -206,13 +212,13 @@ $date=$row3['date'];
                     $from_date = new DateTime($from);
                     $to_date = new DateTime($to);
                     return $from_date->diff($to_date)->days;
-                  
+
                 }
                 function getNumberOFDays1($from,$to){
                     $from_date = new DateTime($from);
                     $to_date = new DateTime($to);
                     return $from_date->diff($to_date)->days;
-                  
+
                 }
 
                 $ngayon1 = getNumberOFDays($a,$rows['date']);
@@ -230,7 +236,7 @@ $date=$row3['date'];
                                     mysql_query("UPDATE quotation SET due_date='".$datepic."' WHERE quote_no='".$_GET['id']."'");
                                     echo "<script type='text/javascript'>alert('Update Successful!')</script>";
                                     echo "<meta http-equiv='refresh' content='0'>";
-                
+
                 }
 
 
@@ -239,21 +245,21 @@ $date=$row3['date'];
 <input type="hidden" value="<?= $totaldate ?>" id="totaldate" name="totaldate"/>
 <input type="hidden" value="<?php echo $d1 ?>" id="d1" name="d1"/>
 <input type="hidden" value="<?php echo $d2 ?>" id="d2" name="d2"/>
-                              
-                              
+
+
                              <div class="w3-container">
   <div class="progress green">
   <h3 class="progress-title">Project (based on date)</h3>
   <div class="progress-bar">
-      <div id="myBar1" class="progress-value" style="width:0%">
-      <div id="demo1" class="w3-center w3-text-black">0%</div>
+      <div id="myBar1" class="progress-value">
+      <div id="demo1" class="w3-center w3-text-black" style="Color: black"></div>
       </div>
   </div>
 </div>
 
 
 
-                             
+
 
  <div style="text-align: center; float: center">
   <input type="date" name="dates" id="dates" style="text-align: center" value="<?php echo $a?>">
@@ -269,7 +275,7 @@ $date=$row3['date'];
     <div class="progress blue">
                 <h3 class="progress-title">Project's Progress</h3>
                 <div class="progress-bar">
-                    <div id="myBar" class="progress-value" style="width: 0%;"><div id="demo" class="w3-center w3-text-black">0%</div></div>
+                    <div id="myBar" class="progress-value" style="Color: black"><div id="demo" class="w3-center w3-text-black">0%</div></div>
                 </div>
             </div>
   <br>
@@ -303,7 +309,7 @@ echo '<table class="table table-condensed table-striped table-hover" id="tableko
       //$sql = "SELECT * FROM quotation_cart where project='".$_GET['project']."' and status='active'";
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc())
-    { 
+    {
       echo'<tr>';
 
       $a++;
@@ -321,12 +327,12 @@ echo '<table class="table table-condensed table-striped table-hover" id="tableko
 
     }
     echo'</tr>';
-    echo' 
+    echo'
   </tbody>
 </table>
 <br></br>';
 $conn->close();
-?> 
+?>
 
 <script type="text/javascript">
   $(document).ready(function(){
@@ -357,11 +363,11 @@ Balance: <?php echo'&#8369;'.number_format((double)$rows['balance'],2,'.','').''
 </div><!-- /.box-body -->
 </div><!-- /.box -->
 </div><!-- /.col -->
-</div>  <!-- /.row -->         
+</div>  <!-- /.row -->
 
 
 
-</div> <!-- /.row --> 
+</div> <!-- /.row -->
 </section><!-- right col -->
 </div><!-- /.row (main row) -->
 </section><!-- /.content -->
@@ -370,7 +376,7 @@ Balance: <?php echo'&#8369;'.number_format((double)$rows['balance'],2,'.','').''
     <b>Version</b> 3.0
   </div>
   <strong>Copyright &copy; 2016<?php if(date("Y")!=2015)echo" - ".date("Y")."";?></strong> All rights reserved.
-</footer>        
+</footer>
 </div><!-- /.content-wrapper -->
 
 </div><!-- ./wrapper -->
@@ -382,7 +388,7 @@ Balance: <?php echo'&#8369;'.number_format((double)$rows['balance'],2,'.','').''
         <div class="modal-header">
           <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4 class="modal-title"> <i class="ion-android-person"></i> Position Form </h4>
-        </div>          
+        </div>
         <div class="modal-body" >
           <!-- ------------------------------------------------------------------------------------------- -->
 
@@ -393,15 +399,15 @@ Balance: <?php echo'&#8369;'.number_format((double)$rows['balance'],2,'.','').''
 
           <div class="row" style="margin-bottom:5px"> <!-- ROW 2-->
 
-            <div class="col-xs-6" id="addErDv"> 
+            <div class="col-xs-6" id="addErDv">
               <label><font color="darkred">*</font>Category</label> <!-- Prod_Name -->
               <input type="text" class="form-control" name="txtname" id="textbox_A">
-            </div>           
+            </div>
 
 
 
-          </div> <!-- /.row -->   
-          <!-- ------------------------------------------------------------------------------------------- <-->                               
+          </div> <!-- /.row -->
+          <!-- ------------------------------------------------------------------------------------------- <-->
           <!-- ------------------------------------------------------------------------------------------- -->
 
 
@@ -412,14 +418,14 @@ Balance: <?php echo'&#8369;'.number_format((double)$rows['balance'],2,'.','').''
 
       </div>
       <div class="modal-footer">
-        <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade" onclick="return confirm('Are you sure?');"><i class="fa fa-send"></i> SAVE</button>  
+        <button type="submit" id="btnAdd" name="btnAdd" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade" onclick="return confirm('Are you sure?');"><i class="fa fa-send"></i> SAVE</button>
 
       </div>
 
     </div>
   </div>
 </form>
-</div> 
+</div>
 
 
 
@@ -430,6 +436,6 @@ Balance: <?php echo'&#8369;'.number_format((double)$rows['balance'],2,'.','').''
 
   <script type="text/javascript" src="func.js"></script>
   <script src="func2.js"></script>
-  
+
 </body>
   </html>

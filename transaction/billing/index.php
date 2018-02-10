@@ -76,7 +76,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
     <form action="" method="post" name="frm" id="frm">
       <header class="main-header">
-        <!-- Logo --> 
+        <!-- Logo -->
         <a href="index.php" class="logo">
 
          <span class="logo-lg"><img style="HEIGHT:45px;" src="../../assets/img/logo.png" alt="Logo" style="float: left;"><label style="font-family: 'Cinzel'; font-size: 110%">PERSAN INC.</label></span>
@@ -89,38 +89,47 @@ $conn = new mysqli($servername, $username, $password, $dbname);
         <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>      
+            <span class="sr-only">Toggle navigation</span>
           </a>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            
-                 <li class="dropdown user user-menu">
+
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+
+
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
+
+          </li>
+          <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
-             
-             
-               <?php include("../../maintenance/nav.php"); ?>  
+
+
+               <?php include("../../maintenance/nav.php"); ?>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+
 
                <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
-              
+
               <!-- Menu Footer-->
               <li class="user-footer">
-                
+
                 <div class="pull-center">
                   <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
                 </div>
               </li>
             </ul>
-          </li> 
-         
+          </li>
+
             <!-- User Account: style can be found in dropdown.less -->
           </ul>
         </div>
@@ -133,8 +142,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                 session_destroy();
                 echo "<meta http-equiv='refresh' content='0'>";
               }
-              ?>  
-           
+              ?>
+
     </header>
     <!-- Left side column. contains the logo and sidebar -->
    <?php include("../../maintenance/side_account.php"); ?>
@@ -147,7 +156,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
         <h1>
           Billing
           <small>Transaction</small>
-        </h1>                              
+        </h1>
       </section>
 
 
@@ -173,7 +182,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
       $topay=$_POST['totalamount'];
       $start=$_POST['startdate'];
       $end=$_POST['enddate'];
-      
+
 
       $status="Active";
 
@@ -190,8 +199,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
 
-        mysql_query("insert into billing (customer, project,totalcost, balance, topay, datee, enddate, prepared, status ) 
-          values('".$cust."','". $proj."','". $total."','".$total."', '".$topay."','".$a."' ,'".$end."', '".$prep."', '".$status."')");
+        mysql_query("insert into billing (customer, project,totalcost, balance, topay, datee, enddate, prepared, status )
+          values('".$cust."','". $proj."','". $total."','".$total."', '".$topay."','".$a."' ,'".$end."', '".$prep."', '".$status."')") or die(mysql_error());
 
         echo '<script type="text/javascript">';
         echo 'setTimeout(function () { swal("Success!","New Billing Added!","success");';
@@ -210,9 +219,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
         if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
-        } 
+        }
 
-        $sql = "update billing set status='".$status."' 
+        $sql = "update billing set status='".$status."'
         where billing_no=".$nos;
 
         if ($conn->query($sql) === TRUE) {
@@ -255,7 +264,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
       if(isset($_POST['btnSave']))
       {
         $billing_no11= $_POST['billing_no1'];
-        $cust11=$_POST['cust1'];  
+        $cust11=$_POST['cust1'];
         $topay11=$_POST['topay1'];
         $end11=$_POST['end1'];
 
@@ -269,7 +278,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
         if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
-        } 
+        }
 
         $sql = "UPDATE billing SET topay='".$topay11."', enddate='".$end11."' WHERE billing_no=".$billing_no11."";
 
@@ -284,7 +293,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
 
-      
+
 
 
       }
@@ -298,14 +307,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
         <!-- Small boxes (Stat box) -->
-        <div class="row" >                                 
+        <div class="row" >
           <div class="col-lg-12 col-lg-12 col-lg-12">             <!-- NEW RECORD -->
                 <!-- <a href="addTax.php"><button class="btn btn-success btn-lg" style="margin-bottom:5px;
-                  box-shadow: 0px 4px 8px #888888"> 
+                  box-shadow: 0px 4px 8px #888888">
                 + ADD NEW RECORD</button> </a> -->
                 <div class="box-header with-border">
 
-   
+
 
 
 
@@ -324,7 +333,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
                                 <th> Billing No </th>
                                 <th>Customer</th>
-                                <th> Total Cost</th>   
+                                <th> Total Cost</th>
                                 <th>Remaining Balance</th>
                                 <th>Amount to Pay</th>
                                 <th>Date</th>
@@ -337,7 +346,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
                             </thead>
                             <form action="" method="post">
-                              <?php  
+                              <?php
 
 
                               $servername = "localhost";
@@ -360,13 +369,13 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                                 $sql = "SELECT * FROM billing where status='Active'";
                                 $result = $conn->query($sql);
                                 while($row = $result->fetch_assoc())
-                                { 
+                                {
                                   $billing_no=$row['billing_no'];
                                   $customer=$row['customer'];
                                   $totalcost=$row['totalcost'];
                                   $balance=$row['balance'];
                                   $topay=$row['topay'];
-                                  $datee=$row['datee']; 
+                                  $datee=$row['datee'];
                                   $enddate=$row['enddate'];
                                   $prepare=$row['prepared'];
 
@@ -376,10 +385,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                                   echo'<td>'.$totalcost.'</td>';
                                   echo'<td>'.$balance.'</td>';
                                   echo'<td>'.$topay.'</td>';
-                                  echo'<td>'.$datee.'</td>'; 
-                                  echo'<td>'.$enddate.'</td>'; 
-                                  echo'<td>'.$prepare.'</td>'; 
-                                  
+                                  echo'<td>'.$datee.'</td>';
+                                  echo'<td>'.$enddate.'</td>';
+                                  echo'<td>'.$prepare.'</td>';
+
                                   ?>
 
                                   <td style="text-align:center"><button type="submit" name="btnRemove" value="<?php echo''.$billing_no.''; ?>" class="btn btn-primary btn btn-danger glyphicon glyphicon-remove btn-xs"  onclick="return confirm('Are you sure?');"></button>
@@ -395,14 +404,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
                                   echo'</tr>';
-                                  echo' 
+                                  echo'
 
                                   </tbody>
 
                                   </table>
                                   <br></br>';
                                   $conn->close();
-                                  ?> 
+                                  ?>
                                 </form>
                               </div><!-- /.box-body -->
                             </div><!-- /.box -->
@@ -427,11 +436,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                                 <div class="col-sm-2">
                                   <label >Customer:</label>
                                   <select class="form-control" name="cname" id="cname" class="form-control" onChange="getState(this.value);" style="width:100%;" required></p>
-                                    <option value="">--Select Customer--</option>
+                                    <option value="">----Select Customer & Project-------</option>
                                     <?php
                                     foreach($results as $country) {
                                       ?>
-                                      <option value="<?php echo $country["quote_no"]; ?>"><?php echo $country["customer"]; ?>|<?php echo $country["project"]; ?>"</option>
+                                      <option value="<?php echo $country["quote_no"]; ?>"><?php echo $country["customer"]; ?> || "<?php echo $country["project"]; ?>"</option>
 
                                       <?php
                                     }
@@ -445,51 +454,51 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                                 $a= date("m/d/Y");
                                 ?>
 
-                                                
+
                                   <div class="col-xs-2" id="addErDv">
                                     <label >Date:</label>
                                     <input class="form-control" type="text" placeholder="TAX" value="<?php echo $a; ?>" id="startdate" name="startdate" style="width: 70%"  readonly>
                                     </div>
 
-            
-                                      
-                                      <div class="col-xs-2" id="addErDv"> 
+
+
+                                      <div class="col-xs-2" id="addErDv">
                                       <label>Due Date:</label>
-                                      
+
                                         <input class="form-control" type="date" placeholder="TAX"  id="enddate" name="enddate" required>
 
                                       </div>
                                       </div>
-                                        
+
 
                                          <div class="row" style="margin-bottom:5px; margin-left: 10px;"> <!-- ROW 2-->
-                                     <div class="col-xs-2" id="addErDv"> 
+                                     <div class="col-xs-2" id="addErDv">
                                   <label>Total Cost:</label>
                                   <select name="scname" id="scname" class="form-control">
                                   </select>
 
                                 </div>
                                    <div class="row" style="margin-bottom:5px; margin-left: 10px;">
-                                   <div class="col-xs-2" id="addErDv"> 
+                                   <div class="col-xs-2" id="addErDv">
                                   <label  margin-top: 10px;">Amount to Pay:</label>
                                   <input class="form-control" type="number" placeholder="Amount to Pay" id=totalamount name="totalamount" required>
                                 </div>
-                                 
 
-                                </div> 
-                                
-                                
-                                
+
+                                </div>
+
+
+
 
                                 <button type="submit" name="btnAdd" onclick="return myFunction();" class="btn btn-primary" style="margin-bottom: 15px; margin-top: 15px; margin-left: 15px;">Add</button>
 
                                 <br>
 
-                                <div class="col-xs-2" id="addErDv"> 
+                                <div class="col-xs-2" id="addErDv">
                                   <label  margin-top: 10px;">Prepared by:</label>
                                   <input class="form-control" type="txt" placeholder="Prepared by:" id="prepare" name="prepare"  value="<?php echo ''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'.'; ?>" style="margin-bottom: 20px;" disabled>
-                                </div> 
-        
+                                </div>
+
 
                               </div>
 
@@ -498,11 +507,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
                           </div><!-- /.col -->
-                        </div>  <!-- /.row -->         
+                        </div>  <!-- /.row -->
 
 
 
-                      </div> <!-- /.row --> 
+                      </div> <!-- /.row -->
 
 
 
@@ -537,7 +546,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                     <b>Version</b> 3.0
                   </div>
                   <strong>Copyright &copy; 2016<?php if(date("Y")!=2015)echo" - ".date("Y")."";?></strong> All rights reserved.
-                </footer>        
+                </footer>
               </div><!-- /.content-wrapper -->
 
             </div><!-- ./wrapper -->
@@ -582,7 +591,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                 </div>
 
               </form>
-            </div> 
+            </div>
 
 
 
@@ -596,7 +605,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                     <div class="modal-header">
                       <button type="butt on" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                       <h4 class="modal-title"> <i class="ion-android-person"></i> Edit Category Form </h4>
-                    </div>          
+                    </div>
                     <div class="modal-body" >
 
 
@@ -606,13 +615,13 @@ $conn = new mysqli($servername, $username, $password, $dbname);
                     </form>
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" name="btnSave" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>                                
+                    <button type="submit" name="btnSave" class="btn bg-blue btn-lg btn-block" data-dismiss="modal fade"><i class="fa fa-send"></i> SAVE</button>
                   </div>
 
                 </div>
               </div>
             </form>
-          </div> 
+          </div>
 
 
           <script>
@@ -620,8 +629,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
              myRowIndex = $(a).parent().parent().index();
              var getid=  (document.getElementById("jsontable").rows[($(a).parent().parent().index())+1].cells[0].innerHTML);
              window.open("../../pdf/print/printbill.php?billing_no="+getid+"& customer=<?php echo ''.$customer.'';?>&totalcost=<?php echo ''.$totalcost.'';?>&topay=<?php echo ''.$topay.'';?>&datee=<?php echo ''.$datee.'';?>&enddate=<?php echo ''.$enddate.'';?>&prepare=<?php echo ''.$prepare.'';?>");
-           }
-         </script>
+             } </script>
 
 
 
@@ -630,10 +638,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
          <script type="text/javascript">
           function get_id(o) {
             myRowIndex = $(o).parent().parent().index();
-            var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);    
+            var getid=  (document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);
             var $modal = $('#myModal'),
             $billing_no1 = $modal.find('#billing_no1');
-            $billing_no1.val(getid);   
+            $billing_no1.val(getid);
 
             $billing_no1 = $modal.find('#billing_no1');
             $billing_no1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[0].innerHTML);
@@ -641,7 +649,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
             $topay1 = $modal.find('#topay1');
             $topay1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[3].innerHTML);
             $end1 = $modal.find('#end1');
-            $end1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[5].innerHTML); 
+            $end1.val(document.getElementById("jsontable").rows[($(o).parent().parent().index())+1].cells[5].innerHTML);
           }
         </script>
 
@@ -665,24 +673,24 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
             }
 
-            else if (totalamount<=-1) 
+            else if (totalamount<=-1)
             {
               alert("Negative amount is not allowed");
               return false;
-            } 
+            }
 
 
-            else if (totalamount== 0) 
+            else if (totalamount== 0)
             {
               alert("Zero amount is not allowed");
               return false;
-            } 
+            }
 
-            else if (totalamount==" ") 
+            else if (totalamount==" ")
             {
               alert("Zero amount is not allowed");
               return false;
-            } 
+            }
 
 
             else
@@ -712,7 +720,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
             if (confirm("Are you sure?") == true) {
 
-            } 
+            }
             else {
               return false;
         //window.location.href="purchaseorder1.php";
@@ -725,4 +733,3 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
   </html>
-

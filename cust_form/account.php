@@ -7,21 +7,19 @@ if($connect=@mysql_connect("localhost","root"))
   echo"";
   else
 die(@mysql_error());
-$connect=@mysql_select_db("pms");
+$connect=@mysql_select_db("projectmonitoring");
 session_start();
 
 if($_SESSION['user']=='' && $_SESSION['pass']=='')
 {
-   header('Location: ../index.php');
+  echo '<script type="text/javascript">window.location.href="../index.php";</script>'; 
 }
 
-$content2=mysql_query("SELECT * from customer where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
-$cont2=mysql_query("SELECT * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
+$content2=mysql_query("select * from customer where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
 $total2=@mysql_affected_rows();
 
     
 $row1=mysql_fetch_array($content2);
-$row=mysql_fetch_array($cont2);
 
 $user2=$row1['username'];
 $pass2=$row1['password'];
@@ -36,66 +34,10 @@ $lastname2=$row1['lastname'];
 $contact2=$row1['contact'];
 $city2=$row1['city'];
 $street2=$row1['street'];
-$position=$row['position'];
+
 
 $a= date("Y-m-d");
 
-?>
-
- <?php
-              if(isset($_GET['logout']))
-              {
-                mysql_query("update sample set status='inactive' where user='".$_SESSION['user']."' and pass='".$_SESSION['pass']."' ");
-                session_destroy();
-                 echo '<script type="text/javascript">window.location.href="../index.php";</script>';
-              }
-
-
-
-
-      
-
-$proj=$_POST['c_name1'];
-
-if($cust_type2=="Company")
-{
-  $name=''.$comp_name2.'';
-}
-else if($cust_type2=="Individual")
-{
-  $name=''.ucfirst($lastname2).', '.ucfirst($firstname2).' '.ucfirst($middlename2[0]).'.';
-}
-
-
- if(isset($_POST['req']))
-
-{
-include("../maintenance/include/connect.php");
-  $lid='';
- 
-$status="requested";
-
-$sql="INSERT into quotation (username, password, customer, project, date, address, phone, email, status) values('".$_SESSION['user']."','".$_SESSION['pass']."','".$name."', '".$proj."', '".$a."', '".$street2."', '".$phone_num2."', '".$email2."','".$status."')";
-  
-$result = $dbLink->query($sql);
- 
-        // Check if it was successfull
-        if($result) 
-         {
-          
-        echo '<script type="text/javascript">';
-        echo 'setTimeout(function () { swal("Success!","Request has Added!","success");';
-        echo '},);</script>';
-       
-        }
-        else 
-          {
-               echo("Error description: " . mysqli_error($dbLink));
-              echo '<script type="text/javascript">';
-              echo 'setTimeout(function () { swal("Error!","There Was an error","error");';
-              echo '},);</script>'; 
-         }
-}
 ?>
 
 
@@ -165,7 +107,173 @@ $result = $dbLink->query($sql);
     background: url(../assets/img/Preloader_3.gif) center no-repeat #fff;
 }
 </style>
- 
+ <?php
+$content1=mysql_query("select max(customer_no) as max from customer");
+$total1=@mysql_affected_rows();
+
+    
+$row=mysql_fetch_array($content1);
+$noo=$row['max'];
+
+$hell=$noo+1;
+$type=$_POST['radiobutton'];
+$sname1=$_POST['txtname'];
+$phone=$_POST['txtphone'];
+$fax=$_POST['txtfax'];
+$email=$_POST['txtemail'];
+$fname=$_POST['txtfirstname'];
+$mname=$_POST['txtmiddlename'];
+$lname=$_POST['txtlastname'];
+$contact=$_POST['txtcontact'];
+$street=$_POST['txtstreet'];
+$city=$_POST['txtcity'];
+
+$status="Active";
+$cont= strlen($contact);
+
+$sname= mysql_real_escape_string($sname1);
+
+
+if(empty($mname))
+{
+
+$mname=" ";
+
+}
+
+
+if(isset($_POST['btnAdd']) && $type=="Company" &&  !empty($sname1))
+
+{
+
+
+
+if( !empty($sname1) && !empty($fname) && !empty($lname) && !empty($contact) && !empty($street) && !empty($city))
+
+
+{
+
+if(preg_match("/^[a-zA-Z,-,', .,-]*$/",$fname) && preg_match("/^[a-zA-Z,-,', .,-]*$/",$mname) && preg_match("/^[a-zA-Z,-,', .,-]*$/",$lname) && preg_match("/^[0-9]*$/",$contact) && preg_match("/^[0-9,-]*$/",$phone) && preg_match("/^[0-9,-]*$/",$fax) ) 
+    {
+
+$fname1= mysql_real_escape_string($fname);
+$mname1= mysql_real_escape_string($mname);
+$lname1= mysql_real_escape_string($lname);
+
+
+$status="Active";
+
+
+mysql_query("insert into customer (cust_type, comp_name, phone_num, fax, email, firstname, middlename, lastname, contact, street , city, status) values('".$type."', '".$sname."', '".$phone."', '".$fax."', '".$email."', '".$fname1."', '".$mname1."', '".$lname1."', '".$contact."', '".$street."', '".$city."', '".$status."')");
+  
+ echo '<script type="text/javascript">alert("Customer has been added")</script>'; 
+
+
+
+}
+
+
+}
+
+
+
+}
+
+
+
+else if(isset($_POST['btnAdd']) && $type=="Company" && empty($sname)  && empty($fname) && empty($lname) && empty($contact) && empty($street) && empty($city))
+
+
+{
+
+echo '<script type="text/javascript">alert("Pleae input Data")</script>'; 
+
+
+
+
+}
+
+//individual
+
+if(isset($_POST['btnAdd']) && $type=="Individual")
+
+{
+
+
+
+if( !empty($fname) && !empty($lname) && !empty($contact) && !empty($street) && !empty($city))
+
+
+{
+
+if(preg_match("/^[a-zA-Z,-,', .,-]*$/",$fname) && preg_match("/^[a-zA-Z,-,', .,-]*$/",$mname) && preg_match("/^[a-zA-Z,-,', .,-]*$/",$lname) && preg_match("/^[0-9]*$/",$contact) && preg_match("/^[0-9,-]*$/",$phone) && preg_match("/^[0-9,-]*$/",$fax) ) 
+    {
+
+$fname1= mysql_real_escape_string($fname);
+$mname1= mysql_real_escape_string($mname);
+$lname1= mysql_real_escape_string($lname);
+
+
+$status="Active";
+
+
+mysql_query("insert into customer (cust_type, comp_name, phone_num, fax, email, firstname, middlename, lastname, contact, street , city, status) values('".$type."', '".$sname."', '".$phone."', '".$fax."', '".$email."', '".$fname1."', '".$mname1."', '".$lname1."', '".$contact."', '".$street."', '".$city."', '".$status."')") or die (mysql_error());
+  
+ echo '<script type="text/javascript">alert("Customer has been added")</script>'; 
+
+}
+
+
+
+
+
+
+
+
+}
+
+
+
+}
+
+
+
+else if(isset($_POST['btnAdd']) && $type=="Individual" && empty($fname) && empty($lname) && empty($contact) && empty($street) && empty($city))
+
+
+{
+
+echo '<script type="text/javascript">alert("Pleae input Data")</script>'; 
+
+
+
+
+}
+
+
+//Update query
+  if(isset($_POST['btnSave']))
+                {
+                    $type=$_POST['radiobutton'];
+                    $sname1=$_POST['txtname'];
+                    $phone=$_POST['txtphone'];
+                    $fax=$_POST['txtfax'];
+                    $email=$_POST['txtemail'];
+                    $fname=$_POST['txtfirstname'];
+                    $mname=$_POST['txtmiddlename'];
+                    $lname=$_POST['txtlastname'];
+                    $contact=$_POST['txtcontact'];
+                    $address=$_POST['txtstreet'];
+                    $city=$_POST['txtcity'];
+                  
+                    mysql_query("UPDATE customer SET cust_type='".$type."',comp_name='".$sname1."',phone_num='".$phone."',fax='".$fax."',email='".$email."',firstname='".$fname."',middlename='".$mname."',lastname='".$lname."',contact='".$contact."',street='".$address."', city='".$city."' WHERE username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ") or die (mysql_error());
+                    echo "<script type='text/javascript'>alert('UPDATE SUCCESSFUL!')</script>";
+                      echo "<meta http-equiv='refresh' content='0'>";
+                                       
+                }
+
+
+?>
 
   <div class="se-pre-con"></div>
    </head>
@@ -197,7 +305,15 @@ $result = $dbLink->query($sql);
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+                      <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a data-toggle="dropdown">
+             
+              
+              <span id="time" style="font-weight: bold; color: "></span>
+            </a>
             
+          </li> 
                  <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle " data-toggle="dropdown" >
@@ -217,8 +333,11 @@ $result = $dbLink->query($sql);
               <!-- Menu Footer-->
               <li class="user-footer">
                 
-                <div class="pull-center">
+                <div class="pull-left">
                   <a href="?logout=true" class="btn btn-primary btn-flat btn-center"><i class="fa fa-sign-in"></i> Sign out</a>
+                </div>
+                 <div class="pull-right">
+                  <a href="index.php" class="btn btn-primary btn-flat btn-center"><i class="fa fa-open"></i> Request Quotation</a>
                 </div>
               </li>
             </ul>
@@ -289,112 +408,137 @@ $result = $dbLink->query($sql);
                     </div>
                   </div>
 
-                  <?php include("crud.php") ?>
 
 
           
                   <div class="row">                     <!-- TABLES -->
-                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-8 col-sm-6 col-xs-12 center">
                       <div class="box box-solid">
                         <div class="box-header">
-                          <h3 class="box-title">Edit Account</h3>
+                          <h3 class="box-title"></h3>
                           <div class="myData"></div>
 
                         </div><!-- /.box-header -->
                         <div class="box-body">
 
+                             <form class="card">
+<label style="font-size: 1.3em;">Customer Type:</label>
+
+<p>
+<?php if($cust_type2=="Company")
+{
+echo'<input class="w3-radio" type="radio" name="radiobutton" id="no_radio" onChange="disablefield();" value="Company" checked>
+<label class="w3-validate"  style="font-size: 1em;" >Company</label>
+<input class="w3-radio" type="radio" id="yes_radio" name="radiobutton" onChange="disablefield();" value="Individual">
+<label class="w3-validate"  style="font-size: 1em;" >Individual</label>';
+}
+ else
+{
+echo'<input class="w3-radio" type="radio" name="radiobutton" id="no_radio" onChange="disablefield();" value="Company">
+<label class="w3-validate"  style="font-size: 1em;">Company</label>
+<input class="w3-radio" type="radio" id="yes_radio" name="radiobutton" onChange="disablefield();" value="Individual" checked>
+<label class="w3-validate"  style="font-size: 1em;" >Individual</label>';
+}?>
+</p>
+
+</form>
+
+<h1 style="font-size: 1.3em;">ACCOUNT INFORMATION</h1><hr>
+
                                <div class="row">
                              <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                      <label><font color="darkred">*</font>User Name:</label> <!-- DESCRIPTION -->
-                      <input class="form-control" type="text" placeholder="Username" name="user" id="user" value="<?php echo $user2; ?>" style="height:33px;" required>
-                              </div>
-                      
+    <label><font color="darkred">*</font>Username:</label>
+    <input class="form-control" type="text" placeholder="Username" name="user" id="user" value="<?php echo $user2; ?>" required>
+  </div>
 
                            <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email"><font color="darkred">*</font>Password:</label>
-                            <input class="form-control" type="password" placeholder="Password" name="pass" id="pass" value="<?php echo $pass2; ?>" style="height:33px;" required>
-
-                          </div>
-
+    <label><font color="darkred">*</font>Password:</label>
+    <input class="form-control" type="password" placeholder="Password" name="pass" id="pass" value="<?php echo $pass2; ?>" required>
+  </div>
                            <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email"><font color="darkred">*</font>Confirm Password:</label>
-                            <input class="form-control" type="password" placeholder="Confirm Password" name="cpass" id="cpass" value="<?php echo $pass2; ?>" style="height:33px;" required>
+    <label><font color="darkred">*</font>Confirm Password:</label>
+    <input class="form-control" type="password" placeholder="Confirm Password" name="cpass" id="cpass" value="<?php echo $pass2; ?>" required>
+  </div>
+</div>
+ 
+<h1 style="font-size: 1.3em;">COMPANY INFORMATION</h1><hr>
+<br>
+                               <div class="row">
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label>Company Name:</label>
+    <input class="form-control" type="text" placeholder="Company Name" name="txtname" id="textbox_A" value="<?php echo $comp_name2; ?>" >
+  </div>
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label>Phone Number:</label>
+      <strong><span id='messages'></span></strong>
+    <input class="form-control" type="number" placeholder="Phone Number" name="txtphone" id="textbox_B" value="<?php echo $phone_num2; ?>" >
+  </div>
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label>Fax Number:</label>
+    <input class="form-control" type="number" placeholder="Fax Number" name="txtfax" id="textbox_C" value="<?php echo $fax2; ?>" >
+  </div>
 
-                          </div>
-                        </div>
-
-
-                            <div class="row">
-                           <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email"><font color="darkred">*</font>First Name:</label>
-
-                            <input class="form-control" type="text" placeholder="First Name" style="height:33px;" id="firstname" name="txtfirstname" value="<?php echo $firstname2; ?>" required>
-
-                          </div>
-
-
-
-
-                           <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email">Middle Name:</label>
-
-                            <input class="form-control" type="text" placeholder="Middle Name" style="height:33px;" id="middlename" name="txtmiddlename" value="<?php echo $middlename2; ?>">
-
-                          </div>
-
-
-                           <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email"><font color="darkred">*</font>Last Name:</label>
-                            <input class="form-control" type="text" placeholder="Last Name" style="height:33px;"  name="txtlastname" id="lastname" value="<?php echo $lastname2; ?>" required>
-                          </div>
-                          </div>
+</div>
+<br>
 
 
-                           <div class="row">
-                         <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email"><font color="darkred">*</font>Contact Number:</label>
-                            <input class="form-control" type="text" placeholder="Contact Number" style="height:33px; " id="contact" name="txtcontact" value="<?php echo $contact2; ?>" required>
+<!--3 box--> 
+<h1 style="font-size: 1.3em;">PERSONAL INFORMATION</h1><hr>
+<br>
+                               <div class="row">
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label><font color="darkred">*</font>First Name:</label>
+     <strong><span id='messagefirst' style="margin-left:10px;"></span></strong>
+    <input class="form-control" type="text" placeholder="First Name" style="height:33px;" id="firstname" name="txtfirstname" value="<?php echo $firstname2; ?>" required>
+  </div>
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label>Middle Name:</label>
+    <input class="form-control" type="text" placeholder="Middle Name" style="height:33px;" id="middlename" name="txtmiddlename" value="<?php echo $middlename2; ?>" >
+  </div>
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label><font color="darkred">*</font>Last Name:</label>
+     <strong></span></strong>
+    <input class="form-control" type="text" placeholder="Last Name" style="height:33px;"  name="txtlastname" id="lastname" value="<?php echo $lastname2; ?>" required>
+  </div>
+  </div><br>
+                             <div class='row'>
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label><font color="darkred">*</font>Contact Number:</label>
+    <input class="form-control" type="text" placeholder="Contact Number" id="contact" name="txtcontact" value="<?php echo $contact2; ?>" required>
+  </div>
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label><font color="darkred">*</font>Email Address:</label>
+    <input class="form-control" type="email" placeholder="Email Address" id="email" name="txtemail" value="<?php echo $email2; ?>" required>
+  </div> 
+</div>
+<br>
 
-                          </div>
+<!--4 box--> 
+<h1 style="font-size: 1.3em;">ADDRESS</h1><hr>
+<br>
+                             <div class='row'>
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label><font color="darkred">*</font>Street:</label>
+    <input class="form-control" type="text" placeholder="Street" style="height:33px;" id="street" name="txtstreet" value="<?php echo $street2; ?>" required>
+  </div>
+                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+    <label><font color="darkred">*</font>City:</label>
+    <input class="form-control" type="text" placeholder="City" style="height:33px;" id="city" name="txtcity" value="<?php echo $city2; ?>" required>
+  </div><br>
+
+</div>
+<br>
+
+<!--Butons-->
+<br>
+<center>
+<input type="submit" name="btnSave" value="SUBMIT" class="btn btn-block bg-blue" style="width: 15%; "/>
+
+<button type="button" name="btnReset" class="btn btn-block bg-red" style="width: 15%; " onclick="ClearFields();">RESET</button>
+    </center>                      
 
 
 
-                          <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email"><font color="darkred">*</font>Email address:</label>
-                            <input class="form-control" type="email" placeholder="Email Address" style="height:33px; " id="email" name="txtemail" value="<?php echo $email2; ?>" required>
-                          </div>
-
-                          
-
-                          <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email"><font color="darkred">*</font>Street:</label>
-                            <input class="form-control" type="text" placeholder="Street" style="height:33px;" id="street" name="txtstreet" value="<?php echo $street2; ?>" required>
-                          </div>
-
-
-
-                          <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
-                            <label for="email"><font color="darkred">*</font>City:</label> 
-                        <input class="form-control" type="text" placeholder="City" style="height:33px;" id="city" name="txtcity" value="<?php echo $city2; ?>" required>
-                          </div>
-                        </div>
-                          
-
-                          <center style="margin-top: 20px;">
-                          <div class="row" id="f_desc_div" class='form-group' >
-                          <input type="submit" name="btnSave" onclick="return myFunction();" value="Update" class="btn btn-primary"/ required>
-
-
-                          <button type="button" name="btnReset" class="btn btn-danger" onclick="ClearFields();">Reset</button>
-                          </div>
-                          </center>
-
-
-
-
-                        </div><!-- /.box-body -->
-                      </div><!-- /.box -->
-                    </div><!-- /.col -->
                   </div>  <!-- /.row -->         
 
 
