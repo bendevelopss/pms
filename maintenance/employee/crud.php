@@ -18,6 +18,7 @@ $contact=$_POST['txtcontact'];
 $email=$_POST['txtemail'];
 $street=$_POST['txtstreet'];
 $city=$_POST['txtcity'];
+$image=$_POST['txtimage'];
 
 
 
@@ -29,8 +30,8 @@ $city=$_POST['txtcity'];
      $status="Active";
 $statuss="inactive";
 
-$sql="INSERT into employee (firstname, middlename, lastname, position, contact, email, street,city, username, password, status ) 
-  values('". $fname."','".$mname."', '".$lname."','".$position."'  ,'".$contact."', '".$email."','".$street."', '".$city."', '".$_POST['txtusername']."','".$_POST['txtpassword']."','".$status."')";
+$sql="INSERT into employee (image, firstname, middlename, lastname, position, contact, email, street,city, username, password, status ) 
+  values('". $image."','". $fname."','".$mname."', '".$lname."','".$position."'  ,'".$contact."', '".$email."','".$street."', '".$city."', '".$_POST['txtusername']."','".$_POST['txtpassword']."','".$status."')";
 
 mysql_query("INSERT into sample (user, pass, position , status, account_status ) 
   values('".$_POST['txtusername']."','".$_POST['txtpassword']."', '".$position."' ,'".$statuss."','".$status."')");
@@ -71,13 +72,13 @@ mysql_query("INSERT into sample (user, pass, position , status, account_status )
                     $city=$_POST['city1'];
                   $username=$_POST['username1'];
                   $password=$_POST['password1'];
+                  $image=$_POST['image'];
                   
-                    mysql_query("UPDATE employee SET firstname='".$fname."',middlename='".$mname."',lastname='".$lname."',position='".$position."', contact='".$contact."', email='".$email."', street='".$street."', city='".$city."', username='".$username."', password='".$password."' WHERE emp_no='".$emp_no."'");
+                    mysql_query("UPDATE employee SET image='".$image."',firstname='".$fname."',middlename='".$mname."',lastname='".$lname."',position='".$position."', contact='".$contact."', email='".$email."', street='".$street."', city='".$city."', username='".$username."', password='".$password."' WHERE emp_no='".$emp_no."'");
                     
                     
-                    echo '<script type="text/javascript">';
-                    echo 'setTimeout(function () { swal("Success!","Employee Updated!","success");';
-                    echo '},);</script>';
+                     echo "<script type='text/javascript'>alert('EMPLOYEE UPDATE SUCCESSFUL!')</script>";
+                    echo "<meta http-equiv='refresh' content='0'>";
                      
                                        
                 }

@@ -1,5 +1,5 @@
  $(document).ready(function() {
-  var elem = document.getElementById("myBar");
+  var elem = document.getElementById("myBar"); 
   var width = 0;
   var id = setInterval(frame, 10);
   var total = parseFloat(parseFloat($("#qua1").val(), 10) * 100)/ parseFloat($("#qua").val(), 10);
@@ -7,8 +7,8 @@
     if (width >= total) {
       clearInterval(id);
     } else {
-      width++;
-      elem.style.width = width + '%';
+      width++; 
+      elem.style.width = width + '%'; 
       if(width>='100')
       {
       document.getElementById("demo").innerHTML = "COMPLETE";
@@ -18,7 +18,7 @@
       {
       document.getElementById("demo").innerHTML = width * 1  + '%';
       }
-
+     
     }
   }
 });

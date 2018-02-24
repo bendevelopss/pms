@@ -34,6 +34,7 @@ $contact2=$row1['contact'];
 $city2=$row1['city'];
 $street2=$row1['street'];
 $position=$row1['position'];
+$image=$row1['image'];
 
 $a= date("Y-m-d");
 
@@ -52,7 +53,7 @@ $a= date("Y-m-d");
 
    </head>
 
-   <body class='skin-red'>
+   <body class='skin-red fixed'>
 
     <header class="main-header">
       <!-- Logo --> 
@@ -94,6 +95,7 @@ $a= date("Y-m-d");
               <!-- The user image in the menu -->
               <li class="user-header">
                
+               <img src="<?php echo '../employee/image/'.($image).''; ?>" class="img-circle">
 
                 <p>
                <?php include("../../maintenance/user_type.php"); ?>
@@ -530,124 +532,8 @@ $a= date("Y-m-d");
       });
     </script>
     <script type="text/javascript">
-
-      $('.remove').click(function(){
-        swal({
-          title: "Are you sure want to remove this item?",
-          text: "You will not be able to recover this item",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonClass: "btn-danger",
-          confirmButtonText: "Confirm",
-          cancelButtonText: "Cancel",
-          closeOnConfirm: false,
-          closeOnCancel: false
-        },
-        function(isConfirm) {
-          if (isConfirm) {
-            swal("Deleted!", "Your item deleted.", "success");
-          } else {
-            swal("Cancelled", "You Cancelled", "error");
-          }
-        });
-      });
-
+      $('#textbox_A,#firstname,#middlename,#lastname,#street,#city,#supp_name1,#firstname1,#middlename1,#lastname1,#address1,#city1').keyup(function() {
+  this.value = this.value.toUpperCase();
+});
     </script>
-    <script>
-function myFunction() {
-    var txtname,txtphone,txtemail,txtfirstname, txtmiddlename ,txtlastname, txtcontact, txtstreet, txtcity, textcontact1, txtfax;
-
-
-    txtname = document.getElementById("textbox_A").value;
-    txtphone = document.getElementById("textbox_B").value;
-    txtemail = document.getElementById("email").value;
-    txtfax = document.getElementById("textbox_C").value;
-    txtfirstname = document.getElementById("firstname").value;
-txtmiddlename = document.getElementById("middlename").value;
-    txtlastname = document.getElementById("lastname").value;
-    txtcontact = document.getElementById("contact").value;
-    txtcontact1 = document.getElementById("contact").value.length;
-    txtstreet = document.getElementById("street").value;
-    txtcity = document.getElementById("city").value;
-
-    if (txtname=='') 
-    {
-        alert("Company Name is a required field");
-        return false;
-    } 
-
- else if (txtstreet=='') 
-    {
-        alert("Street is a required field");
-        return false;
-    } 
-    else if (txtcity=='') 
-    {
-        alert("City Address is a required field");
-        return false;
-    } 
-
-
-
-    else if (txtphone=='') 
-    {
-        alert("Phone is a required field");
-        return false;
-    } 
-    else if (txtemail=='') 
-    {
-        alert("Email Address is a required field");
-        return false;
-    } 
-     else if (txtfirstname=='') 
-    {
-        alert("First Name is a required field");
-        return false;
-    } 
-    
-     else if (txtlastname=='') 
-    {
-        alert("Last Name is a required field");
-        return false;
-    } 
-      else if (txtphone.match(/[a-zA-Z]/g)) 
-    {
-        alert("phone must not contain alphabet");
-        return false;
-    } 
-
-      else if (txtcontact.match(/[a-zA-Z]/g)) 
-    {
-        alert("contact number must not contain letters");
-        return false;
-    } 
-
-     else if (txtfax.match(/[a-zA-Z]/g)) 
-    {
-        alert("fax must not contain letters");
-        return false;
-    } 
-else if (txtlastname.match(/[0-9]/g)) 
-    {
-        alert("Last name must not be numerical");
-        return false;
-    } 
-    else if (txtfirstname.match(/[0-9]/g)) 
-    {
-        alert("First name must not be numerical");
-        return false;
-    } 
-
- else if (txtmiddlename.match(/[0-9]/g)) 
-    {
-        alert("Middle name must not be numerical");
-        return false;
-    } 
-
-    
-    else 
-    {
-        text = "Input OK";
-    }
-}
-</script>
+   

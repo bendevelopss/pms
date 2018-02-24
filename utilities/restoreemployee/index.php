@@ -53,7 +53,7 @@ $a= date("Y-m-d");
 
    </head>
 
-   <body class='skin-red'>
+   <body class='skin-red fixed'>
 
     <form action="" method="post" name="frm" id="frm">
       <header class="main-header">
@@ -213,7 +213,7 @@ $a= date("Y-m-d");
                               } ?>
                               <form action="" method="post">
                                 <?php
-                                $sql = " select * from employee where status='inactive' group by emp_no";
+                                $sql = " select * from employee where status='inactive'";
                                 $result = $conn->query($sql);
                                 while($row = $result->fetch_assoc())
                                 { 
@@ -259,9 +259,11 @@ $a= date("Y-m-d");
 
                                      mysql_query("update sample set status='".$status."' 
                                       where emp_no=".$nos);
-                                     echo'<div class="bottom">';
-                                     echo '<script type="text/javascript">alert("Employee has been restored")</script>'; 
-                                     echo "<meta http-equiv='refresh' content='0'>";
+                                     
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Success!","New Employee Added!","success");';
+        echo '},);</script>';
+                                     
                                    }
 
 

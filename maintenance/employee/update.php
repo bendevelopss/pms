@@ -3,6 +3,11 @@
                                     <div class="col-xs-4" id="addErDv"> 
                                       <label>Employee ID</label> <!-- Prod_Name -->
                                      <input type="text" class="form-control" name="emp_no1" id="emp_no1" readonly>
+                                    </div>  
+
+                                    <div class="col-xs-4" id="emailErDv"> 
+                                      <label><font color="darkred">*</font>Choose Image</label> <!-- Prod_Name -->
+                                      <input type="file" name="image" id="image" required> 
                                     </div>           
 
                                                 
@@ -82,6 +87,8 @@
                                     <div class="col-xs-4" id="emailErDv"> 
                                       <label><font color="darkred">*</font>Password</label> <!-- Prod_Name -->
                                       <input type="password" class="form-control" name="password1" id="password1" required> 
-                                    </div>                
+                                    </div>   
+
+            
   
                                   </div> <!-- /.row -->   

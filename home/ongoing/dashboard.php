@@ -52,6 +52,7 @@ $city2=$row['city'];
 $street2=$row['street'];
 $lastname2=$row['lastname'];
 $position=$row['position'];
+$image=$row['image'];
 
 
 $a= date("Y-m-d");
@@ -125,7 +126,7 @@ $a= date("Y-m-d");
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+               <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
                <?php include("../../maintenance/user_type.php"); ?>  
 
               </li>

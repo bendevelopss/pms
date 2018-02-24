@@ -12,8 +12,7 @@
       <li class="header">MAIN NAVIGATION</li>
        <li class="treeview"><a href="../../transaction/purchase/index.php"><i class="fa fa-truck"></i> <span>Purchase Order</span>
                 </a></li>
-            <li class="treeview"><a href="../../utilities/accountsettings/index.php"><i class="fa fa-gear"></i> <span>Account Seeting</span>
-                </a></li>
+
        
            
     </ul>

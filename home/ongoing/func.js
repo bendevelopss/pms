@@ -1,5 +1,5 @@
-$(document).ready(function() {
-  var elem = document.getElementById("myBar1");
+ $(document).ready(function() {
+  var elem = document.getElementById("myBar1"); 
   var width = 0;
   var nga= (parseFloat(parseFloat($("#ngayon").val(),10)));
   var tot= (parseFloat(parseFloat($("#totaldate").val(),10)));
@@ -10,16 +10,10 @@ $(document).ready(function() {
   function frame() {
     if (width >= total) {
       clearInterval(id);
-    }
-    if (width > 100) {
-      clearInterval(id);
-      document.getElementById("demo1").innerHTML = "COMPLETE";
-      $("#re_date").show();
-      $("#dates").show();
-    }
+    } 
     else {
-      width++;
-      elem.style.width = width + '%';
+      width++; 
+      elem.style.width = width + '%'; 
       //document.getElementById("demo1").innerHTML = width * 1  + '%';
        if(width=='100')
       {

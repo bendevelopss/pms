@@ -34,6 +34,7 @@ $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
+$image=$row['image'];
 
 $a= date("Y-m-d");
 
@@ -110,7 +111,7 @@ $date=$row3['date'];
            <ul class="dropdown-menu">
              <!-- The user image in the menu -->
              <li class="user-header">
-
+              <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
 
                 <?php include("../../maintenance/user_type.php"); ?>
              </li>
@@ -252,7 +253,7 @@ $date=$row3['date'];
   <h3 class="progress-title">Project (based on date)</h3>
   <div class="progress-bar">
       <div id="myBar1" class="progress-value">
-      <div id="demo1" class="w3-center w3-text-black" style="Color: black"></div>
+      <div id="demo1" class="w3-center w3-text-black" style="color: black; ">0%</div>
       </div>
   </div>
 </div>
@@ -262,7 +263,7 @@ $date=$row3['date'];
 
 
  <div style="text-align: center; float: center">
-  <input type="date" name="dates" id="dates" style="text-align: center" value="<?php echo $a?>">
+  <input type="date" name="dates" id="dates" style="text-align: center;" value="<?php echo $a?>">
   <button class="btn btn-default" type="submit" name="re_date" id="re_date">Extend Date
   </div>
 
@@ -275,7 +276,7 @@ $date=$row3['date'];
     <div class="progress blue">
                 <h3 class="progress-title">Project's Progress</h3>
                 <div class="progress-bar">
-                    <div id="myBar" class="progress-value" style="Color: black"><div id="demo" class="w3-center w3-text-black">0%</div></div>
+                    <div id="myBar" class="progress-value" style="color: black; width:0%;"><div id="demo" class="w3-center w3-text-black">0%</div></div>
                 </div>
             </div>
   <br>

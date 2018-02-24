@@ -34,7 +34,7 @@ $contact2=$row1['contact'];
 $city2=$row1['city'];
 $street2=$row1['street'];
 $position=$row1['position'];
-
+$image=$row1['image'];
 
 $a= date("Y-m-d");
 
@@ -221,6 +221,7 @@ if(isset($_POST['btnRemove'])) {
               <!-- The user image in the menu -->
               <li class="user-header">
                
+               <img src="<?php echo '../employee/image/'.($image).''; ?>" class="img-circle">
 
                <?php include("../../maintenance/user_type.php"); ?> 
               </li>
@@ -744,4 +745,9 @@ if(isset($_POST['btnRemove'])) {
         });
       });
 
+    </script>
+        <script type="text/javascript">
+      $('#desc,#brand,#color,#pack,#desc1,#brand1,#color1,#pack1').keyup(function() {
+  this.value = this.value.toUpperCase();
+});
     </script>

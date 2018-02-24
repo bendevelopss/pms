@@ -31,6 +31,7 @@ $contact2=$row1['contact'];
 $city2=$row1['city'];
 $street2=$row1['street'];
 $position=$row1['position'];
+$image=$row1['image'];
 
 $a= date("Y-m-d");
 
@@ -91,6 +92,7 @@ $a= date("Y-m-d");
               <!-- The user image in the menu -->
               <li class="user-header">
                
+               <img src="<?php echo '../employee/image/'.($image).''; ?>" class="img-circle">
 
                 <p>
                <?php include("../../maintenance/user_type.php"); ?>
@@ -378,5 +380,10 @@ echo'
       "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
     
     });
+});
+    </script>
+    <script type="text/javascript">
+      $('#textbox_A,#pos_name1').keyup(function() {
+  this.value = this.value.toUpperCase();
 });
     </script>

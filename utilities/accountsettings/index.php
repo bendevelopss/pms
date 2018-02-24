@@ -34,6 +34,7 @@ $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
+$image=$row['image'];
 
 
 $a= date("Y-m-d");
@@ -51,10 +52,11 @@ $a= date("Y-m-d");
                     $contact=$_POST['txtcontact'];
                     $street=$_POST['txtstreet'];
                     $city=$_POST['txtcity'];
+                    $image=$_POST['txtimage'];
 
-                    mysql_query("UPDATE employee SET username='".$user."', password='".$pass."' ,firstname='".$fname."', middlename='".$mname."' ,lastname='".$lname."' ,contact='".$contact."' ,email='".$email."' ,street='".$street."',city='".$city."' where username='".$user2."' and password='".$pass2."' ");
+                    mysql_query("UPDATE employee SET image='".$image."', username='".$user."', password='".$pass."' ,firstname='".$fname."', middlename='".$mname."' ,lastname='".$lname."' ,contact='".$contact."' ,email='".$email."' ,street='".$street."',city='".$city."' where username='".$user2."' and password='".$pass2."' ");
                     mysql_query("UPDATE sample SET username='".$user."', password='".$pass."' where username='".$user2."' and password='".$pass2."' ");
-                    echo "<script type='text/javascript'>alert('Update Successfull!')</script>";
+                    echo "<script type='text/javascript'>alert('ACCOUNT UPDATE SUCCESSFUL!')</script>";
                     echo "<meta http-equiv='refresh' content='0'>";
 
 
@@ -125,7 +127,7 @@ $a= date("Y-m-d");
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-
+                <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
 
                  <?php include("../../maintenance/user_type.php"); ?>
               </li>
@@ -236,6 +238,18 @@ $a= date("Y-m-d");
                            <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
                             <label for="email"><font color="darkred">*</font>Confirm Password:</label>
                             <input class="form-control" type="password" placeholder="Confirm Password" name="cpass" id="cpass" value="<?php echo $pass2; ?>" style="height:33px;" required>
+
+                          </div>
+
+                            <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                            <label for="email"><font color="darkred">*</font>Choose Image:</label>
+                            <input type="file" name="txtimage" id="txtimage" style="height:33px;" required>
+
+                          </div>
+
+                          <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group' style="float: right">
+                            <label for="email" style="color: maroon">&nbsp;&nbsp;&nbsp;&nbsp;PROFILE PICTURE</label><br>
+                            <img src="../../maintenance/employee/image/<?php echo $image; ?>" style="width: 70%;">
 
                           </div>
                         </div>
@@ -369,7 +383,6 @@ $a= date("Y-m-d");
 <!--Validations-->
 <script>
   function myFunction() {
-    var txtemail,txtfirstname, txtmiddlename ,txtlastname, txtcontact, txtstreet, txtcity, textcontact1;
     var user = document.getElementById("user").value;
     var a= document.getElementById("pass").value;
     var b= document.getElementById("cpass").value;

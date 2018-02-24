@@ -110,11 +110,7 @@ $date=$row3['date'];
               <li class="user-header">
 
 
-                <p>
-                  <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                  <br>
-                  <label><?php echo ''.ucfirst($position).''; ?></label>
-                </p>
+                <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
 
@@ -134,7 +130,7 @@ $date=$row3['date'];
       </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <?php include("../../maintenance/side.php") ?>
+    <?php include("../../maintenance/side_account.php") ?>
 
 
     <!-- Right side column. Contains the navbar and content of the page -->
