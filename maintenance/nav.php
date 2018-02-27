@@ -1,53 +1,53 @@
   <?php
                 $content2=mysql_query("SELECT * from customer where username='".$_SESSION['user2']."' and password='".$_SESSION['pass2']."' ");
-                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' && 'Admin'))
+                if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' && 'Admin' && 'ADMIN'))
                 {
                   ?>
-     <span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Admin</font> <i class="fa fa-user fa-lg"></i></span>
+     <span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">ADMINISTRATOR</font> <i class="fa fa-user fa-lg"></i></span>
 
                 
                 <?php
               } 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor' || $_SESSION['pos']=='QUANTITY SURVEYOR' )
               {
 
-              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder; color: white;">Quantity Surveyor</font> <i class="fa fa-user fa-lg"></i></span>';
+              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder; color: white;">QUANTITY SURVEYOR</font> <i class="fa fa-user fa-lg"></i></span>';
               }
 
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary' || $_SESSION['pos']=='SECRETARY')
               {
 
-              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Secretary</font> <i class="fa fa-user fa-lg"></i></span>';
+              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">SECRETARY</font> <i class="fa fa-user fa-lg"></i></span>';
                 
               }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman' || $_SESSION['pos']=='FOREMAN')
               {
 
-              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Foreman</font> <i class="fa fa-user fa-lg"></i></span>';
+              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">FOREMAN</font> <i class="fa fa-user fa-lg"></i></span>';
                
               }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman' || $_SESSION['pos']=='STOCKMAN')
               {
 
-               echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Stockman</font> <i class="fa fa-user fa-lg"></i></span>';
+               echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">STOCKMAN</font> <i class="fa fa-user fa-lg"></i></span>';
                
               }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant' || $_SESSION['pos']=='ACCOUNTANT')
               {
               
-               echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Accountant</font> <i class="fa fa-user fa-lg"></i></span>';
+               echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">ACCOUNTANT</font> <i class="fa fa-user fa-lg"></i></span>';
               }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='customer')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='customer' || $_SESSION['pos']=='CUSTOMER')
               {
-              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Customer</font> <i class="fa fa-user fa-lg"></i></span>';
+              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">CUSTOMER</font> <i class="fa fa-user fa-lg"></i></span>';
                
               }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Project Manager')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Project Manager' || $_SESSION['pos']=='PROJECT MANAGER')
               {
-              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">Project Manager</font> <i class="fa fa-user fa-lg"></i></span>';
+              echo '<span class="hidden-sm" style="font-size: 11.5pt;">Welcome, <font style="font-weight: bolder;">PROJECT MANAGER</font> <i class="fa fa-user fa-lg"></i></span>';
                
               }
-              if(isset($_SESSION['pos']) && ($_SESSION['pos']!='Accountant') && ($_SESSION['pos']!='admin') && ($_SESSION['pos']!='Admin') && ($_SESSION['pos']!='Quantity Surveyor') && ($_SESSION['pos']!='Secretary') && ($_SESSION['pos']!='Foreman') && ($_SESSION['pos']!='Stockman') && ($_SESSION['pos']!='Accountant') && ($_SESSION['pos']!='customer') && ($_SESSION['pos']!='Project Manager'))
+              if(isset($_SESSION['pos']) && ($_SESSION['pos']!='Accountant') && ($_SESSION['pos']!='admin') && ($_SESSION['pos']!='Admin') && ($_SESSION['pos']!='Quantity Surveyor') && ($_SESSION['pos']!='Secretary') && ($_SESSION['pos']!='Foreman') && ($_SESSION['pos']!='Stockman') && ($_SESSION['pos']!='Accountant') && ($_SESSION['pos']!='customer') && ($_SESSION['pos']!='Project Manager') && ($_SESSION['pos']!='QUANTITY SURVEYOR') )
               {
               
                echo '<script type="text/javascript">window.location.href="../../index.php";

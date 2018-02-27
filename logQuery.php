@@ -22,7 +22,6 @@ $row=mysql_fetch_array($find);
 $user2=$row['user'];
 $pass2=$row['pass'];
 $pos2=$row['position'];
-
 $pos=$pos2;
 
 if(isset($_POST['login']) && $user!=$user2 && $pass!=$pass2)
@@ -35,7 +34,7 @@ if(isset($_POST['login']) && $user!=$user2 && $pass!=$pass2)
 
 }
 
-if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='customer')
+if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='customer' || $pos=='CUSTOMER')
 {
 
   $_SESSION['user']=$user;
@@ -46,7 +45,7 @@ if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='customer')
   header('Location: cust_form/index.php');
 
 }
-else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='admin' || $pos=='Admin')
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='admin' || $pos=='Admin' || $pos=='ADMIN')
 {
 
   $_SESSION['user']=$user;
@@ -58,7 +57,7 @@ else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='admin
 
 }
 
-else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Stockman')
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Stockman' || $pos=='STOCKMAN')
 {
 
   $_SESSION['user']=$user;
@@ -70,7 +69,7 @@ else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Stock
 
 }
 
-else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Accountant')
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Accountant' || $pos=='ACCOUNTANT')
 {
 
   $_SESSION['user']=$user;
@@ -82,7 +81,7 @@ else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Accou
 
 }
 
-else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Foreman')
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Foreman' || $pos=='FOREMAN')
 {
 
   $_SESSION['user']=$user;
@@ -93,7 +92,7 @@ else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Forem
    echo '<script type="text/javascript">window.location.href="transaction/delivery/index.php";</script>'; 
 
 }
-else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Quantity Surveyor')
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Quantity Surveyor' || $pos=='QUANTITY SURVEYOR')
 {
 
   $_SESSION['user']=$user;
@@ -104,7 +103,7 @@ else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Quant
    echo '<script type="text/javascript">window.location.href="transaction/quotation/index.php";</script>'; 
 
 }
-else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Secretary')
+else if(isset($_POST['login']) && $user==$user2 && $pass==$pass2 && $pos=='Secretary' || $pos=='SECRETARY')
 {
 
   $_SESSION['user']=$user;

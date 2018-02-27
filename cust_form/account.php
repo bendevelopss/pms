@@ -364,7 +364,7 @@ echo '<script type="text/javascript">alert("Pleae input Data")</script>';
 
     <!-- Right side column. Contains the navbar and content of the page -->
     <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
+
       <section class="content-header">
         <h1>
           Customer Account
@@ -378,48 +378,20 @@ echo '<script type="text/javascript">alert("Pleae input Data")</script>';
 
 
         <!-- Small boxes (Stat box) -->
-        <div class="row" >                                 
-          <div class="col-lg-12 col-lg-12 col-lg-12">             <!-- NEW RECORD -->
-                <!-- <a href="addTax.php"><button class="btn btn-success btn-lg" style="margin-bottom:5px;
-                  box-shadow: 0px 4px 8px #888888"> 
-                + ADD NEW RECORD</button> </a> -->
+        <div class="row" >
+        <center>                                 
+          <div class="col-lg-7">
                 <div class="box-header with-border">
-
-
-
-
-
-
-
-
-
-
-                  <div id="loading" class="modal fade">
-                    <div class="modal-dialog">
-                      <div class="overlay">
-                        <div class="modal-body" style="text-align:center">
-                          <div class="overlay">
-                            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                            <i class="fa fa-spinner fa-pulse fa-spin"  
-                            style="font-size:60px;"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-
           
                   <div class="row">                     <!-- TABLES -->
-                    <div class="col-lg-8 col-sm-6 col-xs-12 center">
+                    <div class="col-lg-12 center">
                       <div class="box box-solid">
                         <div class="box-header">
                           <h3 class="box-title"></h3>
                           <div class="myData"></div>
 
                         </div><!-- /.box-header -->
-                        <div class="box-body">
+                        <div class="box-body" >
 
                              <form class="card">
 <label style="font-size: 1.3em;">Customer Type:</label>
@@ -445,37 +417,37 @@ echo'<input class="w3-radio" type="radio" name="radiobutton" id="no_radio" onCha
 
 <h1 style="font-size: 1.3em;">ACCOUNT INFORMATION</h1><hr>
 
-                               <div class="row">
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                               <center><div class="row" style="margin-left: 250px;">
+                             <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label><font color="darkred">*</font>Username:</label>
-    <input class="form-control" type="text" placeholder="Username" name="user" id="user" value="<?php echo $user2; ?>" required>
+    <input class="form-control" type="text" placeholder="Username" name="user" id="user" value="<?php echo $user2; ?>" style="text-align: center;" required>
   </div>
 
-                           <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                           <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label><font color="darkred">*</font>Password:</label>
-    <input class="form-control" type="password" placeholder="Password" name="pass" id="pass" value="<?php echo $pass2; ?>" required>
+    <input class="form-control" type="password" placeholder="Password" name="pass" id="pass" value="<?php echo $pass2; ?>" style="text-align: center;" required>
   </div>
-                           <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                           <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label><font color="darkred">*</font>Confirm Password:</label>
-    <input class="form-control" type="password" placeholder="Confirm Password" name="cpass" id="cpass" value="<?php echo $pass2; ?>" required>
+    <input class="form-control" type="password" placeholder="Confirm Password" name="cpass" id="cpass" value="<?php echo $pass2; ?>" style="text-align: center;" required>
   </div>
 </div>
  
 <h1 style="font-size: 1.3em;">COMPANY INFORMATION</h1><hr>
 <br>
-                               <div class="row">
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                               <div class="row" style="margin-left: 250px;">
+                             <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label>Company Name:</label>
-    <input class="form-control" type="text" placeholder="Company Name" name="txtname" id="textbox_A" value="<?php echo $comp_name2; ?>" >
+    <input class="form-control" type="text" placeholder="Company Name" name="txtname" id="textbox_A" value="<?php echo $comp_name2; ?>" style="text-align: center;" >
   </div>
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                             <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label>Phone Number:</label>
       <strong><span id='messages'></span></strong>
-    <input class="form-control" type="number" placeholder="Phone Number" name="txtphone" id="textbox_B" value="<?php echo $phone_num2; ?>" >
+    <input class="form-control" type="number" placeholder="Phone Number" name="txtphone" id="textbox_B" value="<?php echo $phone_num2; ?>" style="text-align: center;" >
   </div>
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                             <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label>Fax Number:</label>
-    <input class="form-control" type="number" placeholder="Fax Number" name="txtfax" id="textbox_C" value="<?php echo $fax2; ?>" >
+    <input class="form-control" type="number" placeholder="Fax Number" name="txtfax" id="textbox_C" value="<?php echo $fax2; ?>" style="text-align: center;" >
   </div>
 
 </div>
@@ -485,30 +457,30 @@ echo'<input class="w3-radio" type="radio" name="radiobutton" id="no_radio" onCha
 <!--3 box--> 
 <h1 style="font-size: 1.3em;">PERSONAL INFORMATION</h1><hr>
 <br>
-                               <div class="row">
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                               <div class="row" style="margin-left: 250px;">
+                             <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label><font color="darkred">*</font>First Name:</label>
-     <strong><span id='messagefirst' style="margin-left:10px;"></span></strong>
-    <input class="form-control" type="text" placeholder="First Name" style="height:33px;" id="firstname" name="txtfirstname" value="<?php echo $firstname2; ?>" required>
+     
+    <input class="form-control" type="text" placeholder="First Name" style="height:33px; text-align: center;" id="firstname" name="txtfirstname" value="<?php echo $firstname2; ?>" required>
   </div>
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                             <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label>Middle Name:</label>
-    <input class="form-control" type="text" placeholder="Middle Name" style="height:33px;" id="middlename" name="txtmiddlename" value="<?php echo $middlename2; ?>" >
+    <input class="form-control" type="text" placeholder="Middle Name" style="height:33px; text-align: center;" id="middlename" name="txtmiddlename" value="<?php echo $middlename2; ?>" >
   </div>
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                             <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label><font color="darkred">*</font>Last Name:</label>
      <strong></span></strong>
-    <input class="form-control" type="text" placeholder="Last Name" style="height:33px;"  name="txtlastname" id="lastname" value="<?php echo $lastname2; ?>" required>
+    <input class="form-control" type="text" placeholder="Last Name" style="height:33px; text-align: center;"  name="txtlastname" id="lastname" value="<?php echo $lastname2; ?>" required>
   </div>
   </div><br>
-                             <div class='row'>
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                             <div class='row' style="margin-left: 250px;">
+                             <div class="col-sm-3 col-xs-12" id="f_desc_div" class='form-group'>
     <label><font color="darkred">*</font>Contact Number:</label>
-    <input class="form-control" type="text" placeholder="Contact Number" id="contact" name="txtcontact" value="<?php echo $contact2; ?>" required>
+    <input class="form-control" type="text" placeholder="Contact Number" id="contact" name="txtcontact" value="<?php echo $contact2; ?>" style="text-align: center;" required>
   </div>
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                             <div class="col-sm-4 col-sm-12" id="f_desc_div" class='form-group'>
     <label><font color="darkred">*</font>Email Address:</label>
-    <input class="form-control" type="email" placeholder="Email Address" id="email" name="txtemail" value="<?php echo $email2; ?>" required>
+    <input class="form-control" type="email" placeholder="Email Address" id="email" name="txtemail" value="<?php echo $email2; ?>" style="text-align: center;" required>
   </div> 
 </div>
 <br>
@@ -516,14 +488,14 @@ echo'<input class="w3-radio" type="radio" name="radiobutton" id="no_radio" onCha
 <!--4 box--> 
 <h1 style="font-size: 1.3em;">ADDRESS</h1><hr>
 <br>
-                             <div class='row'>
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                             <div class='row' style="margin-left: 250px;">
+                             <div class="col-sm-4 col-xs-12" id="f_desc_div" class='form-group'>
     <label><font color="darkred">*</font>Street:</label>
-    <input class="form-control" type="text" placeholder="Street" style="height:33px;" id="street" name="txtstreet" value="<?php echo $street2; ?>" required>
+    <input class="form-control" type="text" placeholder="Street" style="height:33px; text-align: center;" id="street" name="txtstreet" value="<?php echo $street2; ?>"  required>
   </div>
-                             <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
+                             <div class="col-sm-4 col-xs-12" id="f_desc_div" class='form-group'>
     <label><font color="darkred">*</font>City:</label>
-    <input class="form-control" type="text" placeholder="City" style="height:33px;" id="city" name="txtcity" value="<?php echo $city2; ?>" required>
+    <input class="form-control" type="text" placeholder="City" style="height:33px; text-align: center;" id="city" name="txtcity" value="<?php echo $city2; ?>" required>
   </div><br>
 
 </div>
@@ -557,19 +529,7 @@ echo'<input class="w3-radio" type="radio" name="radiobutton" id="no_radio" onCha
 
       </div><!-- ./wrapper -->
 
-    
-          
-          </div>
-        </div>
-      </form>
-    </div> 
 
-         
-
-        </div>
-      </div>
-    </form>
-  </div> 
 
 
 
@@ -627,3 +587,8 @@ echo'<input class="w3-radio" type="radio" name="radiobutton" id="no_radio" onCha
 
     });
 </script> 
+    <script type="text/javascript">
+      $('#textbox_A,#firstname,#middlename,#lastname,#city,#street').keyup(function() {
+  this.value = this.value.toUpperCase();
+});
+    </script>

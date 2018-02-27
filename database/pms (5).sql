@@ -670,7 +670,7 @@ CREATE TABLE `employee` (
   `city` varchar(30) DEFAULT NULL,
   `status` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`emp_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO employee VALUES
@@ -697,7 +697,8 @@ INSERT INTO employee VALUES
 ("loansys.sql","21","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","Active"),
 ("loansys.sql","22","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","Active"),
 ("loansys.sql","23","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","inactive"),
-("user1-128x128.jpg","24","1","c4ca4238a0b923820dcc509a6f75849b","QWEQWEQW","EQQWEQEW","1EQWEQWEQW","ADMIN","1","1@yahoo.com","1","1","Active");
+("user1-128x128.jpg","24","1","c4ca4238a0b923820dcc509a6f75849b","QWEQWEQW","EQQWEQEW","1EQWEQWEQW","ADMIN","1","1@yahoo.com","1","1","Active"),
+("user1-128x128.jpg","25","surveyor","admin","CHRISTOPHER","MERIDAN","DELA PAZ","QUANTITY SURVEYOR","09789321469","christoperdelapax@gmail.com","LIFEHOMES","PASIG CITY","Active");
 
 
 
@@ -872,9 +873,9 @@ INSERT INTO position VALUES
 ("11","STOCKMAN","Active"),
 ("12","ACCOUNTANT","Active"),
 ("13","USER","Active"),
-("14","FOREMANS","active"),
+("14","FOREMAN","active"),
 ("15","SAMPLE POSITION","Active"),
-("16","SAMPLE","Active");
+("16","SAMPLE1","Active");
 
 
 
@@ -1086,7 +1087,7 @@ CREATE TABLE `sample` (
   `account_status` varchar(11) NOT NULL,
   PRIMARY KEY (`no`),
   UNIQUE KEY `user` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO sample VALUES
@@ -1106,7 +1107,8 @@ INSERT INTO sample VALUES
 ("16","test","test","Foreman","inactive","inactive"),
 ("17","emp","emp","Stockman","inactive","Active"),
 ("18","finale","admin","Secretary","inactive","Active"),
-("20","123","123","customer","inactive","active");
+("20","123","123","customer","active","active"),
+("21","surveyor","admin","QUANTITY SURVEYOR","inactive","Active");
 
 
 

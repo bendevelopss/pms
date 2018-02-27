@@ -516,3 +516,9 @@ if(isset($_POST['req']))
 
   });
 </script>
+</script> 
+    <script type="text/javascript">
+      $('#c_name1,#c_name2,#desc').keyup(function() {
+  this.value = this.value.toUpperCase();
+});
+    </script>

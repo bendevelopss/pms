@@ -7,124 +7,130 @@
 
                 if(isset($_SESSION['pos']) && ($_SESSION['pos']=='admin' && 'Admin'))
                  {
- $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
+                   $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
+                   $row3=mysql_fetch_array($content3);
+                   $firstname3=$row3['firstname'];
+                   $middlename3=$row3['middlename'];
+                   $lastname3=$row3['lastname'];
+                ?>
+                <p>
+                  <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
+                  <br>
+                  <label style="text-decoration: underline;">ADMINISTRATOR</label>
+                  <small style="margin-top: -5px;">POSITION</small>
+                </p>
+              <?php
+              }
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor' || $_SESSION['pos']=='QUANTITY SURVEYOR' )
+              {
+                 $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
+                 $row3=mysql_fetch_array($content3);
+                 $firstname3=$row3['firstname'];
+                 $middlename3=$row3['middlename'];
+                 $lastname3=$row3['lastname'];
+                ?>
+                  <p>
+                  <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
+                  <br><br>
+                  <label style="text-decoration: underline;">QUANTITY SURVEYOR</label><BR>
+                  <small>POSITION</small>
+                </p>
+              <?php
+              }
 
- $row3=mysql_fetch_array($content3);
- $firstname3=$row3['firstname'];
- $middlename3=$row3['middlename'];
- $lastname3=$row3['lastname'];
-                ?>
-                 <p>
-                  <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br>
-                  <label>Admin</label>
-                </p>
-              <?php
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Quantity Surveyor')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary' || $_SESSION['pos']=='SECRETARY')
               {
- $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
- //$content3=mysql_query("select * from employee where username='".$_SESSION['user']."' and password='".$_SESSION['pass']."' ");
- $row3=mysql_fetch_array($content3);
- $firstname3=$row3['firstname'];
- $middlename3=$row3['middlename'];
- $lastname3=$row3['lastname'];
+                 $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
+                 $row3=mysql_fetch_array($content3);
+                 $firstname3=$row3['firstname'];
+                 $middlename3=$row3['middlename'];
+                 $lastname3=$row3['lastname'];
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br>
-                  <label>Quantity Surveyor</label>
+                  <br><br>
+                  <label style="text-decoration: underline;">SECRETARY</label><BR>
+                  <small>POSITION</small>
                 </p>
               <?php
               }
-
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Secretary')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman' || $_SESSION['pos']=='FOREMAN')
               {
- $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
- $row3=mysql_fetch_array($content3);
- $firstname3=$row3['firstname'];
- $middlename3=$row3['middlename'];
- $lastname3=$row3['lastname'];
+                 $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
+                 $row3=mysql_fetch_array($content3);
+                 $firstname3=$row3['firstname'];
+                 $middlename3=$row3['middlename'];
+                 $lastname3=$row3['lastname'];
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br>
-                  <label>Secretary</label>
+                  <br><br>
+                  <label style="text-decoration: underline;">FOREMAN</label><BR>
+                  <small>POSITION</small>
                 </p>
               <?php
               }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Foreman')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman' || $_SESSION['pos']=='STOCKMAN')
               {
- $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
- $row3=mysql_fetch_array($content3);
- $firstname3=$row3['firstname'];
- $middlename3=$row3['middlename'];
- $lastname3=$row3['lastname'];
+                 $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
+                 $row3=mysql_fetch_array($content3);
+                 $firstname3=$row3['firstname'];
+                 $middlename3=$row3['middlename'];
+                 $lastname3=$row3['lastname'];
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br>
-                  <label>Foreman</label>
+                  <br><br>
+                  <label style="text-decoration: underline;">STOCKMAN</label><BR>
+                  <small>POSITION</small>
                 </p>
               <?php
               }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Stockman')
-              {
- $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
- $row3=mysql_fetch_array($content3);
- $firstname3=$row3['firstname'];
- $middlename3=$row3['middlename'];
- $lastname3=$row3['lastname'];
-                ?>
-                 <p>
-                  <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br>
-                  <label>Stockman</label>
-                </p>
-              <?php
-              }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Accountant' || $_SESSION['pos']=='ACCOUNTANT')
              {
- $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
- $row3=mysql_fetch_array($content3);
- $firstname3=$row3['firstname'];
- $middlename3=$row3['middlename'];
- $lastname3=$row3['lastname'];
+               $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
+               $row3=mysql_fetch_array($content3);
+               $firstname3=$row3['firstname'];
+               $middlename3=$row3['middlename'];
+               $lastname3=$row3['lastname'];
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br>
-                  <label>Accountant</label>
+                  <br><br>
+                  <label style="text-decoration: underline;">ACCOUNTANT</label><BR>
+                  <small>POSITION</small>
                 </p>
               <?php
               }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='customer')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='customer' || $_SESSION['pos']=='CUSTOMER')
              {
- $content3=mysql_query("select * from customer ");
- $row3=mysql_fetch_array($content3);
- $firstname3=$row3['firstname'];
- $middlename3=$row3['middlename'];
- $lastname3=$row3['lastname'];
+                 $content3=mysql_query("select * from customer ");
+                 $row3=mysql_fetch_array($content3);
+                 $firstname3=$row3['firstname'];
+                 $middlename3=$row3['middlename'];
+                 $lastname3=$row3['lastname'];
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br>
-                  <label>Customer</label>
+                  <br><br>
+                  <label style="text-decoration: underline;">CUSTOMER</label><BR>
+                  <small>POSITION</small>
                 </p>
               <?php
               }
-              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Project Manager')
+              if(isset($_SESSION['pos']) && $_SESSION['pos']=='Project Manager' || $_SESSION['pos']=='PROJECT MANAGER')
              {
- $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
- $row3=mysql_fetch_array($content3);
- $firstname3=$row3['firstname'];
- $middlename3=$row3['middlename'];
- $lastname3=$row3['lastname'];
+                $content3=mysql_query("select * from employee where position='".$_SESSION['pos']."' ");
+                $row3=mysql_fetch_array($content3);
+                $firstname3=$row3['firstname'];
+                $middlename3=$row3['middlename'];
+                $lastname3=$row3['lastname'];
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br>
-                  <label>Project Manager</label>
+                  <br><br>
+                  <label style="text-decoration: underline;">PROJECT MANAGER</label><BR>
+                  <small>POSITION</small>
                 </p>
               <?php
               }
