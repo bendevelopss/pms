@@ -284,7 +284,7 @@ $a= date("Y-m-d");
                            <div class="row">
                          <div class="col-sm-2 col-xs-12" id="f_desc_div" class='form-group'>
                             <label for="email"><font color="darkred">*</font>Contact Number:</label>
-                            <input class="form-control" type="text" placeholder="Contact Number" style="height:33px; " id="contact" name="txtcontact" value="<?php echo $contact2; ?>" required>
+                            <input class="form-control" type="number" placeholder="Contact Number" style="height:33px; " id="contact" name="txtcontact" value="<?php echo $contact2; ?>" required>
 
                           </div>
 
@@ -401,7 +401,11 @@ $a= date("Y-m-d");
 
   }
 </script>
-
+    <script type="text/javascript">
+      $('#lastname,#firstname,#middlename,#street,#city,#firstname1,#middlename1,#lastname1,#street1,#city1').keyup(function() {
+  this.value = this.value.toUpperCase();
+});
+    </script>
 
 
 

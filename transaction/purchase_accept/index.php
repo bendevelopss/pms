@@ -34,6 +34,7 @@ $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
+$image=$row['image'];
 
 require_once("dbcontroller.php");
 $db_handle = new DBController();
@@ -129,7 +130,6 @@ function cartAction(action,product_code) {
 
    <body class="skin-red fixed">
 
-
     <form action="" method="post" name="frm" id="frm">
       <header class="main-header">
         <!-- Logo --> 
@@ -161,9 +161,9 @@ function cartAction(action,product_code) {
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+               <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
+               <?php include("../../maintenance/user_type.php"); ?>  
 
-                <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
               
@@ -199,7 +199,7 @@ if(isset($_GET['logout']))
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          P.O. Approval
+          Purchase Order Approval
           <small>Transaction</small>
         </h1>                              
       </section>
@@ -233,8 +233,8 @@ $supp3=$row3['supp_name'];
                    <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
 
                     <div class="col-xs-4" style="text-align: center;"> 
-                      <label>P.O. ID:</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo ''.$_GET['po_no'].''; ?>" style="text-align: center;" readonly>
+                      <label>Purchase Order ID:</label> <!-- Prod_Name -->
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'PO-000'.$_GET['po_no'].''; ?>" style="text-align: center;" readonly>
                       
                     </div>  
 

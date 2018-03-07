@@ -472,7 +472,26 @@ INSERT INTO audit_trail VALUES
 ("2018-02-24 10:53:13","admin","Added Employee Record"),
 ("2018-02-24 11:44:52","admin","Updated Position Record:FINALE --> FINALES"),
 ("2018-02-24 12:22:57","admin","Restored Position Record"),
-("2018-02-24 12:23:17","admin","Updated Position Record:FINALES --> FINALE");
+("2018-02-24 12:23:17","admin","Updated Position Record:FINALES --> FINALE"),
+("2018-02-24 13:27:20","admin","Updated Position Record:FINALE --> FINALES"),
+("2018-02-24 20:45:54","admin","Updated Employee Record:ILIGAN  --> ANGELES"),
+("2018-02-24 20:46:23","admin","Updated Employee Record:blank --> SEAS"),
+("2018-02-24 20:47:43","admin","Updated Employee Record:KALENTONG --> BONI"),
+("2018-02-24 20:48:43","admin","Updated Employee Record:PASIG CITY --> QUEZON CITY"),
+("2018-02-24 20:50:02","admin","Updated Employee Record:GAON --> KALAW"),
+("2018-02-24 20:51:57","admin","Updated Employee Record:BENEDICT --> JAJA"),
+("2018-02-24 20:52:23","admin","Updated Employee Record:SEAS --> SEJAS"),
+("2018-02-24 20:58:16","admin","Updated Employee Record:SAN JUAN --> PASIG CITY"),
+("2018-02-24 20:59:25","admin","Updated Employee Record:PASIG CITY --> QUEZON CITY"),
+("2018-02-24 21:01:49","admin","Updated Employee Record:TEST --> QUEZON CITY"),
+("2018-02-24 21:03:13","admin","Updated Employee Record:EMP --> SAN MATEO"),
+("2018-02-24 21:10:55","admin","Updated Employee Record:FINALE --> RODRIGUEZ"),
+("2018-02-24 21:13:31","admin","Updated Employee Record:sasuke@gmail.com --> monicapadilla@gmail.com"),
+("2018-02-24 21:13:58","admin","Updated Employee Record:123 --> 09568315963"),
+("2018-02-25 18:55:50","admin","Updated Employee Record:blank --> SARTE"),
+("2018-02-25 18:57:03","admin","Updated Employee Record:blank --> SAUS"),
+("2018-02-25 19:16:58","admin","Updated Employee Record:blank --> KISA"),
+("2018-02-27 14:21:38","admin","Updated Position Record:FINALES --> SAMPLE");
 
 
 
@@ -651,34 +670,35 @@ CREATE TABLE `employee` (
   `city` varchar(30) DEFAULT NULL,
   `status` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`emp_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO employee VALUES
-("avatar3.png","1","admin","admin","EUNICE ","SAUSES","BELTRAN","ADMIN","09561574211","belts@yahoo.com","25 N. DOMINGO","SAN JUAN","active"),
+("profile.jpg","1","admin","admin","JAJA","SARTE","PABATAO","ADMIN","09561574211","jajapabatao@8layertech.com","KAPITOLYO","PASIG CITY","active"),
 ("profile2.jpg","2","carlito","admin","CARL","","KALABAW","FOREMAN","09489338914","edni@gmail.com","STA. ANA","MANILA","inactive"),
-("external-hard-drive.jpg","3","erika","202cb962ac59075b964b07152d234b70","PETER"," FAKER","MARQUEZ","FOREMAN","09093354326","Erikaperez@gmail.com","ILIGAN ","PAMPANGA","Active"),
-("image/external-hard-drive.jpg","4","john","admin","MARIA LOUIS","F","EQUIKOR","QUANTITY SURVEYOR","09235637824","mariannebunyi@gmail.com","D. MACAPAGAL","MANILA","inactive"),
-("download.jpeg","5","user1","admin","ASHLEY","","GRAY","SECRETARY","09167872845","ashleygray@gmail.com","89 IRIS STREET, BRGY. ADDITION","MANDALUYONG","Active"),
-("user7-128x128.jpg","6","fake","admin","FAKE"," ","FAKER","STOCKMAN","09237658902","kleopatra@yahoo.com","KALENTONG","MANDALUYONG","Active"),
+("avatar3.png","3","erika","admin","PETER"," QUEVA","MARQUEZ","FOREMAN","09093354326","petermarquez89@gmail.com","ANGELES","PAMPANGA","Active"),
+("image/external-hard-drive.jpg","4","john","admin","MARIANNE","F","LUIS","QUANTITY SURVEYOR","09235637824","marianneseoul@gmail.com","D. MACAPAGAL","MANILA","inactive"),
+("download.jpeg","5","user1","admin","ASHLEY","SEJAS","GRAY","SECRETARY","09167872845","ashleygray@gmail.com","89 IRIS STREET, BRGY. ADDITION","MANDALUYONG","Active"),
+("user7-128x128.jpg","6","fake","admin","MIGUEL","MERIC","DOMINGO","STOCKMAN","09237658902","kleopatra@yahoo.com","BONI","MANDALUYONG","Active"),
 ("image/external-hard-drive.jpg","7","celeena","admin","STEPH"," ","CURRY","STOCKMAN","09127589903","shitty@yahoo.com","KALENTONG","MANDALUYONG","inactive"),
-("avatar5.png","8","klay","admin","KLAY"," ","THOMPSON","ACCOUNTANT","09186352227","sasuke@gmail.com","THEODORE","PASIG CITY","Active"),
-("avatar.png","9","admin1","admin","JENRIELLE"," SAMP","GAON","ADMIN","09124676689","adminme@gmail.com","MAYBUNGA","PASIG CITY","Active"),
+("avatar5.png","8","monica","admin","MONICA","ROCHELLE","PADILLA","ACCOUNTANT","09186352227","monicapadilla@gmail.com","FRISCO","QUEZON CITY","Active"),
+("avatar.png","9","admin1","admin","NEIL","ELIJAH","KALAW","ADMIN","09124676689","neilkalaw@gmail.com","MAYBUNGA","PASIG CITY","Active"),
 ("external-hard-drive.jpg","10","naruto","admin","NARUTO"," E","UZUMAKI","QUANTITY SURVEYOR","09364693975","narutoship@gmail.com","SAN MIGUEL","PASIG CITY","inactive"),
 ("image/external-hard-drive.jpg","11","test","admin","TEST","CABAN","O\'NEAL","FOREMAN","12345678901","antonio_santos@17yahoo.com","1 GOLD","PASIG CITY","inactive"),
 ("mbuntu-11.jpg","12","asd","admin","ASDASD","DASDASD","ASDASD","ADMIN","12312","asdsad@yahoo.com","ASDAS","DASD","inactive"),
 ("image/external-hard-drive.jpg","13","admin","","SSSS","LSSSS","L","ADMIN","123","l@yahoo.com","123","123","inactive"),
-("profile2.jpg","14","jaja","admin","BENEDICT","","PABATAO","ADMIN","09567330463","jajapabatao@yahoo.com","23 SAN ISIDRO","PASIG CITY","Active"),
-("avatar2.png","15","test","admin","TEST","TESTS","TEST","FOREMAN","123","test@yahoo.com","TEST","TEST","Active"),
+("user3-128x128.jpg","14","belts","admin","EUNICE","SAUS","BELTRAN","ADMIN","09567330463","beltstran@gmail.com","TALANAY","QUEZON CITY","Active"),
+("avatar2.png","15","gabby","admin","GABBY","KISA","REYES","FOREMAN","09587452136","gabbyreyes@gmail.com","FILINVEST","QUEZON CITY","Active"),
 ("camera.jpg","16","test","test","TEST","TEST","TEST","FOREMAN","123","test@yahoo.com","TEST","TEST","inactive"),
-("avatar04.png","17","emp","admin","LANCE","LOVETORIAL","EMP","STOCKMAN","123","emp@yahoo.com","EMP","EMP","Active"),
-("User2.png","18","finale","admin","FINALE","FINALE","FINALE","SECRETARY","123","finale@yahoo.com","FINALE","FINALE","Active"),
-("loansys.sql","19","mel","admin","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","Active"),
-("loansys.sql","20","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","Active"),
-("loansys.sql","21","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","Active"),
-("loansys.sql","22","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","Active"),
-("loansys.sql","23","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","inactive"),
-("user1-128x128.jpg","24","1","c4ca4238a0b923820dcc509a6f75849b","QWEQWEQW","EQQWEQEW","1EQWEQWEQW","ADMIN","1","1@yahoo.com","1","1","Active");
+("avatar04.png","17","enrique","admin","ENRIQUE","JOHN","REYES","STOCKMAN","09568974139","enriquereyes@gmail.com","MONTALBAN","SAN MATEO","Active"),
+("avatar5.png","18","finale","admin","TRISTAN","JEN","RODRIGUEZ","SECRETARY","09568315963","tristanrodriguqez@gmail.com","FINALE","FINALE","Active"),
+("avatar.png","19","mel","admin","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","inactive"),
+("avatar.png","20","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","inactive"),
+("avatar.png","21","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","inactive"),
+("avatar.png","22","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","inactive"),
+("avatar.png","23","mel","mel","MEL","MEL","MEL","FOREMAN","123","mel@yahoo.com","MEL","MEL","inactive"),
+("user1-128x128.jpg","24","1","c4ca4238a0b923820dcc509a6f75849b","QWEQWEQW","EQQWEQEW","1EQWEQWEQW","ADMIN","1","1@yahoo.com","1","1","Active"),
+("user1-128x128.jpg","25","surveyor","admin","CHRISTOPHER","MERIDAN","DELA PAZ","QUANTITY SURVEYOR","09789321469","christoperdelapax@gmail.com","LIFEHOMES","PASIG CITY","Active");
 
 
 
@@ -853,9 +873,9 @@ INSERT INTO position VALUES
 ("11","STOCKMAN","Active"),
 ("12","ACCOUNTANT","Active"),
 ("13","USER","Active"),
-("14","FOREMANS","active"),
+("14","FOREMAN","active"),
 ("15","SAMPLE POSITION","Active"),
-("16","FINALE","Active");
+("16","PROJECT MANAGER","Active");
 
 
 
@@ -965,6 +985,7 @@ INSERT INTO purchase_cart VALUES
 ("2","69f66b85404bed4680be69b8e8b57700","1","6","","ELECTRICAL","WIRES","ALUMINUM","","box","100","m","0","active"),
 ("4","81f3232159c4930c74cf89bf79fd1b58","1","6","","ELECTRICAL","WIRES","ALUMINUM","","box","100","m","0","active"),
 ("1","8b11c545a802b4c508c2943ff7c8849b","1","5","METS","METALS","NAIL","HEYYA","SILVER","box","100","m","3","active"),
+("6","9c9d693c54cd6d7d9d44c64238d64267","3","6","","ELECTRICAL","WIRES","ALUMINUM","","","100","m","15","active"),
 ("5","bae41e3e5d70bfa7cca77eab4a1fe80c","4","9","FINALE","FINALE","SUBCATEGORY TESTING","FINALE","FINALE","finale","123","finale","0","active"),
 ("4","e3286f6d2058a02d67b373e5077761ca","1","8","","WOODS","PLY WOOD","","","box","50","m","0","active"),
 ("2","ece9f3d3e39d7b0d37d176198307543c","1","7","","METALS","POLES","LONG","","box","100","m","0","active"),
@@ -980,14 +1001,15 @@ CREATE TABLE `purchase_order` (
   `ordered_by` varchar(50) DEFAULT NULL,
   `status` varchar(123) NOT NULL,
   PRIMARY KEY (`po_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO purchase_order VALUES
 ("1","PERSAN","01/02/2017","BELTRAN, EUNICE S.","active"),
 ("2","PERSAN","01/02/2017","BELTRAN, EUNICE S.","active"),
 ("4","PERSAN","24/11/2017","BELTRAN, EUNICE S.","active"),
-("5","FINAL SUPPLIER","02-23-2018","BELTRAN, EUNICE  S","active");
+("5","FINAL SUPPLIER","02-23-2018","BELTRAN, EUNICE  S","active"),
+("6","8LAYER","03-07-2018","PABATAO, JAJA S","active");
 
 
 
@@ -1013,11 +1035,11 @@ CREATE TABLE `quotation` (
 
 
 INSERT INTO quotation VALUES
-("1","john","admin","ESCOBINAS, CARMINA","PERSAN","2017-02-01","2018-02-28","RICOA","","johndoe@yahoo.com","","BELTRAN, EUNICE S.","active","1500.00","0.00"),
-("2","john","admin","ESCOBINAS, CARMINA","CONDOMINIUM","2017-02-01","2017-11-30","RICOA","","johndoe@yahoo.com","","BELTRAN, EUNICE S.","active","150.00","150.00"),
-("3","john","admin","DOE, JOHN .","FINAL PROJECT","2018-02-09","2018-07-25","RICOA","","johndoe@yahoo.com","","BELTRAN, EUNICE  S","active","2100.00","0.00"),
-("4","john","admin","DOE, JOHN .","CONSTRUCTION","2018-02-20","2018-07-07","RICOA","","johndoe@yahoo.com","","BELTRAN, EUNICE  S","active","1200.00","0.00"),
-("5","123","123","132, 132 1.","FINALE PROYEKTO","2018-02-23","2018-02-28","13","","13@yahoo.com","","BELTRAN, EUNICE  S","active","615.00","365.00");
+("1","john","admin","ESCOBINAS, CARMINA","PERSAN","2017-02-01","2018-02-28","NOVALICHES","","johndoe@yahoo.com","","BELTRAN, EUNICE S.","active","1500.00","0.00"),
+("2","john","admin","ESCOBINAS, CARMINA","CONDOMINIUM","2017-02-01","2017-11-30","QUEZON CITY","","johndoe@yahoo.com","","BELTRAN, EUNICE S.","active","150.00","150.00"),
+("3","john","admin","DOE, JOHN .","FINAL PROJECT","2018-02-09","2018-07-25","MARIKINA CITY","","johndoe@yahoo.com","","BELTRAN, EUNICE  S","active","2100.00","0.00"),
+("4","john","admin","DOE, JOHN .","CONSTRUCTION","2018-02-20","2018-07-07","SAN JUAN CITY","","johndoe@yahoo.com","","BELTRAN, EUNICE  S","active","1200.00","0.00"),
+("5","123","123","132, 132 1.","FINALE PROYEKTO","2018-02-23","2018-02-28","CALIFORNIA","","austingrego@yahoo.com","","BELTRAN, EUNICE  S","active","615.00","365.00");
 
 
 
@@ -1067,12 +1089,12 @@ CREATE TABLE `sample` (
   `account_status` varchar(11) NOT NULL,
   PRIMARY KEY (`no`),
   UNIQUE KEY `user` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO sample VALUES
 ("1","admin","admin","admin","active","active"),
-("2","cnieva","admin","admin","inactive","active"),
+("2","belts","admin","admin","inactive","active"),
 ("3","user1","admin","Foreman","inactive","active"),
 ("4","user2","admin","Quantity Surveyor","inactive","inactive"),
 ("5","user3","admin","Secretary","inactive","Active"),
@@ -1087,7 +1109,8 @@ INSERT INTO sample VALUES
 ("16","test","test","Foreman","inactive","inactive"),
 ("17","emp","emp","Stockman","inactive","Active"),
 ("18","finale","admin","Secretary","inactive","Active"),
-("20","123","123","customer","inactive","active");
+("20","123","123","customer","active","active"),
+("21","surveyor","admin","QUANTITY SURVEYOR","inactive","Active");
 
 
 

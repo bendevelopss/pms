@@ -115,14 +115,10 @@ $a= date("Y-m-d");
            <ul class="dropdown-menu">
             <!-- The user image in the menu -->
             <li class="user-header">
-            <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
+               <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
+               <?php include("../../maintenance/user_type.php"); ?>  
 
-              <p>
-                <?php echo ''.ucfirst($firstname2).' '.strtoupper($middlename2[0]).'. '.ucfirst($lastname2).''; ?>
-                <br>
-                <label><?php echo ''.ucfirst($position).''; ?></label>
-              </p>
-            </li>
+              </li>
             <!-- Menu Body -->
 
             <!-- Menu Footer-->
@@ -258,6 +254,7 @@ $a= date("Y-m-d");
                                 $result = $conn->query($sql);
                                 $statcol;
                                 $labelko;
+                                $button;
 
 
                                 while($row = $result->fetch_assoc())
@@ -268,14 +265,16 @@ $a= date("Y-m-d");
                                if($row['balance']!=0){
                                 $statcol = "label label-primary";
                                 $labelko= "ACTIVE";
+                                $button="";
                               }
 
                               else if($row['balance'] == 0){
                                 $statcol = "label label-success";
                                 $labelko="COMPLETE" ;
+                                $button="disabled";
                                 }
                                   echo'<tr>';
-                                  echo'<td><a class="form-control btn btn-primary" href="quotstatus12.php?project='.strtoupper($row['project']).'&id='.$row['quote_no'].'" style="color:white; ">'.strtoupper($row['project']).'</a></td>';
+                                  echo'<td><a class="form-control btn btn-primary" '.$button.' href="quotstatus12.php?project='.strtoupper($row['project']).'&id='.$row['quote_no'].'" style="color:white; ">'.strtoupper($row['project']).'</a></td>';
                                   echo'<td>'.$row['customer'].'</td>';
                                   echo'<td>'.$row['date'].'</td>';
                                   echo'<td>'.$row['due_date'].'</td>';

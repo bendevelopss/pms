@@ -45,6 +45,7 @@ $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
+$image=$row['image'];
 
 require_once("dbcontroller.php");
 $db_handle = new DBController();
@@ -232,9 +233,9 @@ function cartAction(action,product_code) {
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+               <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
+               <?php include("../../maintenance/user_type.php"); ?>  
 
-              <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
               

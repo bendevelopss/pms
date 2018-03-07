@@ -34,6 +34,7 @@ $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
+$image=$row['image'];
 
 $a= date("m-d-Y");
 
@@ -99,10 +100,10 @@ $prepare= $_POST['prepared'];
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
+               <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
+               <?php include("../../maintenance/user_type.php"); ?>  
 
-
-              <?php include("../../maintenance/user_type.php"); ?>
-              <!-- Menu Body -->
+              </li>
 
               <!-- Menu Footer-->
               <li class="user-footer">
@@ -171,7 +172,7 @@ $a= date("m-d-Y");
 
                      <div class="col-xs-2" style="text-align: center;">
                       <label>Purchase Order ID</label> <!-- Prod_Name -->
-                       <input class="form-control" type="text" style="text-align: center;" id="quote_no" name="quote_no" value="<?php echo $hell; ?>" readonly>
+                       <input class="form-control" type="text" style="text-align: center;" id="quote_no" name="quote_no" value="<?php echo "PO-000$hell"; ?>" readonly>
                     </div>
 
 

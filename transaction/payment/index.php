@@ -384,10 +384,10 @@ $results = $db_handle->runQuery($query);
                           <h3>BILLING INFORMATION</h3>
                           <br>
                           <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
-                            <div class="col-xs-2" id="addErDv">
+                            <div class="col-xs-3" id="addErDv">
                              <label >Customer:</label>
                              <select name="cname" id="cname" class="form-control" onChange="getState(this.value);" style="width:100%;"></p>
-                              <option value="">----Select Customer & Project--------</option>
+                              <option value="">-------------SELECT CUSTOMER & PROJECT-------------------</option>
                               <?php
                               foreach($results as $country) {
                                 ?>

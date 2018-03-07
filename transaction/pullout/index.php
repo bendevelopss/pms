@@ -34,6 +34,7 @@ $lastname2=$row['lastname'];
 $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
+$image=$row['image'];
 
 
 $a= date("m-d-Y");
@@ -101,9 +102,8 @@ $prepare= $_POST['prepared'];
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
-
- <?php include("../../maintenance/user_type.php"); ?>  
+               <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
+               <?php include("../../maintenance/user_type.php"); ?>  
 
               </li>
               <!-- Menu Body -->

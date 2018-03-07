@@ -2,7 +2,7 @@
 require_once("dbcontroller.php");
 $db_handle = new DBController();
 if(!empty($_POST["country_id"])) {
-	$query ="SELECT * FROM billing WHERE billing_no = '" . $_POST["country_id"] . "' AND balance>=0";
+	$query ="SELECT * FROM billing WHERE billing_no = '" . $_POST["country_id"] . "' AND balance>=0 ";
 	$results = $db_handle->runQuery($query);
 	foreach($results as $state) {
 ?>

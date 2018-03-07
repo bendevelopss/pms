@@ -31,9 +31,9 @@
                 ?>
                   <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br><br>
+                  <br>
                   <label style="text-decoration: underline;">QUANTITY SURVEYOR</label><BR>
-                  <small>POSITION</small>
+                  <small style="margin-top: -5px;">POSITION</small>
                 </p>
               <?php
               }
@@ -48,9 +48,9 @@
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br><br>
+                  <br>
                   <label style="text-decoration: underline;">SECRETARY</label><BR>
-                  <small>POSITION</small>
+                  <small style="margin-top: -5px;">POSITION</small>
                 </p>
               <?php
               }
@@ -64,9 +64,9 @@
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br><br>
+                  <br>
                   <label style="text-decoration: underline;">FOREMAN</label><BR>
-                  <small>POSITION</small>
+                  <small style="margin-top: -5px;">POSITION</small>
                 </p>
               <?php
               }
@@ -80,9 +80,9 @@
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br><br>
+                  <br>
                   <label style="text-decoration: underline;">STOCKMAN</label><BR>
-                  <small>POSITION</small>
+                 <small style="margin-top: -5px;">POSITION</small>
                 </p>
               <?php
               }
@@ -96,9 +96,9 @@
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br><br>
+                  <br>
                   <label style="text-decoration: underline;">ACCOUNTANT</label><BR>
-                  <small>POSITION</small>
+                  <small style="margin-top: -5px;">POSITION</small>
                 </p>
               <?php
               }
@@ -112,9 +112,9 @@
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br><br>
+                  <br>
                   <label style="text-decoration: underline;">CUSTOMER</label><BR>
-                  <small>POSITION</small>
+                  <small style="margin-top: -5px;">POSITION</small>
                 </p>
               <?php
               }
@@ -128,9 +128,9 @@
                 ?>
                  <p>
                   <?php echo ''.ucfirst($firstname3).' '.strtoupper($middlename3[0]).'. '.ucfirst($lastname3).''; ?>
-                  <br><br>
+                  <br>
                   <label style="text-decoration: underline;">PROJECT MANAGER</label><BR>
-                  <small>POSITION</small>
+                  <small style="margin-top: -5px;">POSITION</small>
                 </p>
               <?php
               }

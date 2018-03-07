@@ -34,6 +34,7 @@ $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
+$image=$row['image'];
 
 $a= date("m-d-Y");
 
@@ -114,9 +115,9 @@ $prepare= $_POST['prepared'];
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+               <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
+               <?php include("../../maintenance/user_type.php"); ?>  
 
-         <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
               
@@ -183,7 +184,7 @@ $prepare= $_POST['prepared'];
                       
                      <div class="col-xs-2" style="text-align: center;"> 
                       <label>Material Requisition ID</label> <!-- Prod_Name -->
-                       <input class="form-control" style="text-align: center;" type="text" name="quote_no" value="<?php echo ''.$hell.''; ?>" readonly>
+                       <input class="form-control" style="text-align: center;" type="text" name="quote_no" value="<?php echo 'MAT-000'.$hell.''; ?>" readonly>
                     </div>   
 
                              

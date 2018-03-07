@@ -45,6 +45,7 @@ $contact2=$row['contact'];
 $city2=$row['city'];
 $street2=$row['street'];
 $position=$row['position'];
+$image=$row['image'];
 
 require_once("dbcontroller.php");
 $db_handle = new DBController();
@@ -126,9 +127,9 @@ $a= date("Y-m-d");
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-               
+               <img src="<?php echo '../../maintenance/employee/image/'.($image).''; ?>" class="img-circle">
+               <?php include("../../maintenance/user_type.php"); ?>  
 
-                <?php include("../../maintenance/user_type.php"); ?>
               </li>
               <!-- Menu Body -->
               
@@ -201,12 +202,12 @@ $project=$row['project'];
                    <div class="row" style="margin-bottom:5px;"> <!-- ROW 2-->
 
                     <div class="col-xs-3" style="text-align: center;"> 
-                      <label>Material Req ID</label> <!-- Prod_Name -->
-                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'MAT-000'.$_GET['id'].''; ?>" style="text-align: center;" readonly>
+                      <label>Pullout ID</label> <!-- Prod_Name -->
+                      <input class="form-control" type="text" name="quote" id="quote" value="<?php echo 'PULL-000'.$_GET['id'].''; ?>" style="text-align: center;" readonly>
                       
                     </div>  
 
-                     <div class="col-xs-3" style="text-align: center;"> 
+                     <div class="col-xs-4" style="text-align: center;"> 
                       <label>Customer Name</label> <!-- Prod_Name -->
                       <input class="form-control" type="text" name="comp" id="comp" value="<?php echo ''.$customer.''; ?>" style="text-align: center;" readonly>
                       <input class="form-control" type="hidden"name="samp" id="samp" value="<?php echo ''.$_GET['scname'].''; ?>">
