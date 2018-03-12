@@ -331,7 +331,7 @@ $cust2=$row['customer'];
                     
 
                        <?php
-  $product_array = $db_handle->runQuery("SELECT * FROM materials ORDER BY material_no ASC");
+  $product_array = $db_handle->runQuery("SELECT * FROM materials where status='active' ORDER BY material_no ASC");
   if (!empty($product_array))
    { 
     echo'<table class="table table-condensed table-striped table-hover" id="jsontable1" name="jsontable1" style="font-size: 1em;">
