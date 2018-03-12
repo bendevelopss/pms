@@ -75,7 +75,7 @@ window.location="fail.html";
           <div id="upassDiv" class="form-group has-feedback"> <!-- PASSWORD -->
             <input type="password" name="pass"  id="pass" class="form-control input-lg" placeholder="Authentication Key" />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>    
-            <input class="w3-input w3-light-grey w3-border w3-hover-white" type="text" name="pos" id="pos" style="display: none">    
+            <input class="form-control input-lg" type="text" name="pos" id="pos" style="display: none">    
           </div>
 
            <?php if($count>0)

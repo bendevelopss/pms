@@ -83,7 +83,7 @@ function BasicTable($header, $itemArray)
 
 $db_handle = new DBController();
 
-$productByCode = $db_handle->runQuery("SELECT * FROM materials ");
+$productByCode = $db_handle->runQuery("SELECT * from materials WHERE quantity>=0 and status='active' group by material_no ");
 /*$itemArray = array($productByCode[1]["code"]=>array('category'=>$productByCode[1]["category"], 'scategory_name'=>$productByCode[1]["scategory_name"], 'brand_name'=>$productByCode[1]["brand_name"], 'description'=>$productByCode[1]["description"], 'color'=>$productByCode[1]["color"], 'package'=>$productByCode[1]["package"], 'unit_measurement'=>$productByCode[1]["unit_measurement"], 'abbre'=>$productByCode[1]["abbre"], 'price'=>$productByCode[1]["price"], 'quantity'=>$productByCode[1]["quantity"]));*/
 
 
